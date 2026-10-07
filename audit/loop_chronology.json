@@ -1,0 +1,356 @@
+{
+  "audit_type": "Loop chronology and field-quality intake",
+  "identifiers_emitted": false,
+  "limitations": [
+    "Backward and adjacent-duplicate counts use RecID source order and demonstrate the need to sort; they are not final duplicate counts.",
+    "Exact duplicates across nonadjacent rows require a sorted or partitioned patient-level audit.",
+    "Presence and numeric ranges do not establish clinical validity or prediction-time availability.",
+    "The release readme states that participant treatment dates are shifted by a participant-specific random offset."
+  ],
+  "modalities": {
+    "basal": {
+      "categories": {
+        "BasalType": {
+          "automated": 92119,
+          "scheduled": 132207,
+          "suspend": 18547,
+          "temp": 48058435
+        },
+        "SuprBasalType": {
+          "": 11655426,
+          "automated": 451,
+          "scheduled": 36644831,
+          "temp": 600
+        }
+      },
+      "files": [
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceBasal1.txt",
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceBasal2.txt",
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceBasal3.txt"
+      ],
+      "malformed_utc_timestamp": 0,
+      "missing_patient": 0,
+      "missing_utc_timestamp": 0,
+      "participants": 845,
+      "recid_first_by_shard": [
+        1,
+        20000001,
+        40000001
+      ],
+      "recid_last_by_shard": [
+        20000000,
+        40000000,
+        49365092
+      ],
+      "recid_non_increasing_within_shards": 0,
+      "rows": 48301308,
+      "source_order_adjacent_duplicate_timestamps": 140128,
+      "source_order_backward_timestamps": 47254356,
+      "value_fields": {
+        "Duration": {
+          "max": 1450828000.0,
+          "min": 0.0,
+          "missing_or_nonnumeric": 0,
+          "present": 48301308
+        },
+        "ExpectedDuration": {
+          "max": 86400000.0,
+          "min": 1000.0,
+          "missing_or_nonnumeric": 48203406,
+          "present": 97902
+        },
+        "Percnt": {
+          "max": 7.55,
+          "min": 0.0,
+          "missing_or_nonnumeric": 48260200,
+          "present": 41108
+        },
+        "Rate": {
+          "max": 63.163,
+          "min": 0.0,
+          "missing_or_nonnumeric": 18550,
+          "present": 48282758
+        },
+        "SuprDuration": {
+          "max": 43200000.0,
+          "min": 60000.0,
+          "missing_or_nonnumeric": 48284048,
+          "present": 17260
+        },
+        "SuprRate": {
+          "max": 95.0,
+          "min": 0.0,
+          "missing_or_nonnumeric": 11655451,
+          "present": 36645857
+        }
+      }
+    },
+    "bolus": {
+      "categories": {
+        "BolusType": {
+          "dual/square": 8895,
+          "normal": 2712038,
+          "square": 1580
+        }
+      },
+      "files": [
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceBolus.txt"
+      ],
+      "malformed_utc_timestamp": 0,
+      "missing_patient": 0,
+      "missing_utc_timestamp": 0,
+      "participants": 845,
+      "recid_first_by_shard": [
+        1
+      ],
+      "recid_last_by_shard": [
+        2827070
+      ],
+      "recid_non_increasing_within_shards": 0,
+      "rows": 2722513,
+      "source_order_adjacent_duplicate_timestamps": 63938,
+      "source_order_backward_timestamps": 2478224,
+      "value_fields": {
+        "Duration": {
+          "max": 52680000.0,
+          "min": 0.0,
+          "missing_or_nonnumeric": 2712038,
+          "present": 10475
+        },
+        "ExpectedDuration": {
+          "max": 36480000.0,
+          "min": 900000.0,
+          "missing_or_nonnumeric": 2720707,
+          "present": 1806
+        },
+        "ExpectedExtended": {
+          "max": 20.0,
+          "min": 0.05,
+          "missing_or_nonnumeric": 2720707,
+          "present": 1806
+        },
+        "ExpectedNormal": {
+          "max": 30.0,
+          "min": 0.0,
+          "missing_or_nonnumeric": 2708854,
+          "present": 13659
+        },
+        "Extended": {
+          "max": 17.5,
+          "min": 0.0,
+          "missing_or_nonnumeric": 2712038,
+          "present": 10475
+        },
+        "Normal": {
+          "max": 46.0,
+          "min": 0.0,
+          "missing_or_nonnumeric": 1580,
+          "present": 2720933
+        }
+      }
+    },
+    "cgm": {
+      "categories": {
+        "RecordType": {
+          "CGM": 111059420,
+          "Calibration": 58728
+        },
+        "Units": {
+          "mmol/L": 111118148
+        }
+      },
+      "files": [
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceCGM1.txt",
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceCGM2.txt",
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceCGM3.txt",
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceCGM4.txt",
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceCGM5.txt",
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceCGM6.txt"
+      ],
+      "malformed_utc_timestamp": 0,
+      "missing_patient": 0,
+      "missing_utc_timestamp": 0,
+      "participants": 851,
+      "recid_first_by_shard": [
+        1,
+        20000001,
+        40000001,
+        60000001,
+        80000001,
+        100000001
+      ],
+      "recid_last_by_shard": [
+        20000000,
+        40000000,
+        60000000,
+        80000000,
+        100000000,
+        113024901
+      ],
+      "recid_non_increasing_within_shards": 0,
+      "rows": 111118148,
+      "source_order_adjacent_duplicate_timestamps": 7103736,
+      "source_order_backward_timestamps": 102913385,
+      "value_fields": {
+        "CGMVal": {
+          "max": 32.8604,
+          "min": 0.05551,
+          "missing_or_nonnumeric": 0,
+          "present": 111118148
+        }
+      }
+    },
+    "exercise": {
+      "categories": {
+        "DistanceUnits": {
+          "": 19724,
+          "miles": 32004
+        },
+        "DurationUnits": {
+          "": 3,
+          "minutes": 233,
+          "seconds": 51492
+        },
+        "EnergyUnits": {
+          "": 2704,
+          "kilocalories": 49024
+        }
+      },
+      "files": [
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceExercise.txt"
+      ],
+      "malformed_utc_timestamp": 0,
+      "missing_patient": 0,
+      "missing_utc_timestamp": 0,
+      "participants": 493,
+      "recid_first_by_shard": [
+        1
+      ],
+      "recid_last_by_shard": [
+        55832
+      ],
+      "recid_non_increasing_within_shards": 0,
+      "rows": 51728,
+      "source_order_adjacent_duplicate_timestamps": 3526,
+      "source_order_backward_timestamps": 31375,
+      "value_fields": {
+        "DistanceValue": {
+          "max": 99.2237,
+          "min": 0.0,
+          "missing_or_nonnumeric": 19724,
+          "present": 32004
+        },
+        "DurationValue": {
+          "max": 493052.0,
+          "min": 0.0,
+          "missing_or_nonnumeric": 3,
+          "present": 51725
+        },
+        "EnergyValue": {
+          "max": 6444.0,
+          "min": 0.0,
+          "missing_or_nonnumeric": 2704,
+          "present": 49024
+        },
+        "ReportedIntensity": {
+          "max": null,
+          "min": null,
+          "missing_or_nonnumeric": 51728,
+          "present": 0
+        }
+      }
+    },
+    "food": {
+      "categories": {
+        "CarbUnits": {
+          "": 5,
+          "grams": 1406199
+        }
+      },
+      "files": [
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceFood.txt"
+      ],
+      "malformed_utc_timestamp": 0,
+      "missing_patient": 0,
+      "missing_utc_timestamp": 0,
+      "participants": 837,
+      "recid_first_by_shard": [
+        1
+      ],
+      "recid_last_by_shard": [
+        1417031
+      ],
+      "recid_non_increasing_within_shards": 0,
+      "rows": 1406204,
+      "source_order_adjacent_duplicate_timestamps": 14341,
+      "source_order_backward_timestamps": 1257652,
+      "value_fields": {
+        "CarbsNet": {
+          "max": 361.0,
+          "min": 0.0,
+          "missing_or_nonnumeric": 5,
+          "present": 1406199
+        }
+      }
+    },
+    "wizard": {
+      "categories": {},
+      "files": [
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceWizard.txt"
+      ],
+      "malformed_utc_timestamp": 0,
+      "missing_patient": 0,
+      "missing_utc_timestamp": 0,
+      "participants": 215,
+      "recid_first_by_shard": [
+        1
+      ],
+      "recid_last_by_shard": [
+        128024
+      ],
+      "recid_non_increasing_within_shards": 0,
+      "rows": 119354,
+      "source_order_adjacent_duplicate_timestamps": 3,
+      "source_order_backward_timestamps": 114030,
+      "value_fields": {
+        "BgInput": {
+          "max": 33.3045,
+          "min": 0.0,
+          "missing_or_nonnumeric": 36782,
+          "present": 82572
+        },
+        "CarbInput": {
+          "max": 301.0,
+          "min": 0.0,
+          "missing_or_nonnumeric": 31819,
+          "present": 87535
+        },
+        "InsulinOnBoard": {
+          "max": 36.8,
+          "min": 0.0,
+          "missing_or_nonnumeric": 47152,
+          "present": 72202
+        },
+        "RecommendedCarb": {
+          "max": 33.44,
+          "min": 0.0,
+          "missing_or_nonnumeric": 2807,
+          "present": 116547
+        },
+        "RecommendedCorrection": {
+          "max": 20.0,
+          "min": -2.5,
+          "missing_or_nonnumeric": 2807,
+          "present": 116547
+        },
+        "RecommendedNet": {
+          "max": 33.44,
+          "min": 0.0,
+          "missing_or_nonnumeric": 2807,
+          "present": 116547
+        }
+      }
+    }
+  },
+  "release": "data/Loop study public dataset 2023-01-31"
+}

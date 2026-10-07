@@ -1,0 +1,7 @@
+private/
+__pycache__/
+*.pyc
+audit/
+# Protected Kaggle run exports occasionally arrive at the repository root.
+/loop_controls_*/
+/loop_controls_*_bundle.zip

@@ -1,0 +1,164 @@
+{
+  "interpretation_guard": "A resolved upload timestamp establishes provenance and a candidate observed-availability proxy only. It is not called first usable until duplicate/version and coverage checks are completed.",
+  "modalities": {
+    "basal": {
+      "event_timestamp_invalid": 0,
+      "files": [
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceBasal1.txt",
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceBasal2.txt",
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceBasal3.txt"
+      ],
+      "lag_hours_sample": {
+        "max": 5928.858333333334,
+        "median": 428.0316666666667,
+        "min": 0.07388888888888889,
+        "p95": 1908.96
+      },
+      "lag_hours_sample_n": 337,
+      "missing_parent_upload_id": 0,
+      "parent_upload_timestamp_missing_or_invalid": 47817332,
+      "referenced_parent_ids": 1594,
+      "referenced_parents_linked_to_multiple_event_rows": 1591,
+      "resolved_parent_ids": 1499,
+      "resolved_parent_ids_with_valid_upload_utc": 660,
+      "resolved_parent_upload_id": 48143402,
+      "rows": 48301308,
+      "unresolved_parent_upload_id": 157906,
+      "upload_before_event": 342,
+      "valid_upload_utc_not_before_event": 325728
+    },
+    "bolus": {
+      "event_timestamp_invalid": 0,
+      "files": [
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceBolus.txt"
+      ],
+      "lag_hours_sample": {
+        "max": 4812.589722222222,
+        "median": 514.5016666666667,
+        "min": -9481.420277777777,
+        "p95": 2117.425
+      },
+      "lag_hours_sample_n": 140,
+      "missing_parent_upload_id": 0,
+      "parent_upload_timestamp_missing_or_invalid": 2560429,
+      "referenced_parent_ids": 1605,
+      "referenced_parents_linked_to_multiple_event_rows": 1596,
+      "resolved_parent_ids": 1512,
+      "resolved_parent_ids_with_valid_upload_utc": 674,
+      "resolved_parent_upload_id": 2703803,
+      "rows": 2722513,
+      "unresolved_parent_upload_id": 18710,
+      "upload_before_event": 10664,
+      "valid_upload_utc_not_before_event": 132710
+    },
+    "cgm": {
+      "event_timestamp_invalid": 0,
+      "files": [
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceCGM1.txt",
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceCGM2.txt",
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceCGM3.txt",
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceCGM4.txt",
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceCGM5.txt",
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceCGM6.txt"
+      ],
+      "lag_hours_sample": {
+        "max": 9846.020555555555,
+        "median": -3457.7615277777777,
+        "min": -20847.881666666668,
+        "p95": 2021.5266666666666
+      },
+      "lag_hours_sample_n": 30558,
+      "missing_parent_upload_id": 0,
+      "parent_upload_timestamp_missing_or_invalid": 78674248,
+      "referenced_parent_ids": 169874,
+      "referenced_parents_linked_to_multiple_event_rows": 84119,
+      "resolved_parent_ids": 91365,
+      "resolved_parent_ids_with_valid_upload_utc": 88960,
+      "resolved_parent_upload_id": 109184728,
+      "rows": 111118148,
+      "unresolved_parent_upload_id": 1933420,
+      "upload_before_event": 23675774,
+      "valid_upload_utc_not_before_event": 6834706
+    },
+    "exercise": {
+      "event_timestamp_invalid": 0,
+      "files": [
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceExercise.txt"
+      ],
+      "lag_hours_sample": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "p95": null
+      },
+      "lag_hours_sample_n": 0,
+      "missing_parent_upload_id": 0,
+      "parent_upload_timestamp_missing_or_invalid": 50379,
+      "referenced_parent_ids": 512,
+      "referenced_parents_linked_to_multiple_event_rows": 455,
+      "resolved_parent_ids": 510,
+      "resolved_parent_ids_with_valid_upload_utc": 22,
+      "resolved_parent_upload_id": 50608,
+      "rows": 51728,
+      "unresolved_parent_upload_id": 1120,
+      "upload_before_event": 126,
+      "valid_upload_utc_not_before_event": 103
+    },
+    "food": {
+      "event_timestamp_invalid": 0,
+      "files": [
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceFood.txt"
+      ],
+      "lag_hours_sample": {
+        "max": -4563.018333333333,
+        "median": -4563.018333333333,
+        "min": -4563.018333333333,
+        "p95": -4563.018333333333
+      },
+      "lag_hours_sample_n": 1,
+      "missing_parent_upload_id": 0,
+      "parent_upload_timestamp_missing_or_invalid": 1402691,
+      "referenced_parent_ids": 883,
+      "referenced_parents_linked_to_multiple_event_rows": 860,
+      "resolved_parent_ids": 879,
+      "resolved_parent_ids_with_valid_upload_utc": 41,
+      "resolved_parent_upload_id": 1403485,
+      "rows": 1406204,
+      "unresolved_parent_upload_id": 2719,
+      "upload_before_event": 489,
+      "valid_upload_utc_not_before_event": 305
+    },
+    "wizard": {
+      "event_timestamp_invalid": 0,
+      "files": [
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceWizard.txt"
+      ],
+      "lag_hours_sample": {
+        "max": 5667.594722222222,
+        "median": 624.0779166666666,
+        "min": -7195.468611111111,
+        "p95": 1967.1925
+      },
+      "lag_hours_sample_n": 114,
+      "missing_parent_upload_id": 0,
+      "parent_upload_timestamp_missing_or_invalid": 8,
+      "referenced_parent_ids": 727,
+      "referenced_parents_linked_to_multiple_event_rows": 707,
+      "resolved_parent_ids": 659,
+      "resolved_parent_ids_with_valid_upload_utc": 658,
+      "resolved_parent_upload_id": 111567,
+      "rows": 119354,
+      "unresolved_parent_upload_id": 7787,
+      "upload_before_event": 2804,
+      "valid_upload_utc_not_before_event": 108755
+    }
+  },
+  "release": "data/Loop study public dataset 2023-01-31",
+  "upload_table": {
+    "duplicate_upload_ids": 0,
+    "malformed_upload_utc": 0,
+    "missing_upload_utc": 9550,
+    "rows": 99102,
+    "unique_upload_ids": 99102
+  }
+}

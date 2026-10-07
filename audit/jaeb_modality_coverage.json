@@ -1,0 +1,350 @@
+{
+  "audit_type": "participant modality coverage intake",
+  "datasets": [
+    {
+      "dataset": "Loop",
+      "modalities": {
+        "basal": {
+          "files": [
+            "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceBasal1.txt",
+            "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceBasal2.txt",
+            "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceBasal3.txt"
+          ],
+          "participants": 845,
+          "rows": 48301308,
+          "rows_per_participant": {
+            "max": 149175,
+            "median": 55528,
+            "min": 3
+          },
+          "selected_rows": 48301308,
+          "selection": "all rows"
+        },
+        "bolus": {
+          "files": [
+            "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceBolus.txt"
+          ],
+          "participants": 845,
+          "rows": 2722513,
+          "rows_per_participant": {
+            "max": 34657,
+            "median": 2608,
+            "min": 3
+          },
+          "selected_rows": 2722513,
+          "selection": "all rows"
+        },
+        "carbohydrate": {
+          "files": [
+            "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceFood.txt"
+          ],
+          "participants": 837,
+          "rows": 1406204,
+          "rows_per_participant": {
+            "max": 10506,
+            "median": 1571,
+            "min": 1
+          },
+          "selected_rows": 1406199,
+          "selection": "CarbsNet nonempty"
+        },
+        "cgm": {
+          "files": [
+            "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceCGM1.txt",
+            "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceCGM2.txt",
+            "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceCGM3.txt",
+            "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceCGM4.txt",
+            "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceCGM5.txt",
+            "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceCGM6.txt"
+          ],
+          "participants": 851,
+          "rows": 111118148,
+          "rows_per_participant": {
+            "max": 375111,
+            "median": 119237,
+            "min": 3765
+          },
+          "selected_rows": 111118148,
+          "selection": "all rows"
+        },
+        "exercise": {
+          "files": [
+            "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceExercise.txt"
+          ],
+          "participants": 493,
+          "rows": 51728,
+          "rows_per_participant": {
+            "max": 1389,
+            "median": 22,
+            "min": 1
+          },
+          "selected_rows": 51728,
+          "selection": "all rows"
+        },
+        "wizard": {
+          "files": [
+            "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceWizard.txt"
+          ],
+          "participants": 215,
+          "rows": 119354,
+          "rows_per_participant": {
+            "max": 2668,
+            "median": 472,
+            "min": 1
+          },
+          "selected_rows": 119354,
+          "selection": "all rows"
+        }
+      },
+      "participant_overlaps": {
+        "cgm_and_basal": 845,
+        "cgm_and_bolus": 845,
+        "cgm_and_carbohydrate": 837,
+        "cgm_and_cgm": 851,
+        "cgm_and_exercise": 493,
+        "cgm_and_wizard": 215,
+        "cgm_basal_bolus_carbohydrate": 835,
+        "cgm_in_roster": 851
+      },
+      "roster": {
+        "files": [
+          "data/Loop study public dataset 2023-01-31/Data Tables/PtRoster.txt"
+        ],
+        "participants": 919,
+        "rows": 919,
+        "rows_per_participant": {
+          "max": 1,
+          "median": 1,
+          "min": 1
+        },
+        "selected_rows": 919,
+        "selection": "all rows"
+      }
+    },
+    {
+      "dataset": "DCLP3",
+      "modalities": {
+        "basal": {
+          "files": [
+            "data/DCLP3 Public Dataset - Release 3 - 2022-08-04/Data Files/Pump_BasalRateChange.txt"
+          ],
+          "participants": 125,
+          "rows": 2610772,
+          "rows_per_participant": {
+            "max": 30982,
+            "median": 22537,
+            "min": 576
+          },
+          "selected_rows": 2610772,
+          "selection": "all rows"
+        },
+        "bolus": {
+          "files": [
+            "data/DCLP3 Public Dataset - Release 3 - 2022-08-04/Data Files/Pump_BolusDelivered.txt"
+          ],
+          "participants": 125,
+          "rows": 221292,
+          "rows_per_participant": {
+            "max": 2847,
+            "median": 1791,
+            "min": 662
+          },
+          "selected_rows": 221292,
+          "selection": "all rows"
+        },
+        "carbohydrate": {
+          "files": [
+            "data/DCLP3 Public Dataset - Release 3 - 2022-08-04/Data Files/RocheMeter_a.txt"
+          ],
+          "participants": 0,
+          "rows": 25344,
+          "rows_per_participant": {
+            "max": null,
+            "median": null,
+            "min": null
+          },
+          "selected_rows": 0,
+          "selection": "Carbs nonempty"
+        },
+        "cgm": {
+          "files": [
+            "data/DCLP3 Public Dataset - Release 3 - 2022-08-04/Data Files/cgm.txt"
+          ],
+          "participants": 168,
+          "rows": 9032235,
+          "rows_per_participant": {
+            "max": 57756,
+            "median": 54603.0,
+            "min": 36220
+          },
+          "selected_rows": 9032235,
+          "selection": "all rows"
+        }
+      },
+      "participant_overlaps": {
+        "cgm_and_basal": 125,
+        "cgm_and_bolus": 125,
+        "cgm_and_carbohydrate": 0,
+        "cgm_and_cgm": 168,
+        "cgm_basal_bolus_carbohydrate": 0,
+        "cgm_in_roster": 168
+      },
+      "roster": {
+        "files": [
+          "data/DCLP3 Public Dataset - Release 3 - 2022-08-04/Data Files/PtRoster_a.txt"
+        ],
+        "participants": 170,
+        "rows": 170,
+        "rows_per_participant": {
+          "max": 1,
+          "median": 1.0,
+          "min": 1
+        },
+        "selected_rows": 170,
+        "selection": "all rows"
+      }
+    },
+    {
+      "dataset": "DCLP5",
+      "modalities": {
+        "basal": {
+          "files": [
+            "data/DCLP5_Dataset_2022-01-20-5e0f3b16-c890-4ace-9e3b-531f3687cf53/DCLP5TandemBASALRATECHG_b.txt"
+          ],
+          "participants": 100,
+          "rows": 2531963,
+          "rows_per_participant": {
+            "max": 44537,
+            "median": 26879.0,
+            "min": 9888
+          },
+          "selected_rows": 2531963,
+          "selection": "all rows"
+        },
+        "bolus": {
+          "files": [
+            "data/DCLP5_Dataset_2022-01-20-5e0f3b16-c890-4ace-9e3b-531f3687cf53/DCLP5TandemBolus_Completed_Combined_b.txt"
+          ],
+          "participants": 100,
+          "rows": 226685,
+          "rows_per_participant": {
+            "max": 6179,
+            "median": 2265.5,
+            "min": 755
+          },
+          "selected_rows": 226685,
+          "selection": "all rows"
+        },
+        "carbohydrate": {
+          "files": [
+            "data/DCLP5_Dataset_2022-01-20-5e0f3b16-c890-4ace-9e3b-531f3687cf53/RocheMeter.txt"
+          ],
+          "participants": 0,
+          "rows": 12429,
+          "rows_per_participant": {
+            "max": null,
+            "median": null,
+            "min": null
+          },
+          "selected_rows": 0,
+          "selection": "Carbs nonempty"
+        },
+        "cgm": {
+          "files": [
+            "data/DCLP5_Dataset_2022-01-20-5e0f3b16-c890-4ace-9e3b-531f3687cf53/DCLP5TandemCGMDATAGXB_b.txt"
+          ],
+          "participants": 100,
+          "rows": 5536760,
+          "rows_per_participant": {
+            "max": 105112,
+            "median": 55930.0,
+            "min": 22893
+          },
+          "selected_rows": 5536760,
+          "selection": "all rows"
+        }
+      },
+      "participant_overlaps": {
+        "cgm_and_basal": 100,
+        "cgm_and_bolus": 100,
+        "cgm_and_carbohydrate": 0,
+        "cgm_and_cgm": 100,
+        "cgm_basal_bolus_carbohydrate": 0,
+        "cgm_in_roster": 100
+      },
+      "roster": {
+        "files": [
+          "data/DCLP5_Dataset_2022-01-20-5e0f3b16-c890-4ace-9e3b-531f3687cf53/PtRoster.txt"
+        ],
+        "participants": 101,
+        "rows": 101,
+        "rows_per_participant": {
+          "max": 1,
+          "median": 1,
+          "min": 1
+        },
+        "selected_rows": 101,
+        "selection": "all rows"
+      }
+    },
+    {
+      "dataset": "FLAIR",
+      "modalities": {
+        "cgm": {
+          "files": [
+            "data/FLAIRPublicDataSet/Data Tables/FLAIRDeviceCGM.txt"
+          ],
+          "participants": 113,
+          "rows": 5508985,
+          "rows_per_participant": {
+            "max": 61456,
+            "median": 50981,
+            "min": 14021
+          },
+          "selected_rows": 5508985,
+          "selection": "all rows"
+        },
+        "daily_insulin_summary": {
+          "files": [
+            "data/FLAIRPublicDataSet/Data Tables/FLAIRInsulinDelivery.txt"
+          ],
+          "participants": 113,
+          "rows": 18653,
+          "rows_per_participant": {
+            "max": 168,
+            "median": 168,
+            "min": 47
+          },
+          "selected_rows": 18653,
+          "selection": "all rows"
+        }
+      },
+      "participant_overlaps": {
+        "cgm_and_cgm": 113,
+        "cgm_and_daily_insulin_summary": 113,
+        "cgm_basal_bolus_carbohydrate": null,
+        "cgm_in_roster": 113
+      },
+      "roster": {
+        "files": [
+          "data/FLAIRPublicDataSet/Data Tables/PtRoster.txt"
+        ],
+        "participants": 126,
+        "rows": 126,
+        "rows_per_participant": {
+          "max": 1,
+          "median": 1.0,
+          "min": 1
+        },
+        "selected_rows": 126,
+        "selection": "all rows"
+      }
+    }
+  ],
+  "identifiers_emitted": false,
+  "limitations": [
+    "Counts do not establish timestamp alignment, record validity, capture completeness, or prediction-time availability.",
+    "Carbohydrate coverage counts only rows whose carbohydrate field is nonempty.",
+    "Loop shards are combined by participant ID; cross-shard duplicate records are not resolved here."
+  ]
+}

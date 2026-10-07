@@ -1,0 +1,63 @@
+{
+  "audit_type": "read-only minimal-column hashed-partition footprint estimate",
+  "identifiers_emitted": false,
+  "interpretation": "Actual peak space also needs sort/index scratch and a safety margin; this estimate does not authorize materialization.",
+  "largest_single_modality_partition_bytes": 174000126,
+  "modalities": {
+    "basal": {
+      "files": [
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceBasal1.txt",
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceBasal2.txt",
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceBasal3.txt"
+      ],
+      "largest_partition_bytes": 93552454,
+      "nonempty_partitions": 64,
+      "projected_bytes": 3565124506,
+      "rows": 48301308
+    },
+    "bolus": {
+      "files": [
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceBolus.txt"
+      ],
+      "largest_partition_bytes": 4251959,
+      "nonempty_partitions": 64,
+      "projected_bytes": 153512607,
+      "rows": 2722513
+    },
+    "cgm": {
+      "files": [
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceCGM1.txt",
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceCGM2.txt",
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceCGM3.txt",
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceCGM4.txt",
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceCGM5.txt",
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceCGM6.txt"
+      ],
+      "largest_partition_bytes": 174000126,
+      "nonempty_partitions": 64,
+      "projected_bytes": 6622228247,
+      "rows": 111118148
+    },
+    "exercise": {
+      "files": [
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceExercise.txt"
+      ],
+      "largest_partition_bytes": 233113,
+      "nonempty_partitions": 64,
+      "projected_bytes": 5267122,
+      "rows": 51728
+    },
+    "food": {
+      "files": [
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceFood.txt"
+      ],
+      "largest_partition_bytes": 2093465,
+      "nonempty_partitions": 64,
+      "projected_bytes": 67186311,
+      "rows": 1406204
+    }
+  },
+  "partition_count": 64,
+  "release": "data/Loop study public dataset 2023-01-31",
+  "total_projected_partition_bytes": 10413318793
+}

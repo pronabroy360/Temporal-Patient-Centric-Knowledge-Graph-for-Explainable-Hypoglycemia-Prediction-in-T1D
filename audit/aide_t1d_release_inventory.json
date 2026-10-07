@@ -1,0 +1,188 @@
+{
+  "interpretation": {
+    "core_event_graph_ready": false,
+    "reason": "Release inventory contains CGM and participant-level insulin inventory, but no timestamped insulin delivery, meal or activity event table was identified.",
+    "recommended_role": "CGM benchmark, treatment-period covariate study, or external validation after a release-specific protocol; not the sole dataset for the core clinical-event relation claim."
+  },
+  "missing_required_files": [],
+  "release": "data/AIDET1D_Public_Dataset",
+  "required_files_present": true,
+  "roster_eligible_values": {
+    "Yes": 109
+  },
+  "roster_participants": 109,
+  "roster_ptstatus_values": {
+    "Completed": 77,
+    "Dropped": 32
+  },
+  "roster_rows": 109,
+  "roster_status_values": {},
+  "roster_trtgroup_values": {
+    "": 27,
+    "A_HCL-PLGS-SAP": 14,
+    "B_HCL-SAP-PLGS": 14,
+    "C_PLGS-HCL-SAP": 13,
+    "D_PLGS-SAP-HCL": 13,
+    "E_SAP-HCL-PLGS": 14,
+    "F_SAP-PLGS-HCL": 14
+  },
+  "source_table_inventory": {
+    "participant_level_insulin_inventory": "AIDEInsulin.txt",
+    "timestamped_activity_table_found": false,
+    "timestamped_cgm_tables": [
+      "AIDEDeviceCGM.txt",
+      "AIDETandemCGMDATAGXB.txt",
+      "cgmAnalysis.txt",
+      "cgmAnalysisExt.txt"
+    ],
+    "timestamped_insulin_delivery_table_found": false,
+    "timestamped_meal_table_found": false
+  },
+  "tables": {
+    "cgmAnalysis.txt": {
+      "cadence_minutes_top": {
+        "4.916667": 6757,
+        "4.933333": 13054,
+        "4.95": 30936,
+        "4.966667": 115603,
+        "4.983333": 456182,
+        "5.0": 6411015,
+        "5.016667": 408584,
+        "5.033333": 116805,
+        "5.05": 32604,
+        "5.066667": 14463,
+        "5.083333": 7218,
+        "5.1": 4349
+      },
+      "categories": {
+        "nightFlg": {
+          "0": 5719791,
+          "1": 1928517
+        },
+        "period": {
+          "0": 315113,
+          "1": 2465071,
+          "2": 2473791,
+          "3": 2394333
+        },
+        "treatment": {
+          "Baseline": 315113,
+          "HCL": 2535853,
+          "PLGS": 2428993,
+          "SAP": 2368349
+        },
+        "weeks": {
+          "Baseline": 315113,
+          "Weeks 11-12": 797330,
+          "Weeks 5-12": 3745437,
+          "Weeks 5-6": 932294,
+          "Weeks 7-8": 933351,
+          "Weeks 9-10": 924783
+        }
+      },
+      "duplicate_adjacent_timestamps": 1,
+      "file": "data/AIDET1D_Public_Dataset/Data Tables/cgmAnalysis.txt",
+      "glucose_below_54_rows": 30630,
+      "glucose_below_70_rows": 158728,
+      "glucose_invalid_rows": 0,
+      "glucose_missing_rows": 0,
+      "glucose_summary_mg_dl": {
+        "max": 401.0,
+        "median": 147.0,
+        "min": 39.0
+      },
+      "non_monotonic_adjacent_rows": 3510,
+      "notes": [
+        "Dates are de-identified and treated as within-participant chronology only.",
+        "No timezone or first-usable/arrival timestamp is inferred.",
+        "Rows are descriptive; no hypoglycemia labels or episode claims are frozen by this audit."
+      ],
+      "observed_calendar_dates_per_participant": {
+        "max": 212.0,
+        "median": 179.0,
+        "min": 14.0
+      },
+      "participants": 82,
+      "patient_blocks": 82,
+      "patient_blocks_equal_participants": true,
+      "positive_time_deltas_minutes": {
+        "max": 90722.0,
+        "median": 5.0,
+        "min": 4.066666666666666
+      },
+      "rows": 7648308,
+      "rows_per_participant": {
+        "max": 107873.0,
+        "median": 96737.5,
+        "min": 3545.0
+      },
+      "timestamp_parse_errors": 0
+    },
+    "cgmAnalysisExt.txt": {
+      "cadence_minutes_top": {
+        "4.916667": 1067,
+        "4.933333": 2081,
+        "4.95": 4704,
+        "4.966667": 18037,
+        "4.983333": 73373,
+        "5.0": 1114650,
+        "5.016667": 65390,
+        "5.033333": 18209,
+        "5.05": 4989,
+        "5.066667": 2241,
+        "5.083333": 1181,
+        "5.1": 684
+      },
+      "categories": {
+        "nightFlg": {
+          "0": 980560,
+          "1": 330102
+        },
+        "period": {
+          "4": 1310662
+        },
+        "treatment": {},
+        "weeks": {
+          "Weeks 5-12": 1310662
+        }
+      },
+      "duplicate_adjacent_timestamps": 0,
+      "file": "data/AIDET1D_Public_Dataset/Data Tables/cgmAnalysisExt.txt",
+      "glucose_below_54_rows": 3784,
+      "glucose_below_70_rows": 21389,
+      "glucose_invalid_rows": 0,
+      "glucose_missing_rows": 0,
+      "glucose_summary_mg_dl": {
+        "max": 401.0,
+        "median": 142.0,
+        "min": 39.0
+      },
+      "non_monotonic_adjacent_rows": 0,
+      "notes": [
+        "Dates are de-identified and treated as within-participant chronology only.",
+        "No timezone or first-usable/arrival timestamp is inferred.",
+        "Rows are descriptive; no hypoglycemia labels or episode claims are frozen by this audit."
+      ],
+      "observed_calendar_dates_per_participant": {
+        "max": 146.0,
+        "median": 63.5,
+        "min": 21.0
+      },
+      "participants": 74,
+      "patient_blocks": 74,
+      "patient_blocks_equal_participants": true,
+      "positive_time_deltas_minutes": {
+        "max": 16505.316666666666,
+        "median": 5.0,
+        "min": 4.05
+      },
+      "rows": 1310662,
+      "rows_per_participant": {
+        "max": 41290.0,
+        "median": 17881.0,
+        "min": 5959.0
+      },
+      "timestamp_parse_errors": 0
+    }
+  }
+}

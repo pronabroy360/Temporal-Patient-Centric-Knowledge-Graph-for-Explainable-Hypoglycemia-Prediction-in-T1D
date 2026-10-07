@@ -1,0 +1,97 @@
+{
+  "limitation": "Nonadjacent duplicate records are not counted. Use this profile only to design, not validate, canonicalization keys.",
+  "modalities": {
+    "basal": {
+      "conflicting_field_counts": {
+        "BasalType": 1860,
+        "Duration": 34024,
+        "ExpectedDuration": 17270,
+        "Percnt": 39,
+        "Rate": 29403,
+        "SuprBasalType": 8908,
+        "SuprDuration": 36,
+        "SuprRate": 28336
+      },
+      "files": [
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceBasal1.txt",
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceBasal2.txt",
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceBasal3.txt"
+      ],
+      "rows": 48301308,
+      "source_adjacent_conflicting_records": 53387,
+      "source_adjacent_exact_key_repetitions": 86741,
+      "source_adjacent_same_participant_timestamp": 140128
+    },
+    "bolus": {
+      "conflicting_field_counts": {
+        "BolusType": 1,
+        "Duration": 0,
+        "ExpectedDuration": 0,
+        "ExpectedExtended": 0,
+        "ExpectedNormal": 3457,
+        "Extended": 0,
+        "Normal": 238
+      },
+      "files": [
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceBolus.txt"
+      ],
+      "rows": 2722513,
+      "source_adjacent_conflicting_records": 3682,
+      "source_adjacent_exact_key_repetitions": 60256,
+      "source_adjacent_same_participant_timestamp": 63938
+    },
+    "cgm": {
+      "conflicting_field_counts": {
+        "CGMVal": 888918,
+        "RecordType": 1,
+        "Units": 0
+      },
+      "files": [
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceCGM1.txt",
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceCGM2.txt",
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceCGM3.txt",
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceCGM4.txt",
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceCGM5.txt",
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceCGM6.txt"
+      ],
+      "rows": 111118148,
+      "source_adjacent_conflicting_records": 888918,
+      "source_adjacent_exact_key_repetitions": 6214818,
+      "source_adjacent_same_participant_timestamp": 7103736
+    },
+    "exercise": {
+      "conflicting_field_counts": {
+        "DistanceUnits": 7,
+        "DistanceValue": 584,
+        "DurationUnits": 0,
+        "DurationValue": 656,
+        "EnergyUnits": 13,
+        "EnergyValue": 92,
+        "ExerciseName": 162,
+        "ReportedIntensity": 0
+      },
+      "files": [
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceExercise.txt"
+      ],
+      "rows": 51728,
+      "source_adjacent_conflicting_records": 675,
+      "source_adjacent_exact_key_repetitions": 2849,
+      "source_adjacent_same_participant_timestamp": 3524
+    },
+    "food": {
+      "conflicting_field_counts": {
+        "CarbUnits": 0,
+        "CarbsNet": 2154
+      },
+      "files": [
+        "data/Loop study public dataset 2023-01-31/Data Tables/LOOPDeviceFood.txt"
+      ],
+      "rows": 1406204,
+      "source_adjacent_conflicting_records": 2154,
+      "source_adjacent_exact_key_repetitions": 12187,
+      "source_adjacent_same_participant_timestamp": 14341
+    }
+  },
+  "release": "data/Loop study public dataset 2023-01-31",
+  "scope": "source-adjacent duplicate profile; no records removed"
+}
