@@ -1,0 +1,263 @@
+{
+  "snapshot": "2026-10-20",
+  "paired_audits": [
+    "audit/loop_mps_outer0_graph_vs_sequence_paired_20261019.json",
+    "audit/loop_mps_outer1_graph_vs_sequence_paired_20261019.json",
+    "audit/loop_mps_outer2_graph_vs_sequence_paired_20261019.json",
+    "audit/loop_mps_outer3_graph_vs_sequence_paired_20261019.json",
+    "audit/loop_mps_outer4_graph_vs_sequence_paired_20261019.json",
+    "audit/loop_mps_outer0_seed20261004_graph_vs_sequence_paired_20261020.json",
+    "audit/loop_mps_outer1_seed20261004_graph_vs_sequence_paired_20261020.json",
+    "audit/loop_mps_outer2_seed20261004_graph_vs_sequence_paired_20261020.json",
+    "audit/loop_mps_outer3_seed20261004_graph_vs_sequence_paired_20261020.json"
+  ],
+  "sources": {
+    "audit/loop_mps_outer0_graph_vs_sequence_paired_20261019.json": {
+      "sha256": "420c61cdff9888472a0396d1e345477297387dd179282998ad7c5163b9f97180",
+      "bytes": 3787
+    },
+    "private/mps_research/outer0_seed20261003_graph_generic/result.json": {
+      "sha256": "ac275c3c3b36b09c60a4171c05ce9f09d258520468468910f36a0747af6806c0",
+      "bytes": 2779
+    },
+    "private/mps_research/outer0_seed20261003_sequence_mps/result.json": {
+      "sha256": "a558b3760d5801ebf14e4a49e5900732d5ccdeaee6340b67d293196a973b6585",
+      "bytes": 2385
+    },
+    "audit/loop_mps_outer1_graph_vs_sequence_paired_20261019.json": {
+      "sha256": "2c712a694bc45f28a7b331286e53aaa76205ccb85d6809a9cde6d389f3daa54b",
+      "bytes": 3789
+    },
+    "private/mps_research/outer1_seed20261003_graph_generic/result.json": {
+      "sha256": "cf80bbf5989af3e00862b8d6beda14e2f48bac11f697702f35208cdb7c245cc4",
+      "bytes": 2779
+    },
+    "private/mps_research/outer1_seed20261003_sequence_mps/result.json": {
+      "sha256": "01bc4246fe1b83fcefd2d0518ab16259b9b3762917694378e5bc69921ae2dbf5",
+      "bytes": 2385
+    },
+    "audit/loop_mps_outer2_graph_vs_sequence_paired_20261019.json": {
+      "sha256": "1a3981f87b0b032163ce0895609ff8c9024fe55f9fa1c11016a6d3c81322bb38",
+      "bytes": 3784
+    },
+    "private/mps_research/outer2_seed20261003_graph_generic/result.json": {
+      "sha256": "e3a7674fba208a6991b9dc4107b057ddfa4e205da10eefcfe566f8fb51a98fa4",
+      "bytes": 2779
+    },
+    "private/mps_research/outer2_seed20261003_sequence_mps/result.json": {
+      "sha256": "0e62fe2c41bdceb69dd9008f9c16dfaf5a644c7c654fd31a31b8aeaecdde1f87",
+      "bytes": 2384
+    },
+    "audit/loop_mps_outer3_graph_vs_sequence_paired_20261019.json": {
+      "sha256": "f91919d48fe834bbb19bda1b81a99d507691387be26157a55a5e03eb93739f6c",
+      "bytes": 3784
+    },
+    "private/mps_research/outer3_seed20261003_graph_generic/result.json": {
+      "sha256": "fd83db88dab9f0bf8ee358d67cf1e2fd4d334f939eaf4f4b945f127e70115126",
+      "bytes": 2780
+    },
+    "private/mps_research/outer3_seed20261003_sequence_mps/result.json": {
+      "sha256": "49a1d1de5dbeb9a96e0c43c7cbec9e826f84d48026aead5e2d5702936aa5014f",
+      "bytes": 2384
+    },
+    "audit/loop_mps_outer4_graph_vs_sequence_paired_20261019.json": {
+      "sha256": "2c92a20f9c0fa21b9116323fcd3c36f56bb7a4cda054d45964f53c915c0a389b",
+      "bytes": 3787
+    },
+    "private/mps_research/outer4_seed20261003_graph_generic/result.json": {
+      "sha256": "69580575c09cbe16ce7a8b4572b602de42b15806c759eb33ee3f828844fb17eb",
+      "bytes": 2780
+    },
+    "private/mps_research/outer4_seed20261003_sequence_mps/result.json": {
+      "sha256": "e0f03ec16e35f6ea48d9ff3e0bf41951a5aa0b01f15f38740409603c35028794",
+      "bytes": 2384
+    },
+    "audit/loop_mps_outer0_seed20261004_graph_vs_sequence_paired_20261020.json": {
+      "sha256": "839b0fc152cc743b96048e58c0cf1b9985295fb156253b609e1eb08a6c56f09d",
+      "bytes": 3786
+    },
+    "private/mps_research/outer0_seed20261004_graph_generic/result.json": {
+      "sha256": "0427afa32e9b52d7f38ddc5f6966424a5a2676d4bbc8a179214ac3020b210137",
+      "bytes": 2780
+    },
+    "private/mps_research/outer0_seed20261004_sequence_mps/result.json": {
+      "sha256": "3b5d7719041dcc23319e01e897f7cd2d6be7ba2a3fc190c386581be37bb86862",
+      "bytes": 2384
+    },
+    "audit/loop_mps_outer1_seed20261004_graph_vs_sequence_paired_20261020.json": {
+      "sha256": "0b51d8120b26e7c8db3f11b9505dc4a40fa787507d8b12ef57d128ae8a3e1b8c",
+      "bytes": 3785
+    },
+    "private/mps_research/outer1_seed20261004_graph_generic/result.json": {
+      "sha256": "be52e370bc0be504d66c97ae225f42111380010bb9c20b46ae647086f7c348ac",
+      "bytes": 2781
+    },
+    "private/mps_research/outer1_seed20261004_sequence_mps/result.json": {
+      "sha256": "1b3c4b59e2c5bdbe13a0aaac0866aa6e640415241da917c74e3d018980052554",
+      "bytes": 2383
+    },
+    "audit/loop_mps_outer2_seed20261004_graph_vs_sequence_paired_20261020.json": {
+      "sha256": "cd8dae77c2c33a18d21d29fc2787029599a61ecfbf8245db13732106c807151f",
+      "bytes": 3788
+    },
+    "private/mps_research/outer2_seed20261004_graph_generic/result.json": {
+      "sha256": "c6f2a69ff861465e15fdd1c1c60e4880e3cff8eff3bb4535527f1d84cbfa5da7",
+      "bytes": 2780
+    },
+    "private/mps_research/outer2_seed20261004_sequence_mps/result.json": {
+      "sha256": "9cf078661dee6b4fbfe5a457a00263ca0705aa72986d4b941e2c2cc3af1a4857",
+      "bytes": 2384
+    },
+    "audit/loop_mps_outer3_seed20261004_graph_vs_sequence_paired_20261020.json": {
+      "sha256": "03cd460dfcabd2c921891e0edfa97fdbfa8e701ce54fbeacdf2d273ea26992fb",
+      "bytes": 3782
+    },
+    "private/mps_research/outer3_seed20261004_graph_generic/result.json": {
+      "sha256": "34b7c95ae7804906724b7b507fbcb85fb881612f1ed14bf5da8fcdc9b4bf6f76",
+      "bytes": 2779
+    },
+    "private/mps_research/outer3_seed20261004_sequence_mps/result.json": {
+      "sha256": "6fe9348efad0710ca37ea0264ae609a915834ba3e69373fc96b82315fa55e19c",
+      "bytes": 2384
+    },
+    "audit/loop_cgm_history_cache_validation.json": {
+      "sha256": "54c7e65f8c4c4f0f5ce17b38af642ed06c255126a38089abe506e9c32d27beb0",
+      "bytes": 639
+    },
+    "audit/loop_temporal_relation_outer0_paired_pilot.json": {
+      "sha256": "1322eafb879f5e5ad9adc02ecef0fc81193da55e995a550cbea9946ff76bebc1",
+      "bytes": 3992
+    },
+    "audit/loop_graph_vs_capacity_matched_outer0_paired_10000draws_20261019.json": {
+      "sha256": "30463fb99515165236de8f9c6ebe88bb97f8c2e047ff9e0590ddd3c8bb4e1e05",
+      "bytes": 3862
+    },
+    "audit/loop_cgm_canonical_audit.json": {
+      "sha256": "3d1d93d8d2829f6ce1dd646d28cf2b6c4fcf14d6214d41b747494a0eb8041acd",
+      "bytes": 925
+    },
+    "audit/loop_event_instance_cache.json": {
+      "sha256": "449793e236d52ddbd85c285ba89a8e0147ba26268c8a3703bdb734c3f4f6ab46",
+      "bytes": 574
+    },
+    "audit/loop_window_index_validation.json": {
+      "sha256": "f6c8555e0d676670f9194bfc302d22ca8a2ff16d435093e17ccd3b8afa97b25d",
+      "bytes": 311
+    },
+    "audit/loop_model_split_coverage.json": {
+      "sha256": "6cd41da0738ecec9f1d27b837e0f1589c256ec61cc8116a8d8357cf4ed00d1d2",
+      "bytes": 1288
+    },
+    "audit/loop_cgm_logistic_development_summary_v2.json": {
+      "sha256": "5bf0b858cfbca6a8c66bcae6f3c0acba8e0437fe9c0397e1bb80063e0e97751d",
+      "bytes": 4030
+    },
+    "audit/loop_event_vs_cgm_outer0_validation_v3.json": {
+      "sha256": "2b92262ec71ed97f5cf86fcacf3a00e3ad8b32c6e2b3810e5bfe5672a03624c3",
+      "bytes": 1725
+    },
+    "audit/loop_event_residual_outer0_best_vs_frozen_cgm.json": {
+      "sha256": "69ec42a75a08fde1004fe3cb5601f2c98018c852d348027a127c75433ae1a418",
+      "bytes": 1844
+    },
+    "audit/loop_full_history_paired_recovered_20261017.json": {
+      "sha256": "ff4408f6247c0da3066308ac5b93b94d86d5a5080a0944b5138251ae03c53a7e",
+      "bytes": 2156
+    },
+    "audit/loop_full_history_event_zero_ablation_outer0_seed20261003_20261017.json": {
+      "sha256": "a9dae9ef6ac24149b38dca27ab46812761bed426aa9496e2a874e06ef7235dba",
+      "bytes": 2261
+    },
+    "audit/loop_full_history_history_event_epoch1_vs_epoch2_strict_20261017.json": {
+      "sha256": "a803dba4f2bcf06718e34ad351126f84857331a28acb2a849febfdefc2e057cd",
+      "bytes": 2235
+    },
+    "audit/loop_event_sequence_truncation_distribution.json": {
+      "sha256": "efa8ebd454744c6ace76936dff9997a1e5a6bf581835109e2cafe3a2e0e83c7a",
+      "bytes": 1012
+    },
+    "audit/loop_multimodal_window_overlap.json": {
+      "sha256": "c850e87823220ecd040ba132fda8ef3504a8a5bf7fe6c80bf1534db86f2047d6",
+      "bytes": 642
+    },
+    "audit/loop_upload_linkage.json": {
+      "sha256": "baff054bd37aab1284c498382ce225c3387cab000cd0ade3c9b0eec8381ce6b0",
+      "bytes": 6157
+    },
+    "audit/loop_mps_graph_vs_sequence_five_fold_summary_20261019.json": {
+      "sha256": "345d4f43b36b6c5aeaf9f98dc96cb84bf8016d77b11058c435362929d3ea0b30",
+      "bytes": 5552
+    },
+    "src/t1d_tkg/cgm_history_cache.py": {
+      "sha256": "a5429aabeb302cf1f90d2b407ec95f7ef4434bdc6a329f8b36df35de19e392e2",
+      "bytes": 6466
+    },
+    "src/t1d_tkg/event_sequence_cache.py": {
+      "sha256": "b022653e4fed8646bbb2644c857cbd3fa9b570e449c22babc202449934e8a48f",
+      "bytes": 3427
+    },
+    "src/t1d_tkg/temporal_relations.py": {
+      "sha256": "4e42bda501098985acadc1d3c673a9e911209e5f42e36447856d91676782aa38",
+      "bytes": 3457
+    },
+    "src/t1d_tkg/loop_adapter.py": {
+      "sha256": "0d1bd721ffaf741535da665b052f6e5090b7f142ff0d8dededac2046e89a0761",
+      "bytes": 3923
+    },
+    "kaggle_event_sequence_gru/train_history_controlled.py": {
+      "sha256": "7953b9a2613742a456a93dd9c6bbd6f786692e1593c923b8be6851d22b9b4323",
+      "bytes": 29663
+    },
+    "kaggle_event_sequence_gru/train_history_relations.py": {
+      "sha256": "2d969534f64d483a50bc0a1fb465764add711aa0eeeb724499038704bdf699d5",
+      "bytes": 23900
+    },
+    "scripts/compare_graph_sequence_archives.py": {
+      "sha256": "820d6f2026e4629251e0fbd3d47e00cea0e6531e855c16dec3b4efb751e80f46",
+      "bytes": 7073
+    }
+  },
+  "methods_sources": [
+    "src/t1d_tkg/cgm_history_cache.py",
+    "src/t1d_tkg/event_sequence_cache.py",
+    "src/t1d_tkg/temporal_relations.py",
+    "src/t1d_tkg/loop_adapter.py",
+    "kaggle_event_sequence_gru/train_history_controlled.py",
+    "kaggle_event_sequence_gru/train_history_relations.py",
+    "scripts/compare_graph_sequence_archives.py"
+  ],
+  "claim_mapping": {
+    "tables_1_2_3_and_figure_1": [
+      "audit/loop_mps_outer0_graph_vs_sequence_paired_20261019.json",
+      "audit/loop_mps_outer1_graph_vs_sequence_paired_20261019.json",
+      "audit/loop_mps_outer2_graph_vs_sequence_paired_20261019.json",
+      "audit/loop_mps_outer3_graph_vs_sequence_paired_20261019.json",
+      "audit/loop_mps_outer4_graph_vs_sequence_paired_20261019.json",
+      "audit/loop_mps_outer0_seed20261004_graph_vs_sequence_paired_20261020.json",
+      "audit/loop_mps_outer1_seed20261004_graph_vs_sequence_paired_20261020.json",
+      "audit/loop_mps_outer2_seed20261004_graph_vs_sequence_paired_20261020.json",
+      "audit/loop_mps_outer3_seed20261004_graph_vs_sequence_paired_20261020.json"
+    ],
+    "typed_routing": "audit/loop_temporal_relation_outer0_paired_pilot.json",
+    "cuda_pair": "audit/loop_graph_vs_capacity_matched_outer0_paired_10000draws_20261019.json",
+    "canonicalization": "audit/loop_cgm_canonical_audit.json",
+    "event_cache": "audit/loop_event_instance_cache.json",
+    "eligibility_index": "audit/loop_window_index_validation.json",
+    "cohort_split": "audit/loop_model_split_coverage.json",
+    "historical_logistic": "audit/loop_cgm_logistic_development_summary_v2.json",
+    "event_summary": "audit/loop_event_vs_cgm_outer0_validation_v3.json",
+    "event_residual": "audit/loop_event_residual_outer0_best_vs_frozen_cgm.json",
+    "full_history": "audit/loop_full_history_paired_recovered_20261017.json",
+    "event_disabled": "audit/loop_full_history_event_zero_ablation_outer0_seed20261003_20261017.json",
+    "epoch_sensitivity": "audit/loop_full_history_history_event_epoch1_vs_epoch2_strict_20261017.json",
+    "event_truncation": "audit/loop_event_sequence_truncation_distribution.json",
+    "event_overlap": "audit/loop_multimodal_window_overlap.json",
+    "availability_limits": "audit/loop_upload_linkage.json"
+  },
+  "provenance_limits": [
+    "Top-level paired-audit seed is the bootstrap seed; training seed is training_contract.seed.",
+    "Current method files are inspected implementation references; historic fits have their own source hashes.",
+    "Typed-pilot local raw-prediction recovery not confirmed.",
+    "No raw participant predictions were opened or recomputed during this manuscript build."
+  ]
+}

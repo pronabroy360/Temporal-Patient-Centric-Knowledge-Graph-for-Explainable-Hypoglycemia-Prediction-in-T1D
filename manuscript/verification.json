@@ -1,0 +1,21 @@
+{
+  "snapshot": "2026-10-20",
+  "status": "passed",
+  "paired_comparisons": 9,
+  "local_completed_run_summaries_checked": 18,
+  "checks": [
+    "training contracts, seeds, optimizer, exact parameter counts",
+    "complete runs, prediction identity, no holdout use in checked summaries",
+    "paired point estimates against local completed run summaries",
+    "paired difference arithmetic and interval ordering",
+    "development participants, AP denominator, window and positive counts",
+    "five-fold summary agreement",
+    "all XML parts parsed and DOCX CRC passed",
+    "template result placeholders resolved"
+  ],
+  "limits": [
+    "Bootstrap intervals reused from existing audits; not recomputed from raw predictions.",
+    "Historical diagnostics fingerprinted; not all historical metrics independently recomputed.",
+    "PDF compilation and visual inspection are separate final checks."
+  ]
+}
