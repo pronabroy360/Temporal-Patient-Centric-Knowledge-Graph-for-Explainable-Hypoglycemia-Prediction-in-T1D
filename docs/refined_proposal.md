@@ -1,37 +1,56 @@
-# Refined research proposal v0.2
+# Refined research proposal v0.3
 
-Date: 10 September 2026. Status: research design, not empirical validation. Supersedes broad novelty statements in the starter handbook. Read alongside the [prior-work assessment](novelty_assessment.md) and [operational protocol](research_protocol.md).
+Date: 18 October 2026. Status: research design, not empirical validation. Supersedes broad novelty statements in the starter handbook and v0.2. Read alongside the [prior-work assessment](novelty_assessment.md), [SysCon methods review](syscon_2026_prior_work_review.md), and [operational protocol](research_protocol.md).
 
 ## Working title
 
-**When Do Temporal Patient Knowledge Graphs Help Hypoglycemia Prediction? A Controlled Study of Clinical Event Relations and Information Availability in T1D**
+**Timestamped Treatment-Event Representations for Incident Hypoglycemia Prediction in T1D: A Patient-Disjoint Comparison of Graphs, Sequences, and Modality Summaries**
 
 Keep T1D-TKG as the project identifier. This title states the question without presupposing graph superiority. A later result-specific manuscript title can follow the evidence.
 
 ## Problem and rationale
 
-CGM, insulin delivery, meals and activity can be represented as sequences, modality summaries, or individual clinical events in a graph. Existing semantic and temporal graph work already motivates these representations. What this project will test is whether individual-event relations provide useful inductive bias when competitors receive the same information and are evaluated on the same advance-warning task. It will also test whether a displayed explanation refers only to records that could have been used at prediction time.
+CGM, insulin delivery, meals and activity can be represented as sequences, modality summaries, or timestamped event instances connected to CGM history. Prior work already includes patient-specific semantic T1D graphs, temporal graph forecasting, physiology-typed multimodal graphs, and graph-structure faithfulness diagnostics. Dave et al. (2021) already compare short-horizon hypoglycemia prediction with and without engineered insulin/carbohydrate context; the source abstract/body discrepancy means its 30-minute effect should not be stated definitively without table reconciliation. Meal-anchored postprandial prediction and aggregate carbohydrate-on-board nocturnal-risk models also predate this work. The October 2026 Khokhar et al. preprint evaluates an any-future-CGM-below-70 outcome at 30 minutes with patient-disjoint outer folds, multimodal-versus-sequence controls, and explanation perturbation checks; its stated covariates do not include raw insulin/meal transaction events or graph relations. Thus, the endpoint, horizon, patient split, use of event-derived context, multimodal model comparison, and explanation evaluation are not novelty claims. The candidate contribution is narrower: a patient-disjoint, information- and timing-matched comparison of raw event-instance relations against equally informed event-aware non-graph and summary encodings, with current Loop results favoring non-graph pooling. This remains a candidate empirical contribution rather than a demonstrated graph advantage.
 
-The specific opportunity is an empirical decomposition of representation value, rather than treating the introduction of a KG as the result. The [prior-work assessment](novelty_assessment.md) documents why each component alone is insufficient and which comparisons are needed.
+The specific opportunity is an empirical decomposition of representation value, rather than treating the introduction of a KG as the result. The [prior-work assessment](novelty_assessment.md) and [focused prior-art review](targeted_prior_art_search_2026_10_31.md) document why each component alone is insufficient and which comparisons are needed. The literature matrix currently contains 70 unique records; review remains targeted rather than systematic. Li, Ge & Chen (2020) already use event-order relations in a dynamic KG over diabetes event streams, but do not report hypoglycemia-risk prediction results on those diabetes data. Zecchin et al. (2016) and Apicella et al. (2026) also make context inclusion and representation comparisons established topics. The candidate is therefore a narrow result about event-instance relation utility under matched controls, not graph construction or contextual-input novelty. Acharya and Lee (2014) already construct temporal causal relations over diabetic event instances including insulin, glucose and hypoglycemic symptoms; Li et al. (2020) also use event-order KG relations on diabetes logs. The project cannot claim the representation itself is new. A PubMed-indexed 2026 review and a recent OhioT1DM/SMARTDIAB attention-LSTM study further confirm that contextual inputs and interpretable multimodal T1D risk prediction are established; the distinction remains the matched event-relation test, not those ingredients.
 
 ## Research questions and hypotheses
 
 | Question | Hypothesis to test | What would contradict it? |
 |---|---|---|
-| RQ1: Does an individual-event graph help on unseen participants? | Its 30-minute participant-macro AP exceeds the matched multimodal GRU and remains competitive with a strong event-sequence comparator. | Gains disappear against information-matched sequences or are too uncertain. |
-| RQ2: Which representation feature matters? | Relation-specific message passing contributes beyond event resolution, temporal features and parameter count. | A generic graph or capacity-matched sequence explains the gain. |
-| RQ3: Is relational benefit preserved when information arrives late? | Some benefit remains when all models use the same admissible records. | Gains occur only under optimistic retrospective availability. This hypothesis is secondary and conditional on a valid delay study. |
-| RQ4: Do graph explanations trace faithful event evidence? | Important event sets outperform matched random sets under both deletion and retention, without unavailable or stale-derived evidence. | A plausible path has weak predictor fidelity, poor stability or invalid provenance. |
+| RQ1: Does representing timestamped insulin/food event instances improve 30-minute incident-low prediction on unseen participants over the same event information encoded as sequences or modality summaries? | A patient-macro AP or calibration advantage persists in matched, patient-disjoint development comparisons and is not an artifact of extra information, split, or capacity. | The advantage disappears against an information-matched sequence, generic graph, or summary-sequence control, or is too uncertain. |
+| RQ2: Does modality-derived typed message routing contribute beyond generic message passing and endpoint/time-reconstructible controls? | Typed routing improves the preregistered metric under equal inputs, training budget, initial weights, and capacity, and the result replicates. | Generic routing or reconstructed endpoint/time features explain the result. |
+| RQ3: Is any observed representation advantage preserved when event availability is delayed? | The relative advantage persists when every model receives the same admissible records. | Gains occur only under optimistic retrospective occurrence-time replay. This is secondary and requires measured arrival metadata or explicitly simulated scenarios. |
+| RQ4: Do event-level explanations faithfully trace prediction evidence? | Recomputed event deletions/retentions have greater fidelity than matched random sets, with valid provenance and adequate stability. | A plausible path has weak predictor fidelity, poor stability, or invalid provenance. Graph explanations themselves are established prior work. |
 
 External transport is a planned validation stage. Personalization is a separate experiment, not implicit evidence from a Patient node. If actual reporting metadata cannot be obtained, RQ3 becomes a clearly labeled sensitivity study of assumed delays.
 
 ## Proposed contributions
 
-1. A versioned patient-event representation and benchmark that separates event-instance resolution, relation typing, temporal features and information availability under patient-disjoint prediction.
-2. Controlled evidence about whether and when clinical event relations add value beyond matched sequence, generic event-graph and physiology-summary representations.
+1. A versioned Loop benchmark that separates timestamped event-instance resolution, modality aggregation, sequence encoding, message routing, and availability assumptions under patient-disjoint prediction.
+2. Controlled evidence about whether and when event-instance representations or typed message-passing inductive bias help beyond matched sequence, generic-edge graph, endpoint/time, and modality-summary controls.
 3. Prediction-specific event explanations with traceable input versions, valid feature recomputation and quantified fidelity/stability.
 
-These are intended outputs. A result may refute the benefit hypothesis while still answering the questions. A new ontology, neural architecture or clinical discovery is not promised.
+These are intended outputs. A result may refute the benefit hypothesis while still answering the questions. A new ontology, neural architecture, physiological relation taxonomy, or clinical discovery is not promised; the novelty candidate is a controlled empirical result, if supported.
+
+## Empirical status update — 19 October 2026
+
+The first exact-capacity graph-versus-non-graph sequence comparison is complete
+on Loop outer-0, seed `20261003`, for one epoch. Graph-generic exceeded the
+36,883-parameter dual-GRU sequence control on participant-macro AP (0.474481
+vs 0.389901; paired difference +0.084580, 95% participant-bootstrap interval
+[+0.078104, +0.090816] from 10,000 draws) and Brier (0.021522 vs 0.024211;
+95% interval [−0.003043, −0.002347]). Predictions were
+strictly paired on all 8,885,621 validation windows. This supports continuing
+the controlled graph-integration question, but it does not resolve whether
+timestamped event instances outperform modality summaries, nor whether
+clinically typed relations add beyond generic graph connectivity. The
+typed-versus-generic pilot slightly favored generic routing. Both are single
+fold/seed screening results and require prespecified replication before a
+confirmatory claim. The locked holdout remains unopened. See the [capacity-
+matched comparison](loop_non_graph_capacity_matched_control.md) and [paired
+audit](../audit/loop_graph_vs_capacity_matched_outer0_paired.json), with the
+[10,000-draw sensitivity audit](../audit/loop_graph_vs_capacity_matched_outer0_paired_10000draws_20261019.json).
 
 ## Formal information contract
 
@@ -58,7 +77,7 @@ Start with a small relation-aware encoder, elapsed-time edge attributes and a GR
 
 Audit whether relation identity can be reconstructed from endpoint types and time. For example, insulin→CGM with prior_insulin may add no relation information beyond those node types and timestamps. Generic-relation ablation alone cannot establish a rich clinical semantics claim. Add an explicit comparator that reconstructs relation features from endpoints and time. If all relations are deterministic in that way, report relation-specific inductive bias and test the architecture against that comparator.
 
-A clinically explicit meal–bolus link is permitted only when source data supplies one or a clearly labeled, development-frozen heuristic is being tested. Do not create false clinical knowledge to make the graph appear richer. If such extra relations are introduced, supply them to the event-sequence comparator as well.
+A clinically explicit meal–bolus link is permitted only when source data supplies one or a clearly labeled, development-frozen heuristic is being tested. Do not create false clinical knowledge to make the graph appear richer. If such extra relations are introduced, supply them to the event-sequence comparator as well. The current generic-vs-typed pilot uses a relation ID deterministically derived from event modality and time ordering; it tests message-passing parameterization, not additional clinical information.
 
 ## Data and feasibility
 

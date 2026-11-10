@@ -1,20 +1,76 @@
 {
-  "snapshot": "2026-10-20",
+  "snapshot": "2026-10-31",
   "status": "passed",
-  "paired_comparisons": 9,
-  "local_completed_run_summaries_checked": 18,
+  "paired_comparisons": 21,
+  "documentation_revision": "2026-11-08",
+  "journal_format_word_counts": {
+    "abstract_with_labels": 232,
+    "conservative_main_declarations_legends": 3031
+  },
+  "local_completed_run_summaries_checked": 42,
   "checks": [
     "training contracts, seeds, optimizer, exact parameter counts",
     "complete runs, prediction identity, no holdout use in checked summaries",
     "paired point estimates against local completed run summaries",
     "paired difference arithmetic and interval ordering",
     "development participants, AP denominator, window and positive counts",
-    "five-fold summary agreement",
+    "both five-fold seed summaries agree",
     "all XML parts parsed and DOCX CRC passed",
+    "all five aligned-control metrics, complete run metadata, matching within-fold sources, and cohort identities match paired audits",
+    "all five second-seed aligned-control pairs match one frozen source digest, strict run metadata, and aggregate prediction-recomputed summary",
+    "independent two-seed and second-seed five-fold recomputations match their archived JSON byte-for-byte and current summarizer script hashes",
+    "five-fold participant aggregate recomputed from saved paired prediction rows and reconciled to all split totals",
+    "two-seed participant-level differences averaged within person after verifying shared fold-level prediction-identity digests",
+    "the initially mismatched outer-4 pair is explicitly rejected and excluded",
+    "the eight-epoch CPU graph/control pair has matching source, training membership, inputs, schedule, parameter count, validation predictions and aggregate metrics",
+    "DCLP3/DCLP5 span and strict-window feasibility totals match identifier-free aggregate audits; these are not model validation",
+    "DCLP pump-value and naive raw-to-adjusted delta summaries match an identifier-free audit; extreme timestamp deltas make eligibility counts conditional, while units, states, availability, and cross-release mappings remain unresolved",
+    "DCLP5 raw/raw and adjusted-preferred/adjusted-preferred window outputs reproduce exact policy-specific eligibility, label, conflict, and lookback totals; these sensitivities do not adjudicate the correct clock",
+    "DCLP3 raw/raw and raw/adjusted-preferred event-clock outputs reproduce exact eligibility, label, and lookback totals; these sensitivities do not adjudicate the correct event clock",
+    "DCLP3/DCLP5 raw-versus-adjusted participant-span overlap changes match an identifier-free audit and are not prediction-window validation",
+    "five frozen Loop CGM-only models transfer without refit to release-local DCLP3/DCLP5 CGM targets and beat persistence; this does not validate event relations or graph models",
     "template result placeholders resolved"
   ],
+  "aligned_control_source_sha256_by_fold": {
+    "outer-0": "168ee08644b6c74d6c52d25a125897d2f8681b2886569c45c6bbf6c7be8467c4",
+    "outer-1": "a4d1a91916a675024110e1c30d54546c3aa0d51724480dfdbcdbb141dea71648",
+    "outer-2": "a54c2f8a8f180d1ed84d7d81034091a2509ce5069464d60cc0452ea7f7e5ad86",
+    "outer-3": "a54c2f8a8f180d1ed84d7d81034091a2509ce5069464d60cc0452ea7f7e5ad86",
+    "outer-4": "a4d1a91916a675024110e1c30d54546c3aa0d51724480dfdbcdbb141dea71648"
+  },
+  "second_seed_source_sha256_by_fold": {
+    "outer-0": "a4d1a91916a675024110e1c30d54546c3aa0d51724480dfdbcdbb141dea71648",
+    "outer-1": "a4d1a91916a675024110e1c30d54546c3aa0d51724480dfdbcdbb141dea71648",
+    "outer-2": "a4d1a91916a675024110e1c30d54546c3aa0d51724480dfdbcdbb141dea71648",
+    "outer-3": "a4d1a91916a675024110e1c30d54546c3aa0d51724480dfdbcdbb141dea71648",
+    "outer-4": "a4d1a91916a675024110e1c30d54546c3aa0d51724480dfdbcdbb141dea71648"
+  },
+  "two_seed_participant_aggregate": {
+    "ap_difference": -0.009899666243301021,
+    "ap_ci95": [
+      -0.01047669424739838,
+      -0.009345412841435134
+    ],
+    "macro_brier_difference": 0.00012643217625050957,
+    "macro_brier_ci95": [
+      0.0001096006568634377,
+      0.0001428661822493643
+    ]
+  },
+  "independent_summary_recomputations": {
+    "seed_20261030_five_fold_summary": {
+      "byte_identical": true,
+      "recomputed_sha256": "5470b8b1e18d0f0745bc2ae235bad5995b670ceb6e295238952cf4cce5a66088",
+      "recomputation_script_sha256": "79311fe51051f836c16a3a010185334f79d6fdd7729a9b6e03b6e17998dd9865"
+    },
+    "two_seed_participant_summary": {
+      "byte_identical": true,
+      "recomputed_sha256": "22caa1fc0404e7c9107c1027a402df95e27ae4694662f06bd1011b37eb69627d",
+      "recomputation_script_sha256": "0c7eac90b2781555b58a9dfb6869dc4e2b64fd82e2f4c08bb70e892d5f27b19f"
+    }
+  },
   "limits": [
-    "Bootstrap intervals reused from existing audits; not recomputed from raw predictions.",
+    "Fold-level bootstrap intervals are reused from paired audits; both five-fold seed aggregate intervals and the two-seed participant aggregate intervals were recomputed by separate summary scripts from saved participant predictions. All intervals condition on fixed fitted models.",
     "Historical diagnostics fingerprinted; not all historical metrics independently recomputed.",
     "PDF compilation and visual inspection are separate final checks."
   ]

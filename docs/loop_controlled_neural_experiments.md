@@ -4,10 +4,16 @@ Specification date: 2 October 2026. This revised **development** plan was
 written after inspecting seed-20260920 results. It is not a retroactive
 preregistration or evidence of graph novelty.
 
-The fixed first gate has since completed and its recovered archives have been
-paired locally. See [verified first-gate result](loop_controlled_first_gate_result_2026_10_05.md)
-and [ordered next gates](next_steps_after_controlled_first_gate.md). The result
-favors the CGM-only MLP for this fold and seed.
+The fixed first gate, epoch-1 checkpoint replay, and second-seed paired
+comparison have since completed. See [verified first-gate
+result](loop_controlled_first_gate_result_2026_10_05.md), [epoch-1 replay
+result](loop_controlled_epoch1_replay_result_2026_10_11.md), [second-seed
+result](loop_seed20261004_second_gate_result.md), and [ordered next
+gates](next_steps_after_controlled_first_gate.md). The CGM-only MLP leads the
+clean event GRU at both matched checkpoints and in both completed seed fits.
+The epoch-1 versus epoch-2 diagnostic shows both models improved with the
+second epoch, especially the GRU; it does not establish convergence across
+other training budgets or external cohorts.
 
 ## Implemented corrections
 
@@ -146,12 +152,15 @@ contain code only and no saved predictions or private cache data.
 
 ## Subsequent research gates
 
-1. Validate downloaded bundles; compare clean-GRU/CGM-neural paired predictions
-   and record training counts, runtime, input contract and selection history.
+1. **Completed:** Repeat the fixed two-epoch comparison with seeds `20261003`
+   and `20261004` under the same input and validation contract. Both paired
+   results favor CGM-only prediction for this model pair. Keep seed `20261002`
+   as a development pilot; two seeds on one cohort do not measure external
+   generalization or prove graph-relation value.
 2. Complete declared event ablations and seed replications; separately specify
    an order control without silently changing timing attributes.
-3. Check optimization adequacy and add a stronger full-CGM-history comparator
-   from frozen windows before making a broad event-information claim.
+3. Add a stronger causal full-CGM-history comparator from frozen windows before
+   making a broad event-information claim.
 4. Freeze B4 and capacity/search budgets, then implement G0/G1/G2 on identical
    retained events. This GRU campaign does not establish relation benefit.
 5. Complete calibration, alert/episode/lead-time evaluation, explanation fidelity

@@ -1,0 +1,140 @@
+# Supplementary methods and complete analysis-status register
+
+Document revision: 8 November 2026. Empirical snapshot: 31 October 2026. Companion to the [main manuscript](manuscript.md) and [complete research record](../docs/research_master_record_2026_11_08.md). Section names, rather than changing PDF page numbers, identify locations. This supplement distinguishes the executed retrospective analysis from proposed analyses and documents important deviations. No new model training or final-holdout scoring was performed for this documentation revision.
+
+## S1. Cohort definition, source context and missing characterization
+
+The source is the Loop public release dated 31 January 2023 in the local Jaeb collection. The original clinical effectiveness publication reports a U.S. decentralized, outside-clinic study of 558 new users, with enrollment January–August 2019 and data collection ending April 2020. The supplied release roster contains 919 records and is a different denominator. The original clinical study's eligibility and demographic percentages are not assumed to describe the present release-derived sample. Source: [Lum et al., primary publication](https://journals.sagepub.com/doi/full/10.1089/dia.2020.0535).
+
+| Quantity or characteristic | Verified value or status | Evidence and interpretation |
+|---|---|---|
+| Release roster | 919 | Released-file roster; not the original published 558-person new-user cohort. |
+| Participants with source CGM | 851 | Source presence only. |
+| Shared modality candidates | 835 | At least one CGM, basal, bolus and nonempty food record; not complete event capture. |
+| Development participants | 652 | Five disjoint validation groups across the model configurations. |
+| Reserved final-performance participants | 183 | Aggregate data/label audits exist; model performance remains unreported. |
+| Development windows / positive labels | 44,028,064 / 1,296,297 | Overlapping windows;2.944% positive, rounded. |
+| AP / Brier participant denominator | 650 / 652 | Two people have no positive labels, so AP is undefined for them. |
+| Original and analytic date spans | Original-study context available; released analytic spans unresolved | Release date is not an observation date. |
+| Age, sex/gender, race/ethnicity, duration, HbA1c, therapy/device distributions | Not established in verified model summaries | Do not substitute the source publication's descriptive percentages. |
+| Demographic missingness and subgroup performance | Not evaluated | No fairness or subgroup-equity conclusion. |
+| Complete monitoring / event reporting | Not established | Eligibility selects sufficiently observed CGM windows; retained event records may be incomplete. |
+
+The positive prevalence is 1,296,297/44,028,064=2.944% after rounding; it is not the full shared-index prevalence of 2.965%. The source/selection flow is shown in the main manuscript's cohort description and the master record. No a priori power analysis was documented. The sample-size rationale is available eligible data, and uncertainty is evaluated at the participant level.
+
+Future measurements were used only to define the outcome and its coverage, not to construct predictors. Outcome labels were generated automatically from source CGM, with no subjective clinical adjudicator. They therefore measure a recorded sensor threshold, not an adjudicated symptomatic or severe clinical episode. Future treatment continues under the recorded real-world management process; the model does not identify untreated counterfactual risk or the effect of acting on a warning.
+
+## S2. Exact input, missingness and information-time contract
+
+Source CGM is canonicalized by participant and UTC occurrence time. Exact re-exports collapse deterministically; calibration rows and conflicting same-time glucose values are excluded from the primary grid. Values in mmol/L are converted with 18.0182 mg/dL per mmol/L. The retained numeric policy has no independently justified device-specific extreme-value cutoff. Table-level sensitivity counts are not model-level robustness analyses.
+
+The logical five-minute grid uses the development-selected one-second cadence tolerance. A history ending at index t contains 24 slots from nominal t−115 minutes through t. It needs at least 22 observations, at most two consecutive missing slots, and three observed final readings >=70 mg/dL. A missing payload is zero with a separate mask; zero does not represent imputed glucose. There is no backward filling, target interpolation or presumed CGM-to-blood latency correction. All six future slots from+5 to+30 minutes must be observed, and a strictly below 70 mg/dL reading makes the label positive. Incomplete futures are omitted even if one observed value is low.
+
+The models receive at most 64 newest event instances with occurrence time in(t−120 minutes,t], ordered newest-first. CGM slots are read oldest-first. Normal-bolus amounts are interpreted conservatively; unvalidated extended quantities are not treated as known delivered insulin. Basal values are recorded rate/state entries rather than integrated exposure. Hash-based subtype encoding can merge source categories. There are no learned participant-ID embeddings and no pooled test-timeline physiological summaries.
+
+Event token channels are: validity(1), basal/bolus/food indicators(3), subtype-hash buckets(8), age(1), value(1), value-known(1), duplicate/provenance channels(2). Both provenance channels are set to zero at inference and training. Glucose is divided by 100; event values by fixed divisors 10, 25, and 150 for basal, bolus, food; age by 120 minutes. Missing/unknown value flags remain part of the input. A zero event count expresses no retained record, not verified clinical absence.
+
+Availability is retrospective occurrence-time replay with assumed immediate availability. The parent-upload linkage cannot support a complete first-usable-time rule for these modalities. Occurrence time and arrival time are different variables; no clinical delivery or meal record is presumed to have been usable immediately in actual deployment. Measured arrival or a separately labeled simulated-delay study is required for availability claims.
+
+Sources: [grid contract](../docs/loop_temporal_eligibility_spec.md), [history cache](../docs/loop_full_cgm_history_gate.md), [event contract](../docs/loop_event_sequence_contract.md), [unit/provenance adapter](../src/t1d_tkg/loop_adapter.py), [availability audit](../docs/loop_upload_linkage_audit.md).
+
+## S3. Complete neural architecture definitions
+
+Each prediction window is independent and shares no hidden state with another participant or a later window. Both graph and pooling variants encode a 24-by 2 CGM tensor and 64-by 17 event tensor. The CGM encoder is linear 2→64 with tanh. The event encoder is linear 17→64. The shared temporal readout is a single-layer GRU 64→64; its final state enters a 64→32→1 head with ReLU between the two linear layers. Outputs are logits, transformed with the logistic function for probability scoring.
+
+| Shared module | Parameter count | Definition |
+|---|---:|---|
+| CGM encoder | 192 | 2×64 weights+64 biases |
+| Event encoder | 1,152 | 17×64 weights+64 biases |
+| Temporal GRU | 24,960 | PyTorch single-layer GRU, input 64, hidden 64, both bias vectors |
+| Prediction head | 2,113 | 64→32→1, ReLU after first layer |
+| Shared total | 28,417 | Does not include variant-specific fusion bank |
+
+### S3.1. Generic and modality-typed graph
+
+For each valid event, candidate destinations are observed history slots at or after its occurrence and no later than the prediction index. The nearest admissible destination is selected; a missing slot cannot be a destination. The 132-channel edge input concatenates 64 event channels,64 destination-CGM channels, elapsed normalized time(1), and modality indicators(3). Three experts each apply linear 132→14, ReLU and linear 14→64. Each expert has 2,822 parameters; the bank has 8,466. Generic routing averages all three outputs for every edge. Typed routing selects one expert by event modality, while preserving the same bank and declared total parameter count.
+
+Messages are summed within each destination bin and divided by sqrt(max(count,1)). Adding the normalized messages to the CGM embedding and applying tanh produces the 24 fused states for the GRU. With zero events, the output is tanh of the already transformed CGM embedding. Both variants have 36,883 parameters. Modality is present in generic inputs; routing labels are reconstructible from the event flags, not external medical knowledge.
+
+### S3.2. Time-aligned non-graph pooling
+
+Pooling uses identical event membership and destination-bin assignment. It linearly encodes each event, multiplies the first 16 embedding channels by learned gains 1+0.1×tanh(g), and sums valid embeddings by bin with the same square-root count normalization. A count feature is count/sqrt(64). Concatenating CGM embedding, pooled event embedding and count gives 129 channels.
+
+A linear 129→64 layer followed by tanh gives a fused representation. A linear 64→2 layer with sigmoid gives separate CGM and event branch gates. The final state per slot is tanh(gate_CGM × CGM_embedding + gate_event × pooled_event + fused_representation). The same GRU/head follows. The fusion layer has 8,320 parameters, branch gates 130 and channel gains 16, totaling 8,466; the complete model again has 36,883.
+
+This comparator also changes the CGM-only nonlinear computation in bins with zero events, because the learned fusion and gates still operate. It additionally exposes the common-input-derived event count explicitly. Therefore equal parameter count and shared event timing do not make this a clean factorial deletion of message passing. A future isolated mechanistic contrast would need the same CGM pathway and fusion computation while varying only the event-conditioned message operation.
+
+### S3.3. Capacity-matched late-fusion event sequence
+
+The earlier sequence comparator uses a CGM GRU with 66 hidden channels, an event projection 17→27 with ReLU, an event GRU with 67 hidden channels, and a 133→24→1 prediction head. The final valid event position is used; no-event windows receive a zero event state. The declared count is 36,883. It retains individual events but combines independent CGM and event states only at the prediction head. Its fusion position, chronological representation, widths and optimization behavior differ from the graph and pooling models. Its one-epoch results cannot isolate alignment by comparison with the separate two-epoch pooling study.
+
+Sources: [executed relation model](../kaggle_event_sequence_gru/train_history_relations.py), [sequence implementation](../kaggle_event_sequence_gru/train_history_controlled.py), [control specification](../docs/loop_non_graph_capacity_matched_control.md), [aligned-control specification](../docs/loop_time_aligned_nongraph_control.md).
+
+## S4. Partitioning, optimization and interpretation of development reuse
+
+Each accepted comparison requires matching manifest, training membership, window identities, event/CGM inputs, budget, optimizer and source fingerprint within the pair. Validation participants are disjoint from that fit's training and internal development-test groups. Across configurations the training groups overlap, and all five validation groups jointly cover the same 652-person development sample. Across seeds the same patient folds recur. No new independent cohort is created by another seed, fit, epoch or hardware replay.
+
+The central graph-versus-sequence campaign used Apple MPS, two producer workers and one complete epoch at seeds 20261003/20261004. An earlier CUDA outer-0 pair is separate execution evidence. The graph-versus-pooling comparisons used two epochs at seeds 20261029/20261030; all accepted pairs match source within fold, while the first seed varies source between folds. The second seed shares source digest a4d1a91916a675024110e1c30d54546c3aa0d51724480dfdbcdbb141dea71648. The separate eight-epoch CPU outer-0 pair used seed 20261031 and three workers. Hardware, fold and seed differences mean the smaller eight-epoch contrast is not an identified schedule effect.
+
+Current neural fits use AdamW, learning rate 0.0002, weight decay 0.0001, unweighted binary cross-entropy with logits and batch size at most 4096. Data are streamed by participant/partition rather than shuffled independent windows. Validation scores are final-epoch scores under the recorded schedule, not evidence of convergence. No equally optimized contemporary CGM-only or strong sequence benchmark is established. Equal trainable parameter count is a budget control, not a proof of equal effective capacity, compute or tuning opportunity.
+
+The original primary contrast and model ideas evolved after development findings. The current pooling contrast is the most stringent completed comparator, not a retroactively untouched primary analysis. Repository-local dated run plans can support individual follow-up schedules, but no prospective registration identifier or completed nested selection procedure is established for the entire project.
+
+## S5. Statistical estimands, tied scores and uncertainty
+
+For participant i and fixed seed s, let d(i,s)=AP_graph(i,s)−AP_pool(i,s). Average within participant over the two completed seeds: d(i)=[d(i,20261029)+d(i,20261030)]/2. The reported summary is the equal-participant mean of d(i) over 650 AP-defined people. The Brier summary follows the same procedure over 652 people. It is neither a pooled-window AP nor the unweighted mean of fold APs. The two-seed mean AP difference is−0.0098996662433 and macro-Brier difference+0.0001264321763.
+
+AP is the stepwise precision–recall average with tied-score thresholds grouped together, version threshold-grouped-ap-v2. Participants with no positive label have undefined AP and are excluded with the denominator reported. They remain in Brier and cohort coverage. Brier per person is mean((probability−label)^2) across that person's windows. Macro-Brier averages those scores across people; pooled Brier weights windows equally. Brier is probabilistic error, not a complete calibration assessment.
+
+For each pair, participant clusters are resampled with replacement, keeping the aligned model predictions together. For the two-seed summary, both seed-specific effects remain within the same participant before averaging. The summary uses 10,000 percentile-bootstrap draws, AP bootstrap seed 20261031 and Brier seed 20261032. The 95% intervals are[−0.0104766942474,−0.0093454128414] for AP and[+0.0001096006569,+0.0001428661822] for macro-Brier. These intervals condition on saved fitted models and do not include refitting, hyperparameter selection, training-seed or independent-cohort uncertainty. Overlapping training groups add another dependence limitation.
+
+No formal multiplicity-adjusted confirmatory tests were conducted. Descriptive fold means are labeled as such, and interval endpoints are not averaged to create a pooled interval. No clinically meaningful effect threshold, noninferiority or equivalence margin was specified; small differences or narrow intervals do not establish clinical importance or equivalence. The one-fold eight-epoch result is reported separately rather than combined with the two-seed/five-fold summary.
+
+Historical AP calculations with incorrect tie handling were superseded. Raw source predictions, where recovered and complete, permit rescoring without retraining. A software correction does not erase earlier use of development results for decisions.
+
+Sources: [AP implementation](../src/t1d_tkg/metrics.py), [paired comparator](../scripts/compare_loop_pilot_archives.py), [two-seed aggregator](../scripts/summarize_two_seed_graph_aligned_control.py), [summary audit](../audit/loop_graph_vs_aligned_nongraph_two_seed_five_fold_participant_summary.json), [correction history](../docs/corrected_pilot_recovery.md).
+
+## S6. Planned versus executed analyses and deviations
+
+| Protocol component | Executed state | Consequence for interpretation |
+|---|---|---|
+| Broad semantic patient KG | Deterministic temporal event-to-CGM graph | No new semantic ontology or clinical knowledge-base validation. |
+| Nested patient-disjoint confirmation | Iterative development on shared patient folds | Selection-informed comparisons; reserved performance evaluation still absent. |
+| 30/60-minute and lower/sustained-low outcomes | Main neural evidence uses 30-minute any-future-low target | No claim for 60-minute model performance, sustained episodes or severe lows from these results. |
+| Proposed filling of limited history gaps | Neural history uses zero payload plus mask | Executed implementation governs; no imputed targets. |
+| Observed first-usable event times | Linkage gate failed; immediate occurrence-time replay | Optimistic retrospective information condition. |
+| Individual-event cap 16 | Cap increased to 64 following truncation audit | Earlier cap 16 result is not the final information contract. |
+| Initial tied-score AP | Replaced by threshold-grouped version 2 | Old affected AP results remain superseded. |
+| Graph versus sequence | Two seeds/five folds, one epoch | Complete for these fits; fusion and architecture remain different. |
+| Graph versus aligned pooling | Introduced as a later stricter control; two seeds/five folds, two epochs | Comparator-dependent result; CGM pathway also changes. |
+| Same-source first pooling seed | One source within each accepted pair; different sources between folds; one rejected pair rerun | Do not describe first seed as a uniform-source campaign. |
+| Replicated routing/event input value | Routing mixed; graph event-disabled tests differ in seed and schedule | No consistent clinical-relation or event-input benefit established. |
+| Explanation faithfulness | Selection-conditioned deletion screen only | No independently assessed faithfulness or clinician usability. |
+| Calibration and alert operating policy | Utilities/proposals exist; clinical prediction outputs not completed | Brier cannot stand in for calibration curves or alert burden. |
+| External event/graph validation | CGM-only logistic transfer and feasibility screens | No event or graph transportability evidence. |
+| Final reserved-group evaluation | No model performance reported | Final generalization estimate unavailable. |
+
+## S7. Earlier results, external transfer and prior-art detail
+
+The master record retains each historical modeling stage: rule/logistic baseline, AP repair, event-summary logistic, additive residual grid, cap 16 sequence, recovered cap 64 GRU, capacity-controlled first gates, full-history comparison, graph studies, perturbations, explanation sensitivity and transfer. They differ in evaluation group, architecture, training budget and metric versions. They are not merged into a single model-ranking leaderboard.
+
+The DCLP3/DCLP5 work replayed five frozen Loop CGM-only logistic models without fitting. It did not transfer insulin/food events or graph operations. Each source model beat persistence on the reported release-local targets. The external participants recur across the five model replays. Raw-versus-adjusted timestamps, insulin semantics, observation coverage and sentinel handling remain release-specific uncertainties. An external insulin-only study would need a corresponding Loop-trained reduced-input model and an agreed adapter. See the [external report](../docs/frozen_loop_cgm_jaeb_transfer_20261031.md).
+
+The complete 70-record prior-art matrix and source-by-source evidence note supply the detailed novelty defense removed from the main introduction. Key boundaries are: diabetic event-instance causal networks (Acharya/Lee 2014); event-order KGs using diabetes streams (Li/Ge/Chen 2020); temporal patient KGs for hospital disorders (Postiglione 2024); general temporal EHR graphs (TRANS 2024); semantic diabetes-KG proposals (Onwuchekwa 2024); graph hypoglycemia predictors (de Bruijn/visibility/GAT-BiGRU); Loop-based patient-level forewarning (MT-HypoNet); task-adjacent patient-disjoint any-low comparisons (Khokhar 2026 preprint); and extensive treatment/context models. These works have different tasks, source availability and study families. Source access limits and preprint status remain explicit.
+
+The literature work is a targeted assessment, not a completed systematic review. Native query exports, a deduplicated screening flow and independent human screening were not produced. The source matrix's 70 records are not search yield or 70 independent cohorts. No equivalent-study absence or first-in-field claim is established. See [matrix](../docs/literature_matrix.csv), [targeted search](../docs/targeted_prior_art_search_2026_10_31.md) and [protocol/search limitations](../docs/pubmed_search_protocol_2026_10_31.md).
+
+## S8. Reproduction scope, source availability and author responsibilities
+
+The manuscript builder regenerates numerical tables/figures and editable documents from aggregate audits, checks run-summary contracts and reconciles saved recomputation receipts. It does not refit every model, reconstruct every bootstrap from raw predictions, or validate all source clinical semantics. The evidence map lists fingerprints. The dossier inventory and package manifest provide document integrity, not clinical validation.
+
+Two Loop raw basal source files are currently missing according to the local worktree. Reacquiring them under the source terms is required for a fresh raw-to-cache rerun. Cached inputs and recovered model/prediction archives remain a distinct evidence layer. Historical source digests should be preserved; current method files are explanatory references and may not recreate each earlier fit bitwise. Platform-dependent deterministic behavior and font availability also constrain reproduction.
+
+Private caches, participant identifiers, prediction shards and checkpoints containing metadata are excluded from the shareable document bundle. Public code/environment/archive/license statements require author confirmation. Existing temporary event-partition directories must not be included by recursively copying the whole audit directory. The bundle builder uses an explicit document/evidence allowlist.
+
+The user supplied the author names Pronab Chandra Roy and Lihui Liu, in that order, with no institutional affiliations. Author approval of eligibility/order and corresponding-author details remains required. Other author facts include secondary-analysis ethics or exemption determination, consent applicability, source-use terms, funding, interests, contributor roles, patient/public involvement and AI-tool disclosure details. Those facts cannot be supplied by an internal AI reviewer. Reporting gaps and empirical requirements are itemized in the [reporting-standard review](reviews/reporting_standards_review_2026_11_08.md) and [submission-readiness register](submission_readiness_2026_11_08.md).
+
+
+## S9. Recorded software environments
+
+The [software-environment record](software_environment.md) tabulates run-metadata versions for all 21 central accepted pairs and distinguishes them from the documentation interpreter. Matching environment fields are not a full lockfile or proof of identical historical source. Public code/license/dependency archiving and reacquisition of missing raw source files remain explicit prerequisites.

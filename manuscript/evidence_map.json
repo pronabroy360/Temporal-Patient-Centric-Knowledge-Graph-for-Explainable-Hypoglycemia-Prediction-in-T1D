@@ -1,5 +1,5 @@
 {
-  "snapshot": "2026-10-20",
+  "snapshot": "2026-10-31",
   "paired_audits": [
     "audit/loop_mps_outer0_graph_vs_sequence_paired_20261019.json",
     "audit/loop_mps_outer1_graph_vs_sequence_paired_20261019.json",
@@ -9,7 +9,19 @@
     "audit/loop_mps_outer0_seed20261004_graph_vs_sequence_paired_20261020.json",
     "audit/loop_mps_outer1_seed20261004_graph_vs_sequence_paired_20261020.json",
     "audit/loop_mps_outer2_seed20261004_graph_vs_sequence_paired_20261020.json",
-    "audit/loop_mps_outer3_seed20261004_graph_vs_sequence_paired_20261020.json"
+    "audit/loop_mps_outer3_seed20261004_graph_vs_sequence_paired_20261020.json",
+    "audit/loop_mps_outer4_seed20261004_graph_vs_sequence_paired_20261020.json",
+    "audit/loop_graph_vs_aligned_nongraph_outer0_seed20261029.json",
+    "audit/loop_graph_vs_aligned_nongraph_outer1_seed20261029.json",
+    "audit/loop_graph_vs_aligned_nongraph_outer2_seed20261029_current_source_rerun.json",
+    "audit/loop_graph_vs_aligned_nongraph_outer3_seed20261029_current_source.json",
+    "audit/loop_graph_vs_aligned_nongraph_outer4_seed20261029_source_a4d.json",
+    "audit/loop_graph_vs_aligned_nongraph_outer0_seed20261030_source_a4d.json",
+    "audit/loop_graph_vs_aligned_nongraph_outer1_seed20261030_source_a4d.json",
+    "audit/loop_graph_vs_aligned_nongraph_outer2_seed20261030_source_a4d.json",
+    "audit/loop_graph_vs_aligned_nongraph_outer3_seed20261030_source_a4d.json",
+    "audit/loop_graph_vs_aligned_nongraph_outer4_seed20261030_source_a4d.json",
+    "audit/loop_longer_schedule_outer0_seed20261031_graph_vs_aligned_cpu8.json"
   ],
   "sources": {
     "audit/loop_mps_outer0_graph_vs_sequence_paired_20261019.json": {
@@ -120,9 +132,25 @@
       "sha256": "6fe9348efad0710ca37ea0264ae609a915834ba3e69373fc96b82315fa55e19c",
       "bytes": 2384
     },
+    "audit/loop_mps_outer4_seed20261004_graph_vs_sequence_paired_20261020.json": {
+      "sha256": "fb786e82dab34a15fe07c6c62fd0413fc971a68e9b6f6e9153f3e1aa73ee3324",
+      "bytes": 3778
+    },
+    "private/mps_research/outer4_seed20261004_graph_generic/result.json": {
+      "sha256": "a54e1de014912864d05c013730e536c3981cb466de94ca99bf9aa0000f58366a",
+      "bytes": 2780
+    },
+    "private/mps_research/outer4_seed20261004_sequence_mps/result.json": {
+      "sha256": "d86eea2a4dee363aefdeec3c46ab6ca2cb0c5a384bdd6ba58a26a4c1071d1b60",
+      "bytes": 2383
+    },
     "audit/loop_cgm_history_cache_validation.json": {
       "sha256": "54c7e65f8c4c4f0f5ce17b38af642ed06c255126a38089abe506e9c32d27beb0",
       "bytes": 639
+    },
+    "audit/loop_longer_schedule_outer0_seed20261031_graph_vs_aligned_cpu8.json": {
+      "sha256": "415df54e6d7f33487785189b7a7a9a5f923a0c3616119d8ca09ed0b6c6e2e94e",
+      "bytes": 2734
     },
     "audit/loop_temporal_relation_outer0_paired_pilot.json": {
       "sha256": "1322eafb879f5e5ad9adc02ecef0fc81193da55e995a550cbea9946ff76bebc1",
@@ -184,9 +212,209 @@
       "sha256": "baff054bd37aab1284c498382ce225c3387cab000cd0ade3c9b0eec8381ce6b0",
       "bytes": 6157
     },
-    "audit/loop_mps_graph_vs_sequence_five_fold_summary_20261019.json": {
-      "sha256": "345d4f43b36b6c5aeaf9f98dc96cb84bf8016d77b11058c435362929d3ea0b30",
-      "bytes": 5552
+    "audit/loop_mps_graph_sequence_two_seed_five_fold_summary_20261020.json": {
+      "sha256": "a55bf2cd8f39fa5b86328f9e60e721e03254f138486750decb8befb094053ddd",
+      "bytes": 13708
+    },
+    "audit/loop_relation_typed_vs_generic_seed20261004_five_fold_summary_20261020.json": {
+      "sha256": "601fba5aac379d6905be436dfa56f28bb42077f8f7f09e9201a34f8265d9627d",
+      "bytes": 9454
+    },
+    "audit/loop_relation_endpoint_perturbation_two_seed_five_fold_summary_20261028.json": {
+      "sha256": "96213abfe86c1e07e2ccd8bf6be7b22d61aede8ed514d8593d26c97e7ce08081",
+      "bytes": 8571
+    },
+    "audit/loop_event_age_reassignment_two_seed_five_fold_summary_20261029.json": {
+      "sha256": "586e243051a3c78be030a66062f428bc4f67c9e5fad19e8cfa308a142fbc643a",
+      "bytes": 6054
+    },
+    "audit/loop_graph_event_explanation_faithfulness_outer0_seed20261005_20261029_v2.json": {
+      "sha256": "65f1457eef5ece86477ec04425952b0502dd397a210196eb59a4262e5f08e6e5",
+      "bytes": 3581
+    },
+    "audit/loop_graph_vs_aligned_nongraph_outer0_seed20261029.json": {
+      "sha256": "09528b8767223b205b7e6f518987e867d042d649e08c8c8135f40b2ca9c9a1a7",
+      "bytes": 2763
+    },
+    "audit/loop_graph_vs_aligned_nongraph_outer1_seed20261029.json": {
+      "sha256": "96070a4a36d3fe4e6ddbffafe8828ccf151d48339f523655ccb093ec1a5cb697",
+      "bytes": 2759
+    },
+    "audit/loop_graph_vs_aligned_nongraph_outer2_seed20261029_current_source_rerun.json": {
+      "sha256": "01731c13bfdf5f8506b919b1f6bcb3bd8ab63e9062f1e870c20c42aff727ca75",
+      "bytes": 2774
+    },
+    "audit/loop_graph_vs_aligned_nongraph_outer3_seed20261029_current_source.json": {
+      "sha256": "6029bcafe580b0fcd4033a529c94186b085e3d86cf432755e33fb1cb440e35eb",
+      "bytes": 2787
+    },
+    "audit/loop_graph_vs_aligned_nongraph_outer4_seed20261029_source_a4d.json": {
+      "sha256": "066e8814c45307ba3a8e48ef8a1c4e3106ff08dc7c37cc909b947f0b7e0299e0",
+      "bytes": 2807
+    },
+    "audit/novelty_evidence_bundle_20261031_v10.json": {
+      "sha256": "0585bdbc01f8120fc8b297def89b8d0d6033d2c5807c9e1e57b07caed6920862",
+      "bytes": 54194
+    },
+    "audit/loop_graph_event_ablation_outer0_seed20261031_paired_20261031.json": {
+      "sha256": "901e22cd50472d97c838c486d2f8516a8378612d1b7c26d1db479fa5dcce21e3",
+      "bytes": 2505
+    },
+    "audit/loop_graph_vs_aligned_nongraph_seed20261030_five_fold_summary.json": {
+      "sha256": "5470b8b1e18d0f0745bc2ae235bad5995b670ceb6e295238952cf4cce5a66088",
+      "bytes": 3056
+    },
+    "audit/loop_graph_vs_aligned_nongraph_outer0_seed20261030_source_a4d.json": {
+      "sha256": "7f87b3fbad3daf8421e51c23e78c0c7675568576db4e758a67cbafd63dd0fde7",
+      "bytes": 2775
+    },
+    "audit/loop_graph_vs_aligned_nongraph_outer1_seed20261030_source_a4d.json": {
+      "sha256": "faecca9d16a5d1057de2f5debf9cac378a8b20e5ef5da6ab252e7bce179a8ca2",
+      "bytes": 2778
+    },
+    "audit/loop_graph_vs_aligned_nongraph_outer2_seed20261030_source_a4d.json": {
+      "sha256": "d29e8986fc3855d8ded61498e50777cabcf1dd31a079d4cf27c597d3acb08fc8",
+      "bytes": 2775
+    },
+    "audit/loop_graph_vs_aligned_nongraph_outer3_seed20261030_source_a4d.json": {
+      "sha256": "46337d986427622cc21a3efe3cecb87e97514ceb52fbcb1c546f8e77ee3b17cb",
+      "bytes": 2777
+    },
+    "audit/loop_graph_vs_aligned_nongraph_outer4_seed20261030_source_a4d.json": {
+      "sha256": "5d42e2f8d3fafecbc5b7a02fc034340c65edcef6ee2ea3ce791b0633e4951be5",
+      "bytes": 2777
+    },
+    "audit/loop_graph_vs_aligned_nongraph_two_seed_five_fold_participant_summary.json": {
+      "sha256": "22caa1fc0404e7c9107c1027a402df95e27ae4694662f06bd1011b37eb69627d",
+      "bytes": 4955
+    },
+    "audit/dclp_temporal_coverage_20261031.json": {
+      "sha256": "0b42b4d8ba31f0e32a7dbd4326d50807a74d0405c395c8360fbe187c6505e8a1",
+      "bytes": 7403
+    },
+    "audit/dclp_eligible_windows_20261031.json": {
+      "sha256": "f4b7fe02a71da21b80190b091c06e6fcfcb0cd2bbe23518dd7a1f1dba0f953fd",
+      "bytes": 10516
+    },
+    "audit/dclp3_frozen_loop_cgm_logistic_transfer_raw_20261031_v3.json": {
+      "sha256": "7eb67156d39668d845d9750a2fd2ca782fa6b48e2e8eb332284d5f867f71c19a",
+      "bytes": 14492
+    },
+    "audit/dclp5_frozen_loop_cgm_logistic_transfer_raw_20261031_v3.json": {
+      "sha256": "fd9045809e5bab1dc6a0110e017b5a9abc3d0b7052e41ca56429279074d8f318",
+      "bytes": 14500
+    },
+    "audit/dclp5_frozen_loop_cgm_logistic_transfer_adjusted_20261031_v3.json": {
+      "sha256": "a09e35119c0595d0d7ebf90826ab92af4cfded23f5d97b6a2c18bcec2fc64316",
+      "bytes": 14518
+    },
+    "audit/dclp_insulin_semantics_20261031.json": {
+      "sha256": "301bbe634310f6f3be139e781dfe8caca6211789e5be56d1fdeff74dc7a6e6a5",
+      "bytes": 7077
+    },
+    "audit/dclp5_eligible_windows_raw_time_20261031.json": {
+      "sha256": "6a78b743156d68bc241b10a3b3950dde594889eb82679f5ffe9453554070e78d",
+      "bytes": 5474
+    },
+    "audit/dclp5_eligible_windows_adjusted_time_20261031.json": {
+      "sha256": "02de01ecd9a8bbbd84c066f68ce9d767acce26599d5e8ce69625a9187321d016",
+      "bytes": 5583
+    },
+    "audit/dclp3_eligible_windows_raw_time_20261031.json": {
+      "sha256": "89f6edad31d02cf1f2c68b68947176a56da97156c1eab21908d03974b89e22e4",
+      "bytes": 5189
+    },
+    "audit/dclp_timestamp_policy_sensitivity_20261031.json": {
+      "sha256": "6a1172a66c841ea68c36f85de1fa078485739e9dbaed3511ea93b27dc79fd1c2",
+      "bytes": 4494
+    },
+    "private/pilot_runs/loop_aligned_control_outer0_seed20261029/graph-generic/run.json": {
+      "sha256": "09ba2a53d67cb47424e6a66bb68f92da863a68817bb482a5454f115fdf38b11b",
+      "bytes": 3094
+    },
+    "private/pilot_runs/loop_aligned_control_outer0_seed20261029/aligned-nongraph/run.json": {
+      "sha256": "057b361b110669214dc465418d30a92ca146c8de39d77028e46d6c67d3dd3df3",
+      "bytes": 3166
+    },
+    "private/pilot_runs/loop_aligned_control_outer1_seed20261029/graph-generic/run.json": {
+      "sha256": "98ef40dd8218f80510f7ce18e9b9ed9860460a08e0f3c2728242058db012bf1f",
+      "bytes": 3093
+    },
+    "private/pilot_runs/loop_aligned_control_outer1_seed20261029/aligned-nongraph/run.json": {
+      "sha256": "855cd6605d6ff9f38815173d0a87a3ee6ff3fa4c094e35f65239ef7344f748e5",
+      "bytes": 3165
+    },
+    "private/pilot_runs/loop_aligned_control_outer2_seed20261029/graph-generic-current-source/run.json": {
+      "sha256": "10f9e412d9431652da6927567b696f14a103686e84afdbbef63c8f26cf2d5b47",
+      "bytes": 3110
+    },
+    "private/pilot_runs/loop_aligned_control_outer2_seed20261029/aligned-nongraph/run.json": {
+      "sha256": "bfd44725592b614d0ff8fe35af0fa5dd72a3e02db8752ae16c75cd575cd118dc",
+      "bytes": 3166
+    },
+    "private/pilot_runs/loop_aligned_control_outer3_seed20261029_current_source/graph-generic/run.json": {
+      "sha256": "ef79a1b5d382c3dbe155f2a8249df6b0613b8b2f0c39e819cb533e4ad6d99091",
+      "bytes": 3111
+    },
+    "private/pilot_runs/loop_aligned_control_outer3_seed20261029_current_source/aligned-nongraph/run.json": {
+      "sha256": "e2568e0d0967fd074ee3ae5057dd4b80cb6acb91963da538dc7cf1f868bbf56c",
+      "bytes": 3182
+    },
+    "private/pilot_runs/loop_aligned_control_outer4_seed20261029_current_source/graph-generic-source-a4d-rerun/run.json": {
+      "sha256": "5d6f8f8ba51fd0db5ad9fa1fa9b511aa5ac25ab63477e648ffcbb83229125222",
+      "bytes": 3126
+    },
+    "private/pilot_runs/loop_aligned_control_outer4_seed20261029_current_source/aligned-nongraph/run.json": {
+      "sha256": "5245805dd58b4c4ab15cbe55af7c5190eddda61765e28b834389a9987f0d16c3",
+      "bytes": 3182
+    },
+    "private/pilot_runs/loop_aligned_control_outer0_seed20261030_source_a4d/graph-generic/run.json": {
+      "sha256": "3127dfef3b4650ab656ca08f5039571beb6f56f95bf2a466d10093d095d34f66",
+      "bytes": 3103
+    },
+    "private/pilot_runs/loop_aligned_control_outer0_seed20261030_source_a4d/aligned-nongraph/run.json": {
+      "sha256": "f242dfc8c042220121f3ad20e7da39f8172147df9b4ffd368104d36ee299de24",
+      "bytes": 3177
+    },
+    "private/pilot_runs/loop_aligned_control_outer1_seed20261030_source_a4d/graph-generic/run.json": {
+      "sha256": "07747b94311cf8499bf441d9ff266c6526bea47f2163c4c268a67adb61c4ed5b",
+      "bytes": 3105
+    },
+    "private/pilot_runs/loop_aligned_control_outer1_seed20261030_source_a4d/aligned-nongraph/run.json": {
+      "sha256": "13d2101e740d91a6f74a12185067b972566eec36cac7862a740f4e1699d1004c",
+      "bytes": 3174
+    },
+    "private/pilot_runs/loop_aligned_control_outer2_seed20261030_source_a4d/graph-generic/run.json": {
+      "sha256": "dfbd68c15e5afed9a6d15185b217b069078a4e96c9427e2d696ea2c23d0548ec",
+      "bytes": 3105
+    },
+    "private/pilot_runs/loop_aligned_control_outer2_seed20261030_source_a4d/aligned-nongraph/run.json": {
+      "sha256": "8727590b976892903937190e63a2d125b65f45fee2993f2a0057ef124c3f955f",
+      "bytes": 3178
+    },
+    "private/pilot_runs/loop_aligned_control_outer3_seed20261030_source_a4d/graph-generic/run.json": {
+      "sha256": "be7e6c5b7fdb7e67d2948f2d5bcb545db24d08f7d4c8e41f780d35bfb11e41b5",
+      "bytes": 3104
+    },
+    "private/pilot_runs/loop_aligned_control_outer3_seed20261030_source_a4d/aligned-nongraph/run.json": {
+      "sha256": "f066f7804e0aa3a581594808f65571e86aac5e404aa615969790d0c18b984bb0",
+      "bytes": 3177
+    },
+    "private/pilot_runs/loop_aligned_control_outer4_seed20261030_source_a4d/graph-generic/run.json": {
+      "sha256": "053ab80679cf8e76edd524a3e3be7d022678aeba86ff43d69ea5446f92e9fbf6",
+      "bytes": 3104
+    },
+    "private/pilot_runs/loop_aligned_control_outer4_seed20261030_source_a4d/aligned-nongraph/run.json": {
+      "sha256": "423b4e573434e3511db4095b0e8abf3769f262529c129ea23225710d354493ca",
+      "bytes": 3178
+    },
+    "audit/novelty_recomputation_check_20261031.json": {
+      "sha256": "fd950b705ba0daedc38c71fddc91ce6669f856f9a499e896eb071f785fa9a59f",
+      "bytes": 2305
+    },
+    "private/pilot_runs/loop_aligned_control_outer4_seed20261029_current_source/graph-generic/run.json": {
+      "sha256": "ed9b69e1e5b23cf754a820483651ad31bfe172061bd8fa9dd2f0fbc779c88344",
+      "bytes": 3109
     },
     "src/t1d_tkg/cgm_history_cache.py": {
       "sha256": "a5429aabeb302cf1f90d2b407ec95f7ef4434bdc6a329f8b36df35de19e392e2",
@@ -197,8 +425,8 @@
       "bytes": 3427
     },
     "src/t1d_tkg/temporal_relations.py": {
-      "sha256": "4e42bda501098985acadc1d3c673a9e911209e5f42e36447856d91676782aa38",
-      "bytes": 3457
+      "sha256": "66c27d019085600b8ceda1fa44a23179af5479ef679dd815b3ac54542da83830",
+      "bytes": 4292
     },
     "src/t1d_tkg/loop_adapter.py": {
       "sha256": "0d1bd721ffaf741535da665b052f6e5090b7f142ff0d8dededac2046e89a0761",
@@ -209,12 +437,112 @@
       "bytes": 29663
     },
     "kaggle_event_sequence_gru/train_history_relations.py": {
-      "sha256": "2d969534f64d483a50bc0a1fb465764add711aa0eeeb724499038704bdf699d5",
-      "bytes": 23900
+      "sha256": "118ce57c6881bc834eda035fe7411c92ebeae067c5a4f97769201db87ea8b2de",
+      "bytes": 30691
     },
     "scripts/compare_graph_sequence_archives.py": {
       "sha256": "820d6f2026e4629251e0fbd3d47e00cea0e6531e855c16dec3b4efb751e80f46",
       "bytes": 7073
+    },
+    "scripts/summarize_graph_aligned_nongraph_folds.py": {
+      "sha256": "79311fe51051f836c16a3a010185334f79d6fdd7729a9b6e03b6e17998dd9865",
+      "bytes": 10694
+    },
+    "scripts/summarize_two_seed_graph_aligned_control.py": {
+      "sha256": "0c7eac90b2781555b58a9dfb6869dc4e2b64fd82e2f4c08bb70e892d5f27b19f",
+      "bytes": 9331
+    },
+    "scripts/audit_novelty_evidence_bundle.py": {
+      "sha256": "5944e9ca19902c6bd6d3ef4d14043a3a0e0edc25ecb2779acd60b38c343a6792",
+      "bytes": 41117
+    },
+    "scripts/audit_jaeb_temporal_coverage.py": {
+      "sha256": "3765e90d42f38f95122829c2a04d5c4790a41cb944337750b558f852007904b6",
+      "bytes": 10425
+    },
+    "scripts/audit_jaeb_eligible_windows.py": {
+      "sha256": "f00b88b26434690f4a3b3c0f3c0a042a54c28a8b102f23787b71a5eee49dfee5",
+      "bytes": 20936
+    },
+    "scripts/audit_jaeb_timestamp_policy_sensitivity.py": {
+      "sha256": "a9ca851a81a4d2a170bc1eba9435933a08a520484df83d8f995ee81b16dc77e4",
+      "bytes": 5863
+    },
+    "scripts/audit_dclp_insulin_semantics.py": {
+      "sha256": "3280b99a4e993fe7fb4d082f31bb4c65937d0dd0740d061faafd0179e4ed6ebb",
+      "bytes": 7260
+    },
+    "docs/novelty_evidence_audit_correction_2026_10_31.md": {
+      "sha256": "932b6a62263526224922e2ca282d33737212025d7dcb7982fbc1447b5e4bf1cc",
+      "bytes": 1446
+    },
+    "docs/research_master_record_2026_11_08.md": {
+      "sha256": "1544ca3314a086ef4c2aa573d3d3d2672847749b5465071aee0879a352036672",
+      "bytes": 35442
+    },
+    "manuscript/supplementary_methods.md": {
+      "sha256": "c48e49bc752d8c8879409d69c7dc874f05f808a10b3f812a5bf98cb343d589cf",
+      "bytes": 23456
+    },
+    "manuscript/software_environment.md": {
+      "sha256": "40ae931c77e84c2363cca04c1953de532638aebf953f679eaa91f22aee7a410f",
+      "bytes": 2715
+    },
+    "manuscript/submission_readiness_2026_11_08.md": {
+      "sha256": "ccdd5d1edd35e5ee3523e892920a946504592d263efddeb4267c478b8414f278",
+      "bytes": 9950
+    },
+    "manuscript/revision_response_2026_11_08.md": {
+      "sha256": "ebc9472fb6bfd10578b169ab90e7b1e5f47a51b7f11edad98f674a7170a09745",
+      "bytes": 9185
+    },
+    "manuscript/reviews/reporting_standards_review_2026_11_08.md": {
+      "sha256": "6f8daad25950c8494eaf1ccee6c60a022e9b09bd8ca28dfd9ed78b2bc071851c",
+      "bytes": 46102
+    },
+    "manuscript/reviews/methods_statistics_review_2026_11_08.md": {
+      "sha256": "3201217cbf34a87e53c9583d4e12af118f93b471e4e87345ab5d1e67efa33af6",
+      "bytes": 26851
+    },
+    "manuscript/reviews/clinical_editor_review_2026_11_08.md": {
+      "sha256": "27e84015001df662cb189655a7c63975d71d960b04617b33ff3afcc64a0e5cbd",
+      "bytes": 34626
+    },
+    "docs/novelty_evidence_report_2026_10_31.md": {
+      "sha256": "c5264d2ff1a4ce625e1e65819b97aac2a78b966cc91e9bbb863129bfe4145b79",
+      "bytes": 62761
+    },
+    "docs/primary_source_novelty_check_2026_10_31.md": {
+      "sha256": "433dbd3d03ef72bff90501701174653367b39543cf16f2b6f3e07835528c21e6",
+      "bytes": 22996
+    },
+    "docs/primary_source_novelty_update_2026_10_31.md": {
+      "sha256": "482feed995d52a14efe5a3f04c6ba1b2bf61aef8892e893f987cb1e0cdf9d559",
+      "bytes": 16630
+    },
+    "docs/targeted_prior_art_search_2026_10_31.md": {
+      "sha256": "d2bbf14c3a185f9c73eaf528faea7ddb3cda879d8bc010970a0007288b8919ca",
+      "bytes": 33542
+    },
+    "docs/literature_search_log.md": {
+      "sha256": "b980cef921d3e4cc02806fd7e3c0656de5ffd04b6afdd4e65443193e8703045c",
+      "bytes": 59333
+    },
+    "docs/literature_matrix.csv": {
+      "sha256": "81eaba9cf89671c5bbe7e08e81b4864e1cd2d33eb1ed8ec6245dc743fb302b93",
+      "bytes": 58600
+    },
+    "docs/loop_extended_schedule_protocol_2026_10_31.md": {
+      "sha256": "505e4f7c2b12bc36acea37223aebbf83f75309496b373aa6971c8e6bda472d13",
+      "bytes": 3849
+    },
+    "docs/dclp_temporal_coverage_audit_2026_10_31.md": {
+      "sha256": "966d809cf9c16eec870572eaaaa840b8ee643bda3e450d8044b5338a723efaaa",
+      "bytes": 13599
+    },
+    "docs/jaeb_candidate_screening.md": {
+      "sha256": "ac2c03e138082dba5d189e9076973bb94833b2268d53771b815512391397806d",
+      "bytes": 4791
     }
   },
   "methods_sources": [
@@ -224,10 +552,45 @@
     "src/t1d_tkg/loop_adapter.py",
     "kaggle_event_sequence_gru/train_history_controlled.py",
     "kaggle_event_sequence_gru/train_history_relations.py",
-    "scripts/compare_graph_sequence_archives.py"
+    "scripts/compare_graph_sequence_archives.py",
+    "scripts/summarize_graph_aligned_nongraph_folds.py",
+    "scripts/summarize_two_seed_graph_aligned_control.py",
+    "scripts/audit_novelty_evidence_bundle.py",
+    "scripts/audit_jaeb_temporal_coverage.py",
+    "scripts/audit_jaeb_eligible_windows.py",
+    "scripts/audit_jaeb_timestamp_policy_sensitivity.py",
+    "scripts/audit_dclp_insulin_semantics.py",
+    "docs/novelty_evidence_audit_correction_2026_10_31.md"
+  ],
+  "supporting_documents": [
+    "docs/research_master_record_2026_11_08.md",
+    "manuscript/supplementary_methods.md",
+    "manuscript/software_environment.md",
+    "manuscript/submission_readiness_2026_11_08.md",
+    "manuscript/revision_response_2026_11_08.md",
+    "manuscript/reviews/reporting_standards_review_2026_11_08.md",
+    "manuscript/reviews/methods_statistics_review_2026_11_08.md",
+    "manuscript/reviews/clinical_editor_review_2026_11_08.md",
+    "docs/novelty_evidence_report_2026_10_31.md",
+    "docs/primary_source_novelty_check_2026_10_31.md",
+    "docs/primary_source_novelty_update_2026_10_31.md",
+    "docs/targeted_prior_art_search_2026_10_31.md",
+    "docs/literature_search_log.md",
+    "docs/literature_matrix.csv",
+    "docs/loop_extended_schedule_protocol_2026_10_31.md",
+    "docs/dclp_temporal_coverage_audit_2026_10_31.md",
+    "audit/dclp_eligible_windows_20261031.json",
+    "audit/dclp_insulin_semantics_20261031.json",
+    "scripts/audit_dclp_insulin_semantics.py",
+    "audit/dclp5_eligible_windows_raw_time_20261031.json",
+    "audit/dclp5_eligible_windows_adjusted_time_20261031.json",
+    "audit/dclp3_eligible_windows_raw_time_20261031.json",
+    "audit/dclp_timestamp_policy_sensitivity_20261031.json",
+    "scripts/audit_jaeb_timestamp_policy_sensitivity.py",
+    "docs/jaeb_candidate_screening.md"
   ],
   "claim_mapping": {
-    "tables_1_2_3_and_figure_1": [
+    "table_1_cohort_and_supplementary_sequence_results": [
       "audit/loop_mps_outer0_graph_vs_sequence_paired_20261019.json",
       "audit/loop_mps_outer1_graph_vs_sequence_paired_20261019.json",
       "audit/loop_mps_outer2_graph_vs_sequence_paired_20261019.json",
@@ -236,8 +599,53 @@
       "audit/loop_mps_outer0_seed20261004_graph_vs_sequence_paired_20261020.json",
       "audit/loop_mps_outer1_seed20261004_graph_vs_sequence_paired_20261020.json",
       "audit/loop_mps_outer2_seed20261004_graph_vs_sequence_paired_20261020.json",
-      "audit/loop_mps_outer3_seed20261004_graph_vs_sequence_paired_20261020.json"
+      "audit/loop_mps_outer3_seed20261004_graph_vs_sequence_paired_20261020.json",
+      "audit/loop_mps_outer4_seed20261004_graph_vs_sequence_paired_20261020.json"
     ],
+    "tables_2_3_and_figure_2_pooling": [
+      "audit/loop_graph_vs_aligned_nongraph_outer0_seed20261029.json",
+      "audit/loop_graph_vs_aligned_nongraph_outer1_seed20261029.json",
+      "audit/loop_graph_vs_aligned_nongraph_outer2_seed20261029_current_source_rerun.json",
+      "audit/loop_graph_vs_aligned_nongraph_outer3_seed20261029_current_source.json",
+      "audit/loop_graph_vs_aligned_nongraph_outer4_seed20261029_source_a4d.json",
+      "audit/loop_graph_vs_aligned_nongraph_outer0_seed20261030_source_a4d.json",
+      "audit/loop_graph_vs_aligned_nongraph_outer1_seed20261030_source_a4d.json",
+      "audit/loop_graph_vs_aligned_nongraph_outer2_seed20261030_source_a4d.json",
+      "audit/loop_graph_vs_aligned_nongraph_outer3_seed20261030_source_a4d.json",
+      "audit/loop_graph_vs_aligned_nongraph_outer4_seed20261030_source_a4d.json"
+    ],
+    "time_aligned_nongraph_control_seed20261029": [
+      "audit/loop_graph_vs_aligned_nongraph_outer0_seed20261029.json",
+      "audit/loop_graph_vs_aligned_nongraph_outer1_seed20261029.json",
+      "audit/loop_graph_vs_aligned_nongraph_outer2_seed20261029_current_source_rerun.json",
+      "audit/loop_graph_vs_aligned_nongraph_outer3_seed20261029_current_source.json",
+      "audit/loop_graph_vs_aligned_nongraph_outer4_seed20261029_source_a4d.json"
+    ],
+    "time_aligned_nongraph_control_seed20261030": [
+      "audit/loop_graph_vs_aligned_nongraph_outer0_seed20261030_source_a4d.json",
+      "audit/loop_graph_vs_aligned_nongraph_outer1_seed20261030_source_a4d.json",
+      "audit/loop_graph_vs_aligned_nongraph_outer2_seed20261030_source_a4d.json",
+      "audit/loop_graph_vs_aligned_nongraph_outer3_seed20261030_source_a4d.json",
+      "audit/loop_graph_vs_aligned_nongraph_outer4_seed20261030_source_a4d.json"
+    ],
+    "time_aligned_nongraph_control_seed20261030_aggregate": "audit/loop_graph_vs_aligned_nongraph_seed20261030_five_fold_summary.json",
+    "time_aligned_nongraph_control_two_seed_participant_summary": "audit/loop_graph_vs_aligned_nongraph_two_seed_five_fold_participant_summary.json",
+    "longer_schedule_outer0": "audit/loop_longer_schedule_outer0_seed20261031_graph_vs_aligned_cpu8.json",
+    "evidence_bundle_audit": "audit/novelty_evidence_bundle_20261031_v10.json",
+    "dclp_insulin_cgm_span_feasibility": "audit/dclp5_frozen_loop_cgm_logistic_transfer_raw_20261031_v3.json",
+    "dclp_insulin_only_window_feasibility": "audit/dclp5_frozen_loop_cgm_logistic_transfer_adjusted_20261031_v3.json",
+    "dclp_insulin_value_and_timestamp_semantics_screen": "audit/dclp_insulin_semantics_20261031.json",
+    "dclp5_clock_policy_window_sensitivity": [
+      "audit/dclp5_eligible_windows_raw_time_20261031.json",
+      "audit/dclp5_eligible_windows_adjusted_time_20261031.json"
+    ],
+    "dclp3_event_clock_window_sensitivity": [
+      "audit/dclp3_eligible_windows_raw_time_20261031.json",
+      "audit/dclp_eligible_windows_20261031.json"
+    ],
+    "dclp_raw_adjusted_span_overlap_sensitivity": "audit/dclp_timestamp_policy_sensitivity_20261031.json",
+    "closest_loop_forewarning_prior_art": "docs/primary_source_novelty_update_2026_10_31.md",
+    "independent_saved_prediction_recomputation_receipt": "audit/novelty_recomputation_check_20261031.json",
     "typed_routing": "audit/loop_temporal_relation_outer0_paired_pilot.json",
     "cuda_pair": "audit/loop_graph_vs_capacity_matched_outer0_paired_10000draws_20261019.json",
     "canonicalization": "audit/loop_cgm_canonical_audit.json",
@@ -252,12 +660,52 @@
     "epoch_sensitivity": "audit/loop_full_history_history_event_epoch1_vs_epoch2_strict_20261017.json",
     "event_truncation": "audit/loop_event_sequence_truncation_distribution.json",
     "event_overlap": "audit/loop_multimodal_window_overlap.json",
-    "availability_limits": "audit/loop_upload_linkage.json"
+    "availability_limits": "audit/loop_upload_linkage.json",
+    "two_seed_five_fold_comparison": "audit/loop_mps_graph_sequence_two_seed_five_fold_summary_20261020.json",
+    "typed_routing_five_fold": "audit/loop_relation_typed_vs_generic_seed20261004_five_fold_summary_20261020.json",
+    "endpoint_perturbation": "audit/loop_relation_endpoint_perturbation_two_seed_five_fold_summary_20261028.json",
+    "event_age_reassignment": "audit/loop_event_age_reassignment_two_seed_five_fold_summary_20261029.json",
+    "explanation_sensitivity": "audit/loop_graph_event_explanation_faithfulness_outer0_seed20261005_20261029_v2.json"
   },
   "provenance_limits": [
     "Top-level paired-audit seed is the bootstrap seed; training seed is training_contract.seed.",
     "Current method files are inspected implementation references; historic fits have their own source hashes.",
     "Typed-pilot local raw-prediction recovery not confirmed.",
-    "No raw participant predictions were opened or recomputed during this manuscript build."
-  ]
+    "The manuscript builder uses the aggregate report; the separate five-fold summary script reads saved prediction rows, checks paired identities, and emits no participant identifiers."
+  ],
+  "documentation_revision": "2026-11-08",
+  "template_to_output_reference_numbers": {
+    "1": 1,
+    "32": 2,
+    "36": 3,
+    "41": 4,
+    "7": 5,
+    "8": 6,
+    "17": 7,
+    "18": 8,
+    "19": 9,
+    "20": 10,
+    "21": 11,
+    "42": 12,
+    "43": 13,
+    "44": 14,
+    "10": 15,
+    "11": 16,
+    "12": 17,
+    "4": 18,
+    "5": 19,
+    "6": 20,
+    "38": 21,
+    "39": 22,
+    "23": 23,
+    "40": 24,
+    "14": 25,
+    "30": 26,
+    "22": 27,
+    "26": 28,
+    "27": 29,
+    "2": 30,
+    "3": 31,
+    "9": 32
+  }
 }

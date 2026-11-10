@@ -1,0 +1,10 @@
+{
+  "package": "research_outputs/journal_documentation_20261108_public.zip",
+  "bytes": 2068948,
+  "sha256": "cf4ff11fa5aed782c28e1a79c363b8d8d53d43a36a386f95ff108a09894a921c",
+  "members": 218,
+  "integrity": "passed",
+  "derived_from": "journal_documentation_20261108.zip",
+  "privacy_edit": "replaced local Downloads absolute path in two historical Markdown notes; member manifest recomputed",
+  "submission_ready": false
+}

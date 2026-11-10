@@ -1,6 +1,6 @@
 # Jaeb candidate screening
 
-Screening date: 10 September 2026. These are file-inventory findings, not final suitability decisions. Every candidate still requires sorted chronology, duplicate, coverage, event-capture and permissions audits.
+Screening date: 10 September 2026; temporal coverage and window-eligibility addenda: 31 October 2026. These are feasibility screens, not final suitability decisions or model validation.
 
 | Release | Roster records | Main evidence in supplied files | Preliminary role | Blocking checks |
 |---|---:|---|---|---|
@@ -24,3 +24,5 @@ DCLP3 has 168 CGM participants and 125 with both pump basal and bolus records. D
 The public Jaeb directory lists these releases and their download files; retain each release’s own readme attribution and disclaimer. Shared column names or study labels do not establish shared semantics.
 
 The aggregate, identifier-free modality report is [audit/jaeb_modality_coverage.json](../audit/jaeb_modality_coverage.json). It does not resolve duplicates, timestamps, simultaneous coverage or prediction-time availability.
+
+The 31 October [DCLP temporal coverage audit](dclp_temporal_coverage_audit_2026_10_31.md) reports 7,930,123 strict 120-minute-history/30-minute-future windows in post-randomization DCLP3 and 5,113,177 raw-time windows in DCLP5; adjusted-preferred DCLP5 CGM times yield 5,123,158 windows. A subsequent five-fold, no-refit **CGM-only** transfer of frozen Loop logistic models found higher participant-macro AP and lower Brier than persistence for all five models in DCLP3 raw and DCLP5 raw/adjusted-preferred runs. This is external predictive context only: the outcome remains a release-local CGM threshold, no event features were transferred, DCLP5 clock choice remains unresolved, and the shared participants make folds non-independent. See the [transfer report](frozen_loop_cgm_jaeb_transfer_20261031.md). Source clock correction, basal-state reconstruction, event availability, and exact Loop-trained insulin-only input parity remain unresolved for the planned insulin-relation replication. Neither release provides meal records in the screened tables.

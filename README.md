@@ -1,17 +1,21 @@
 # T1D temporal patient knowledge graph research
 
-Status: proposal validation, public-release auditing, corrected CGM development benchmarking, and a verified controlled event-sequence first gate, updated October 2026. No locked-holdout or graph-relation result has been produced.
+Status (31 October 2026): the two-epoch graph-vs-time-aligned-pooling comparison is complete across five patient-disjoint folds at two seeds. Pooling leads participant-macro AP in all ten fold-seed fits, and leads macro-Brier in all five folds at the second seed. The protocol-specified participant summary averaging paired effects across both seeds also favors pooling. See the [current novelty evidence report](docs/novelty_evidence_report_2026_10_31.md) and its linked machine-readable summaries for results and limits. All predictive evidence remains development-only; the 183-person final holdout is unopened. Convergence, a strong matched CGM-only comparator, broader event-disabled replication, independent explanation validation, external validation, real-time event availability, and systematic prior-art screening remain unresolved.
 
 The project will test whether typed, time-aware patient-event relations improve advance prediction of CGM-defined hypoglycemia and the fidelity of explanations. Novelty and predictive benefit remain hypotheses.
 
-The current framing is **When Do Temporal Patient Knowledge Graphs Help Hypoglycemia Prediction?** The contribution is a controlled study of individual clinical events, relations and information availability. Generic semantic/temporal graph architecture is established prior work.
+The current working-paper framing is **Timestamped Treatment-Event Representations for Incident Hypoglycemia Prediction in T1D**. The contribution candidate is a controlled comparison of event-instance relations, sequences and summaries under matched information. The project name remains T1D-TKG; “knowledge graph” is not claimed as a novel method or as an evaluated external clinical ontology.
 
-Start with the new novelty package:
+The complete documentation revision of 8 November 2026 is available in the [dossier reading guide](manuscript/START_HERE.md), with the [step-by-step research record](docs/research_master_record_2026_11_08.md), [current manuscript](manuscript/manuscript.md), [technical supplement](manuscript/supplementary_methods.md), [three internal reviews and revision response](manuscript/revision_response_2026_11_08.md), and [readiness register](manuscript/submission_readiness_2026_11_08.md). The working journal format is JAMIA Research and Applications. Documentation quality is distinguished from submission readiness; required author declarations and empirical gaps remain explicit.
+
+Start with the novelty and evidence sources:
 
 1. [Novelty assessment](docs/novelty_assessment.md): expanded closest-work comparison and claim boundaries.
-2. [Refined proposal](docs/refined_proposal.md): research questions and intended contributions.
-3. [Decisive experiments](docs/decisive_experiments.md): controls that separate timing, information, model size and relation effects.
-4. [Search log](docs/literature_search_log.md): queries, version corrections and unresolved access limits.
+2. [Current novelty and evidence report](docs/novelty_evidence_report_2026_10_31.md): results across the completed relation controls, verified prior work, safe paper wording and remaining gates.
+3. [Earlier machine-readable evidence inventory](audit/novelty_evidence_inventory_20261017.json): checksummed pointers for the earlier manuscript snapshot; later controls are linked from the current report.
+4. [Refined proposal](docs/refined_proposal.md): research questions and intended contributions.
+5. [Decisive experiments](docs/decisive_experiments.md): controls that separate timing, information, model size and relation effects.
+6. [Search log](docs/literature_search_log.md): queries, version corrections and unresolved access limits.
 
 Supporting working documents:
 
@@ -19,7 +23,7 @@ Supporting working documents:
 2. [Research protocol](docs/research_protocol.md): proposed labels, evaluation, models, statistical analysis, and leakage controls.
 3. [Research plan](docs/research_plan.md): milestones and completion gates, with no fixed deadline.
 4. [Data dictionary](docs/data_dictionary.md) and [graph schema](docs/graph_schema.md): initial implementation contracts, pending dataset inspection.
-5. [Literature matrix](docs/literature_matrix.csv): 21 curated records with evidence/access flags; not a systematic review.
+5. [Literature matrix](docs/literature_matrix.csv): 70 curated records with evidence/access flags; not a systematic review.
 6. [Implementation status](docs/implementation_status.md): what is runnable now and what remains blocked on data access.
 7. [Data access checklist](docs/data_access_checklist.md): the authorization register, pre-import controls, and first-release audit gate.
 8. [Dataset fallback strategy](docs/dataset_fallback_strategy.md): OhioT1DM eligibility correction, alternative access routes, and the cohort selection gate.
@@ -62,7 +66,7 @@ The [original startup handbook](T1D_Temporal_Patient_Centric_Knowledge_Graph_Res
 
 ## Run the software fixture
 
-The current implementation has no third-party runtime dependency. From the project directory:
+The synthetic core utilities have no third-party runtime dependency. Neural training uses PyTorch/NumPy, while manuscript figures and PDF export require the documented build dependencies. From the project directory:
 
 ```bash
 PYTHONPATH=src python3 -m unittest discover -s tests -v
@@ -118,4 +122,4 @@ Add `--output audit.json --manifest-output folds.json` to persist the report and
 
 It has been tested on a synthetic XML fixture, not on the restricted release.
 
-Loop's canonicalization, temporal eligibility, episode, auxiliary coverage, range, frozen window index and protected split layers are implemented and tested. Corrected CGM development benchmarking is complete. The first recorded-event summary comparator underperformed CGM and has been stopped; event residual and individual-event timing diagnostics come before graph testing. Upload linkage failed the observed availability-time gate, and the locked holdout remains excluded from predictive evaluation. Loop is the provisional primary cohort; DCLP3 and DCLP5 are insulin–CGM replication candidates, while AIDE and FLAIR support CGM/treatment-context analyses.
+Loop's canonicalization, temporal eligibility, episode, auxiliary coverage, range, frozen window index and protected split layers are implemented and tested. Corrected CGM development benchmarking is complete. Historical recorded-event summary and residual diagnostics underperformed their CGM AP reference. Subsequent graph, sequence, pooling and perturbation experiments are now documented in the master record; older next-step statements are historical. Upload linkage failed the observed availability-time gate, and the locked holdout remains excluded from predictive evaluation. Loop is the provisional primary cohort; DCLP3 and DCLP5 are insulin–CGM replication candidates, while AIDE and FLAIR support CGM/treatment-context analyses.

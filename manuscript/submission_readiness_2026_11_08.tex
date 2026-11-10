@@ -1,0 +1,94 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=22mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+\setmonofont{Menlo}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,urlcolor=blue!45!black,linkcolor=black}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small T1D research documentation}
+\fancyhead[R]{\small Working draft}
+\fancyfoot[C]{\thepage}
+\setlength{\headheight}{14pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlength{\emergencystretch}{3em}
+\renewcommand{\arraystretch}{1.2}
+\begin{document}
+{\raggedright\hyphenpenalty=10000\LARGE\bfseries Submission readiness, declarations and remaining evidence\par}
+\vspace{8pt}
+Review date: 8 November 2026. Evidence cutoff: 31 October 2026. This register evaluates an exploratory retrospective model-comparison paper, not a clinical deployment system. Editorial quality, complete reporting, empirical validity and journal fit are separate judgments. A high writing score does not supply a missing ethics determination or an unperformed experiment.
+
+\section*{1. Current disposition}
+The manuscript and supplement can accurately present a bounded development comparison, including the negative graph-versus-pooling result and its control limitations. The documentation revision corrects factual errors, consolidates methods and project history, adds source-linked reporting compliance, and records internal review. Submission remains conditional on author declarations, cohort characterization and journal selection. Stronger predictive, mechanistic, explainability or clinical claims require additional evidence.
+
+The primary reporting framework is \href{https://doi.org/10.1136/bmj-2023-078378}{TRIPOD+AI}, with \href{https://www.strobe-statement.org/checklists/}{STROBE cohort reporting} as an adjunct and \href{https://doi.org/10.1136/bmj-2024-082505}{PROBAST+AI} for bias/applicability concerns. These are reporting or appraisal frameworks, not acceptance guarantees. The official-source \href{reviews/reporting_standards_review_2026_11_08.md}{item-level review} provides the crosswalk.
+
+\section*{2. Author facts required before submission}
+{\small
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{>{\raggedright\arraybackslash}p{\dimexpr 0.200\linewidth-2\tabcolsep\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.280\linewidth-2\tabcolsep\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.520\linewidth-2\tabcolsep\relax}}
+\toprule
+\textbf{Requirement} & \textbf{Current evidence} & \textbf{Required completion} \\ \midrule
+\endhead
+Journal/article type & Working format selected: JAMIA Research and Applications & Author approves submission target; current format limits verified from official instructions. \\
+Names, order, affiliations & User supplied Pronab Chandra Roy; Lihui Liu, in that order, with no institutional affiliations & Both authors approve authorship eligibility/order, contact email, corresponding-author responsibility and accountability. \\
+Secondary-analysis ethics & Original clinical study approval is cited; local secondary determination absent & Obtain/confirm applicable institutional approval, exemption or non-human-subject determination and identifier; do not claim one was granted without evidence. \\
+Consent/data-use terms & Public-use source release identified & Confirm applicable consent/waiver language, access conditions, required attribution and redistribution permissions. \\
+Funding & Not confirmed & Supply funding/grants or an accurate author-confirmed no-funding statement. \\
+Competing interests & Not confirmed & Obtain declarations from every author. \\
+Contributions & Not confirmed & Assign and approve contributor roles; AI tools cannot take authorship responsibility. \\
+Patient/public involvement & Not confirmed & State actual involvement or author-confirmed absence; do not infer. \\
+AI disclosure & Analysis and writing assistance disclosed in draft & Confirm tool/model versions, dates, roles and author verification; adapt to the selected journal and current ICMJE guidance. \\
+Code release & Local implementation exists; final public archive/license/environment not confirmed & Author-reviewed repository/archive identifier, license, dependencies, immutable revision and protected-data exclusions. \\
+Source release citation & Jaeb collection and local release date documented & Confirm precise custodian citation and any applicable DOI or required acknowledgement. \\
+\bottomrule
+\end{longtable}
+}
+The pending questions were requested from the author during preparation. Unanswered items remain visible in the manuscript and are not silently converted into “none” statements. \href{https://www.icmje.org/recommendations/browse/roles-and-responsibilities/defining-the-role-of-authors-and-contributors.html}{ICMJE authorship guidance} and \href{https://www.icmje.org/recommendations/browse/artificial-intelligence/ai-use-by-authors.html}{AI-use guidance} describe the relevant responsibilities.
+
+\section*{3. Empirical reporting gaps and claim-dependent requirements}
+{\small
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{>{\raggedright\arraybackslash}p{\dimexpr 0.200\linewidth-2\tabcolsep\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.280\linewidth-2\tabcolsep\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.520\linewidth-2\tabcolsep\relax}}
+\toprule
+\textbf{Area} & \textbf{Current disposition} & \textbf{What would resolve it} \\ \midrule
+\endhead
+Analytic population dates and characteristics & Source-study context reported; actual released-group spans/demographics missing & Authorized aggregate characterization of the 835/652 population, group missingness, dates, therapy/device context and subgroup sample sizes. \\
+Optimization fairness & Two-epoch campaign plus one eight-epoch fold/seed & Predeclared training-side tuning, learning curves, comparable optimization budgets and replication; cannot infer convergence from 8 epochs alone. \\
+Isolated graph mechanism & Pooling changes fusion and CGM-only path & Same-path factorial control varying only the message operation, if a mechanistic claim is desired. \\
+Incremental event value & Early effects change with comparator/seed/schedule & Strong matched CGM-only baseline and same-schedule multi-fold/multi-seed event-input controls. \\
+Calibration & Brier reported & Calibration curve/intercept/slope and any recalibration fitted outside performance-test data. \\
+Alert performance & Proposed utility code, no completed clinical operating-point analysis & Predefined threshold-selection split, refractory rule, observable episode matching, false alerts/day, event sensitivity and warning lead times. \\
+Availability & Occurrence-time immediate replay & Measured first-usable times or clearly simulated delayed-event scenarios on identical admissible inputs. \\
+Explanation & Selection-conditioned deletion screen & Independent selector/evaluator, recency/value/type/size-matched controls, perturbation validity, stability and appropriately scoped domain review. \\
+Reserved performance evaluation & No reported model scores & Freeze full analysis/model rule before one protected evaluation; earlier aggregate inspection must remain disclosed. \\
+External graph/event transfer & CGM-only logistic transfer completed & Resolve clocks/units/basal/bolus semantics; source-train shared insulin-only input version; freeze adapter/model before external outcomes. \\
+Prior-art absence & 70 curated records, targeted source review & Native database exports, study-family deduplication, screening and missing full texts if a systematic or “first” claim is sought. \\
+Fairness/representativeness & No demographic subgroup assessment & Source-grounded demographic characterization and prespecified subgroup uncertainty; otherwise retain explicit limitations. \\
+\bottomrule
+\end{longtable}
+}
+Not every exploratory methods paper must include clinical deployment or external graph experiments. However, those missing outputs prohibit corresponding claims. The strongest current defensible result concerns the implemented models on the retained Loop development windows under the tested schedules. No equivalence, causal treatment effect, clinical prevention or general graph-family conclusion is justified.
+
+\section*{4. Reproducibility prerequisites and provenance limits}
+Two source basal tables are absent locally; a clean raw-to-cache rerun requires reacquisition under the source terms. Current aggregate builds can verify cached/archived comparisons but do not recreate missing upstream source files. Earlier fit fingerprints differ across some campaigns; preserve their exact archived source and distinguish explanatory current code from bitwise historical reproduction. Some typed-pilot raw prediction recovery remains unconfirmed. Independent summary receipts verify their recorded computations, not every methodological assumption.
+
+The shareable dossier uses an explicit allowlist and excludes data/, private/, downloaded clinical bundles, raw prediction records and temporary event partitions. A complete public software release is a separate author-reviewed artifact. A working Git tree with uncommitted research changes is not an immutable code release.
+
+\section*{5. Release-quality checks for this documentation delivery}
+The delivery verifier must establish: every research document in the defined inventory scope is indexed; main results reconcile to the existing evidence build; cited references exist and are ordered by first use; all main tables and figures are present; no unresolved result-template tokens remain; DOCX XML and ZIP integrity pass; PDFs compile from the current sources and contain current key text; referenced local files exist; reviews and before/after ratings are delivered; remaining author/empirical requirements remain visible; and all package members match their SHA-256 manifest. The final machine-readable dossier audit records these checks and their limitations.
+
+\section*{6. Selected working journal format}
+JAMIA \textbf{Research and Applications} is the working format selected on 8 November 2026. The \href{https://academic.oup.com/jamia/pages/General_Instructions}{official instructions} specify main text up to 4,000 words, a structured abstract up to 250 words, up to 4 tables and 6 figures, and no more than 5 keywords. The present main paper uses three tables, two figures with alt text, five keywords and the prescribed abstract headings. Body and abstract counts are reported by the dossier verifier; a conservative body count includes declarations and legends while excluding table rows. The Word and LaTeX versions are double-spaced, and figure legends are at the end. This is format preparation, not a prediction of editorial acceptance.
+
+The official instructions' citation eligibility language requires editorial confirmation for the relevant thesis, conference proposal and preprints. These works materially constrain novelty and cannot be silently omitted or presented as peer-reviewed journal evidence. Their status remains explicit in the references and source review. AI disclosure must also appear in the eventual cover letter. A data-availability statement and author-approved CRediT roles are required. The internal TRIPOD+AI crosswalk is adopted as reporting best practice; no unverified blanket journal mandate is claimed.
+
+\end{document}

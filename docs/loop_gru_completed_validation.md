@@ -16,7 +16,7 @@ window identity checksum was
 The completed run was recovered from the Kaggle Draft workspace under
 `loop_gru_recovery_20260930T045712Z_01c1aa0f`. Its artifact bundle is now
 downloaded locally as
-`/Users/pronabchandraroy/Downloads/loop_gru_outer0_validated_outputs.zip`.
+`loop_gru_outer0_validated_outputs.zip (local source archive; not included here)`.
 The ZIP passed an integrity check and contains 134 files: `result.json`,
 `run.json`, two epoch checkpoints, and 130 participant prediction archives.
 The ZIP size is 126,364,134 bytes. This preserves the completed validation
@@ -37,6 +37,19 @@ participant-macro Brier was `0.021461` versus `0.023214`, a difference of
 `-0.001753` with interval `[-0.002015, -0.001501]`; pooled Brier was `0.021107`
 versus `0.022880`, a difference of `-0.001773`. The machine-readable comparison
 is `audit/loop_gru_vs_cgm_outer0_validation.json`.
+
+On 11 October 2026, the downloaded ZIP was rechecked against the existing
+extraction: all 134 files matched by size and CRC, with no missing files or
+mismatches. Its SHA-256 remains
+`444435614d216fe7914b625bebc008f18e5d6b068fd12e0b7fc21b3300f6e554`. The
+recheck is recorded in
+`audit/loop_gru_outer0_downloaded_bundle_recheck_2026_10_11.json`. This archive
+is the 30 September GRU recovery run. The later controlled neural comparison
+is the relevant first gate for event value because it compares the event GRU
+with a capacity-matched neural CGM control on the same windows; both completed
+controlled seed fits favored CGM-only prediction. Keep this earlier positive result as historical
+development evidence and do not interpret it as proof that events or graph
+relations add value.
 
 The separate stale-script failure in the notebook came from its input
 discovery: `train_gru_fixed.py` searched for compressed `.tsv.gz` and

@@ -1,13 +1,19 @@
 # Research plan
 
-Current execution gate (2 October 2026): follow the
-[controlled neural experiment specification](loop_controlled_neural_experiments.md)
-after the research crosscheck. Infrastructure and CPU checks are complete;
-new CGM-neural/event comparisons precede graph claims and holdout evaluation.
+Current execution gate (31 October 2026): the [novelty evidence report](novelty_evidence_report_2026_10_31.md)
+synthesizes two-seed/five-fold graph-versus-sequence and graph-versus-aligned-
+pooling comparisons, the eight-epoch schedule check, typed routing, endpoint
+and event-age perturbations, two opposite-direction single-fold event-input
+ablations, external CGM-only
+transfer, and updated primary literature including Hüni's accessible thesis.
+The strictest matched comparison favors aligned pooling. Results support only
+a bounded development-stage empirical report; they do not establish semantic
+relation value, clinical benefit, or a field-wide novelty claim. The locked
+holdout remains unopened.
 
-Updated: 15 September 2026. The researcher has no fixed deadline and prioritizes the quality of the final output. Progress by completion gates rather than the handbook's original 12-week schedule. Additional complexity must answer a research question; unlimited time does not justify unlimited architectures. The current ordered execution plan is [Next research steps after the recorded-event summary result](next_steps_after_event_summary.md).
+Updated: 18 October 2026. The researcher has no fixed deadline and prioritizes the quality of the final output. Progress by completion gates rather than the handbook's original 12-week schedule. Additional complexity must answer a research question; unlimited time does not justify unlimited architectures. The current ordered execution plan is [Next research steps after the recorded-event summary result](next_steps_after_event_summary.md).
 
-The targeted novelty pass is complete: see the [assessment](novelty_assessment.md), [refined proposal](refined_proposal.md), [experiment specification](decisive_experiments.md), and [search log](literature_search_log.md). The literature matrix now contains 21 records, including linked versions/study families. Full-text access and submission-grade systematic screening remain outstanding; novelty is not certified.
+The targeted novelty pass now has a 29 October update: see the [assessment](novelty_assessment.md), [current evidence report](novelty_evidence_report_2026_10_31.md), [refined proposal](refined_proposal.md), [experiment specification](decisive_experiments.md), [SysCon full-text review](syscon_2026_prior_work_review.md), and [search log](literature_search_log.md). The literature matrix includes the peer-reviewed 2026 GAT-BiGRU study and the 2026 MetaboNet-Bench preprint. The search remains targeted, not systematic; novelty is provisional and no global “first” claim is certified.
 
 ## Milestones
 
@@ -37,6 +43,8 @@ Stages 1 and 2 should progress together. Data-access waiting time can be used fo
 - [ ] Screen access-compatible datasets against the mandatory field/sample gate and select a provisional primary cohort.
 - [x] Add a repeatable intake template for each newly supplied release.
 - [x] Screen the four newly supplied Jaeb releases and measure modality intersections. Loop has 835 participants present across CGM/basal/bolus/nonempty-food sets. DCLP3 and DCLP5 have pump-event overlap but no nonempty Roche carbohydrate records; FLAIR remains treatment-summary/CGM-only.
+- [x] Complete a sorted, duplicate-aware DCLP3/DCLP5 feasibility screen using the 120-minute-history/30-minute-future endpoint contract; record numeric-label and DCLP5 low-sentinel sensitivity counts without emitting identifiers. This is not external model validation.
+- [x] Replay all five frozen Loop CGM logistic outer-fold models without refit on DCLP3 raw CGM timestamps and DCLP5 raw/adjusted-preferred sensitivities; document this strictly as exploratory CGM-only transfer, not event-graph validation.
 - [x] Complete the full Loop raw field/chronology scan across CGM, basal, bolus, food, exercise and wizard tables; record units, missingness, source ordering and repeated timestamps.
 - [x] Validate Loop parent-upload linkage: it fails the observed availability-time gate because upload UTC coverage is incomplete and often precedes event time.
 - [x] Define conservative Loop canonical keys from the full source-adjacent duplicate profile; preserve conflicting non-CGM records and exclude ambiguous CGM timestamps from primary windows.
@@ -113,7 +121,7 @@ Stages 1 and 2 should progress together. Data-access waiting time can be used fo
 - [x] Add opt-in participant-keyed out-of-fold prediction archives to the LOSO runners for reproducible paired analysis.
 - [x] Implement fold-local Platt calibration and reliability/ECE diagnostics; application to patient predictions remains pending data.
 - [x] Implement alert-stream simulation and validation-only threshold selection with refractory suppression, one-to-one episode matching, and an explicit alert-burden budget.
-- [x] Add a transparent as-of graph-summary smoke comparator with typed, generic-relation, and no-relation controls; learned temporal GNN implementation remains pending the data audit.
+- [x] Add a transparent as-of graph-summary comparator with typed, generic-relation, and no-relation controls; implement and run a first learned temporal relation model pilot. Multi-seed/fold replication and information-matched non-graph controls remain outstanding.
 - [x] Add deterministic patient-disjoint fold manifests with validation and checksums so all model families share an auditable split.
 - [x] Add provenance-safe evidence records and graph masks for later explanation fidelity experiments; model-specific attribution remains pending the learned graph.
 - [x] Add canonical-event collection validation to surface release anomalies before window construction; source-specific policies remain pending the authorized audit.
@@ -144,7 +152,7 @@ Do not equate absent meal records with verified fasting or absent bolus records 
 | Decision | Current default | Evidence needed |
 |---|---|---|
 | Main cohort | Loop provisionally | Timestamp validity, cross-shard duplicates, simultaneous modality coverage, future-CGM windows and episode audit |
-| Insulin–CGM replication | DCLP3 and DCLP5 provisionally | Timestamp alignment, source overlap, usable windows and release-specific treatment periods |
+| Insulin–CGM external evaluation | DCLP3 and DCLP5 provisionally | Strict windows and raw/adjusted timestamp-policy sensitivities now counted; DCLP5 adjusted CGM time changes eligible windows/labels, so a source-justified clock policy, basal-state reconstruction, event availability, Loop-trained insulin-only model and exact input parity remain |
 | AIDE T1D role | CGM benchmark/validation candidate; not sufficient alone for the clinical-event relation claim | Sorted coverage, duplicate policy, participant-level windows, and explicit CGM-only scope |
 | OhioT1DM role | Conditional advisor-mediated benchmark/reproduction cohort | Eligible advisor request, approval and release audit |
 | External cohort | A distinct eligible cohort; T1DEXI remains a candidate | Release dictionary, access, comparable future CGM and modalities |

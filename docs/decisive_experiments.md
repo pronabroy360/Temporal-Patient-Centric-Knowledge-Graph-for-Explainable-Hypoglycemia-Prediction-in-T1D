@@ -1,11 +1,13 @@
 # Decisive experiments and claim boundaries
 
-Date: 10 September 2026. All experiments below are **specified, not run**. Freeze their exact configurations on development data before final evaluation. The [research protocol](research_protocol.md) governs labels, splits and metrics.
+Updated: 31 October 2026. The graph-generic versus exact-parameter-count event-sequence comparison favors graph-generic in all ten one-epoch fits, but does not isolate topology because alignment, fusion, and computation differ. The stricter same-input, same-timing, exactly parameter-matched time-aligned pooling comparison is complete for two seeds and five patient-disjoint folds at two epochs; pooling leads graph message passing on participant-macro AP in all ten fold-seed pairs and on Brier across every second-seed fold. Typed routing remains mixed, nearest-endpoint perturbation shows small sensitivity, and event-age reassignment effects are very small. Event-disabled graph evidence still covers one fold/seed. A recovered full-history sequence event-zero ablation on outer-0/seed 20261003 (two epochs) favors event-zero, but is a separate architecture and its archive lacks an explicit locked-holdout-use marker; it does not replicate the graph ablation. The sampled deletion screen remains selection-conditioned. Results support a bounded comparison of these implementations, not a general claim for or against graph methods. The [research protocol](research_protocol.md) governs labels, splits and metrics; the [current novelty evidence report](novelty_evidence_report_2026_10_31.md) consolidates results and prior work. Direct graph-based hypoglycemia prediction and LSTM-versus-GAT comparisons are prior work; the remaining candidate contribution must be stated as the controlled result for this endpoint, cohort, and protocol.
 
-Execution status has advanced since this specification: corrected CGM
-development evaluation and the first negative recorded-event summary comparison
-are complete. The current ordered implementation gates are maintained in
-[Next research steps after the recorded-event summary result](next_steps_after_event_summary.md).
+Execution status has advanced since this specification: the matched G0-vs-B4
+screening contrast is complete for two seeds and five folds; several relation
+perturbations also have two-seed/five-fold coverage. The ordered gates and
+limits are maintained in [Next research steps after the first matched graph
+comparison](next_steps_after_controlled_first_gate.md) and the current
+[novelty evidence report](novelty_evidence_report_2026_10_31.md).
 
 ## E0: Feasibility and information audit
 
@@ -23,7 +25,7 @@ Gate: a fixed eligible-window manifest, verified provenance and enough participa
 | B1 | Logistic regression and boosted trees | Strong engineered-feature reference. |
 | B2 | Multimodal GRU | Original primary comparator. |
 | B3 | GRU-D-style mask/time baseline | Ensure missingness handling is not mistaken for KG benefit. |
-| B4 | Event-sequence model using individual events, values, types and exact admissible times | Control for loss of event resolution during gridding. |
+| B4 | Event-sequence model using individual events, values, types and exact admissible times | Controls graph structure while retaining the same recorded event information. The dual-GRU late-fusion implementation and graph-generic pilot both have exactly 36,883 parameters; their one-fold/one-seed paired screening result favors G0. See [capacity-matched control](loop_non_graph_capacity_matched_control.md). |
 | B5 | Time-neighborhood GNN | Match the temporal graph family without claiming exact GAT-BiGRU reproduction. |
 | B6 | Fixed modality-summary physiology graph | Test individual events against physiology-inspired summary graphs. |
 | B7 | Visibility graph on CGM | Relevant CGM-only reference; compare against the CGM-only subset of other models. |
@@ -35,13 +37,29 @@ All full-modality models receive the same admissible records and engineered summ
 
 Match training/search budgets and report parameter counts and learning curves. Compare width-adjusted G0/G1 models and a sequence model of similar capacity. Use at least three fixed seeds, paired folds and participant-level intervals. A result favoring G1 over B2 alone is insufficient for a semantic-value claim.
 
-Primary prespecified contrast: AP(G1)−AP(B2), at 30 minutes. Key mechanistic contrast: AP(G1)−AP(G0). Required interpretive controls: G1 versus B4 and G2; summary-graph versus summary-sequence control. If relation labels are reconstructible and G2 performs similarly, describe the benefit as structured parameterization, not new clinical information.
+The graph-generic versus late-fusion event-sequence contrast is now complete for two seeds across five folds at one epoch per fit; it favored graph-generic in all ten pairs, but the models differ in event-CGM alignment, fusion, and computation, so it does not isolate topology. The stricter graph-generic versus time-aligned-pooling comparison is complete for two seeds across five folds at two epochs and favors pooling in all ten AP comparisons. An eight-epoch check exists for outer-0 at one seed and slightly favors pooling, but does not establish convergence. The semantic-routing contrast is AP(G1)−AP(G0); a one-seed five-fold pilot is mixed and gives no typed-relation gain. G1 versus G2 tests whether modality routing adds beyond endpoint/time-reconstructible features. These contrasts require identical event instances, values, times, folds and training budgets. AP(G0)−AP(B2) is a secondary multimodal-versus-CGM comparison because it does not isolate graph structure. Also compare summary-graph against summary-sequence so event aggregation does not confound topology. If relation labels are reconstructible and G2 performs similarly, describe any benefit as structured parameterization, not new clinical information.
 
 ## E2: Event-resolution, timing and relation ablations
 
 Hold graph input membership fixed when ablating time encoding. Test no time attributes, shared time function, and relation-specific time function with matched capacity. Record whether topology still reveals ordering; removing time attributes does not make an ordered graph atemporal.
 
 Separately compare raw event instances to time-binned sums under both graph and sequence families. Supply identical bin widths and summary definitions. These comparisons distinguish fine temporal resolution from graph effects.
+
+For the current event-to-CGM message-sum architecture, shuffling event-token
+rows is invariant to the model's sum aggregation and is not an informative
+order control. A post-hoc fixed-checkpoint event-age reassignment instead
+preserves the per-window event and age multisets but breaks event-to-time and
+derived-endpoint pairing. Across five epoch-1 outer-fold checkpoints for each
+of two seeds, original-minus-reassigned AP is positive in all ten fits (mean
+fold-seed difference +0.0001118), but only 3/10 fold-specific participant
+intervals exclude zero. Macro-Brier direction is evenly split (5/10 positive;
+4/10 intervals exclude zero). The same 652 participants recur across seeds,
+so these are not ten independent observations and intervals must not be
+pooled. The consistency supports a small fixed-fit sensitivity to the event-
+time pairing under one deterministic age rotation. It does not establish
+temporal-relation value, explanation faithfulness, causal validity, or clinical
+utility. See the [control report](loop_event_age_reassignment_control.md)
+and [two-seed summary](../audit/loop_event_age_reassignment_two_seed_five_fold_summary_20261029.json).
 
 Remove insulin/meal/activity only as modality analyses, not proof of relational semantics. Removing all edges also changes receptive fields and connectivity; describe this as a structural intervention. A fixed permutation of relation names preserves information and is a sanity check, not a semantic corruption experiment.
 
@@ -80,6 +98,18 @@ For each event set S, report p(G)−p(G without S), p(G)−p(G retaining S and r
 Provenance checks: every displayed value corresponds to its version at t; no future outcome is cited; no unavailable event appears; the rendered evidence set matches the perturbed set. These are correctness checks, not evidence of clinical usability. Compare rank/set stability across seeds and prespecified admissible perturbations with the information set held fixed.
 
 An explanation after receipt of a late record may validly differ from the previous explanation. Evaluate this as information revision, not automatically as instability. Blinded clinician review remains separately required for usability claims.
+
+**Exploratory screen completed, 29 October 2026:** one outer-0, seed-20261005,
+epoch-1 graph-generic checkpoint was audited on 518 hash-selected windows
+across 130 participants. Top-three events were selected by single-event
+deletion sensitivity and compared with random sets matched on size and
+modality for joint deletion and retention. Top sets showed larger joint
+deletion sensitivity and closer retained predictions, but selection used the
+same deletion measure, so the deletion comparison is selection-conditioned.
+This does not meet the independent attribution/perturbation design above and
+does not establish clinical faithfulness. See the
+[exploratory report](loop_graph_event_explanation_faithfulness.md) and
+[aggregate artifact](../audit/loop_graph_event_explanation_faithfulness_outer0_seed20261005_20261029.json).
 
 ## E5: External validation and adaptation
 

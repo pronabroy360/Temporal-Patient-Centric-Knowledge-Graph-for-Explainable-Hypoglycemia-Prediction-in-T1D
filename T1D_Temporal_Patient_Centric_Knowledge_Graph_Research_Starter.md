@@ -1,5 +1,7 @@
 # Temporal Patient-Centric Knowledge Graph for Explainable Hypoglycemia Prediction in Type 1 Diabetes
 
+**Current documentation — 8 November 2026:** This handbook preserves the original proposal and historical notes. Read the [complete step-by-step research record](docs/research_master_record_2026_11_08.md), [current manuscript](manuscript/manuscript.md) and [dossier guide](manuscript/START_HERE.md) for executed work, corrected results and remaining requirements. Proposed experiments below must not be treated as completed results.
+
 **Research startup handbook**  
 **Prepared:** September 2026  
 **Scope:** Only the topic *Temporal Patient-Centric Knowledge Graph for Explainable Hypoglycemia Prediction in Type 1 Diabetes (T1D)*

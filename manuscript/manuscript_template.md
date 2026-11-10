@@ -1,214 +1,170 @@
-# Temporal Event Graphs for Short-Horizon Hypoglycemia Prediction in Type 1 Diabetes: A Controlled Retrospective Development Study
+# Temporal Event Graphs and Time-Aligned Pooling for Hypoglycemia Prediction in Type 1 Diabetes: An Exploratory Patient-Disjoint Study
 
-Authors: [AUTHOR NAMES AND ORDER TO BE CONFIRMED]
+Authors: Pronab Chandra Roy; Lihui Liu
 
-Affiliations: [INSTITUTIONS AND DEPARTMENTS TO BE CONFIRMED]
+Affiliations: No institutional affiliations declared.
 
-Corresponding author: [NAME AND EMAIL TO BE CONFIRMED]
+Correspondence contact: Pronab Chandra Roy [email address and corresponding-author responsibilities to be confirmed].
 
-Working manuscript | Evidence snapshot: 20 October 2026 | Standard journal format
+Working target: JAMIA, Research and Applications. Revised 8 November 2026; empirical evidence through 31 October 2026. Author declarations remain pending.
 
 ## Abstract
 
-**Background:** Linking recorded insulin and carbohydrate events to continuous glucose monitoring (CGM) histories may improve hypoglycemia prediction, but requires comparison with an equally informed sequence model.
+**Objective:** To compare a temporal event-to-CGM graph with non-graph representations for hypoglycemia prediction under shared information, timing, and parameter-count contracts.
 
-**Objective:** To compare temporal event graphs and sequence predictors under matched information, parameter, and training budgets, and assess modality-specific routing.
+**Materials and Methods:** This retrospective outpatient Loop automated-insulin-delivery analysis used 652 development participants and 44,028,064 windows, including 1,296,297 positive windows. The outcome was any observed continuous glucose monitoring (CGM) value below 70 mg/dL in the next 30 minutes after eligible non-low indices with complete future coverage. Inputs were 24 five-minute CGM slots and up to 64 recorded events. Graph and time-aligned pooling models each had 36,883 parameters and were evaluated across five patient-disjoint development folds and two seeds after two epochs. Paired participant-bootstrap intervals conditioned on saved predictions. Earlier sequence comparisons and a separate eight-epoch, single-fold CPU pair provided context.
 
-**Methods:** This retrospective Loop public-release study included 652 development participants with 44,028,064 windows and 1,296,297 positive labels; 183 participants were reserved for final performance evaluation. Inputs comprised 24 five-minute CGM slots and up to 64 recorded events over two hours. The endpoint was any CGM value below 70 mg/dL within 30 minutes after an eligible non-low index with complete future coverage. Both models had 36,883 parameters and one-epoch matched training. Participant-macro average precision (AP) and Brier score were compared using paired participant bootstrap intervals conditional on fitted predictions.
+**Results:** Pooling had higher participant-macro average precision (AP) in all ten two-epoch comparisons and lower macro-Brier in nine. After averaging each participant's paired differences across seeds, graph-minus-pooling AP was −0.009900 (95% interval −0.010477 to −0.009345; 650 participants), and Brier was +0.0001264 (+0.0001096 to +0.0001429; 652 participants). The eight-epoch AP difference was {{LONGER_AP_DIFF}}. Earlier one-epoch comparisons favored the graph over a late-fusion sequence implementation.
 
-**Results:** At seed 20261003, the graph had higher AP and lower macro Brier in all five patient-disjoint validation folds. AP differences ranged from {{AP_RANGE}} (descriptive fold mean {{MEAN_AP_DIFF}}); mean Brier difference was {{MEAN_BRIER_DIFF}}. AP favored the graph in {{AP_WINS}}/650 AP-defined participants. Second-seed results on folds 0–3 also favored the graph (AP differences {{SEED2_AP_RANGE}}). Typed routing underperformed generic routing in a separate one-fold pilot: AP difference −0.002622 (95% interval −0.003386 to −0.001909).
+**Discussion:** Pooling also changes the nonlinear CGM pathway, preventing attribution solely to message passing. Development selection, limited optimization and assumed immediate event availability constrain inference.
 
-**Conclusions:** The tested graph outperformed the matched late-fusion sequence implementation in completed development comparisons. Clinical semantic value remains unestablished. One-epoch training, incomplete seed coverage, assumed immediate event availability, and absent final holdout, external, and explanation-fidelity evaluations limit interpretation.
+**Conclusion:** The tested graph did not outperform time-aligned pooling under the completed schedules. Reserved-holdout performance, independent explanation faithfulness and external graph validation remain unreported.
 
-Keywords: type 1 diabetes; hypoglycemia prediction; continuous glucose monitoring; temporal event graph; patient-disjoint evaluation; average precision
+Keywords: type 1 diabetes; hypoglycemia prediction; continuous glucose monitoring; temporal event graph; patient-disjoint evaluation
 
-## 1. Introduction
+## 1. Background and Significance
 
-Continuous glucose monitoring provides a time-resolved record of glucose exposure in type 1 diabetes (T1D). International consensus recommendations distinguish glucose below 70 mg/dL from the lower threshold of 54 mg/dL [1]. Forecasting a near-term low reading may help characterize risk, but a threshold-crossing prediction is distinct from detecting a sustained episode, predicting symptoms, or demonstrating useful warning time. A model that predicts a low within 30 minutes may be responding to a crossing only five minutes away. Evaluation must preserve these distinctions.
+Continuous glucose monitoring (CGM) supports glucose-risk assessment in type 1 diabetes (T1D). Consensus recommendations distinguish glucose below 70 mg/dL (approximately 3.9 mmol/L) from the lower threshold of 54 mg/dL (approximately 3.0 mmol/L) [1]. Predicting a low reading within a future window is distinct from identifying a sustained or symptomatic episode. A prediction concerning the next 30 minutes may correspond to a crossing only five minutes away; the horizon alone does not establish useful warning time.
 
-Insulin delivery and carbohydrate records provide context for CGM trajectories. The Loop automated insulin delivery system uses glucose, insulin, and carbohydrate information in its operation, and has been studied prospectively in real-world use [2]. Its public release provides an opportunity to examine representations of these records retrospectively [3]. However, repeated exports, conflicting measurements, incomplete event histories, and uncertain availability timestamps can undermine a comparison unless preprocessing and eligible windows are shared across models.
+Insulin and meal records contextualize glucose trajectories, but their incremental predictive value requires direct comparison. Prior studies have evaluated insulin/carbohydrate inputs [32,36], glucose with physiological signals [41], and event-aware sequence or attention models [7,8,17–21,42–44]. Graph methods are also established: examples include pediatric de Bruijn forecasts [10], CGM visibility graphs compared with recurrent predictors [11], multimodal temporal graph risk models [12], semantic diabetes-KG proposals [4,5], and graph-recurrent glucose forecasting [6]. Earlier work modeled relations between diabetic event instances [38,39], while clinical temporal KGs integrate patient histories and medical ontologies [23,40]. Thus, context inclusion and graph construction are insufficient novelty claims.
 
-The broad idea of using patient-centered graphs for diabetes prediction is established. Onwuchekwa and colleagues proposed integrating semantic knowledge and machine learning for hypoglycemia prediction in T1D [4]. Sarani Rad and colleagues described a patient-centric personal health knowledge graph and digital-twin framework for diabetes management [5]. GARNN combines graph-based multivariate representation with recurrent glucose forecasting and temporal interpretation [6]. Event-aware predictive modeling also predates the present study: Rehman and colleagues used meal and insulin context for explainable postprandial glycemic-event prediction [7], while Gallardo-García and colleagues examined nutritional information in multihorizon glucose forecasting [8]. These studies motivate a narrower empirical question: whether linking individual recorded events to CGM observations improves a specific incident-low prediction task compared with a sequence model receiving the same recorded information.
+Existing studies also overlap with the task and cohort design. MT-HypoNet reports Loop-based inter-patient forewarning with two-hour histories and a sustained-low target [14]. An October 2026 preprint compares sequence and multimodal glycemic-risk models using patient-disjoint outer folds and an any-future-CGM-low endpoint [30]; its described inputs differ from raw insulin/meal transactions. The supplementary source review records these distinctions, related study families and access limitations. It does not establish field-wide absence of an equivalent comparison.
 
-We therefore developed an auditable retrospective benchmark and compared an event-to-CGM graph with a parameter-matched non-graph model. The study separates three questions that can otherwise be conflated: whether the tested graph implementation outperforms the tested sequence implementation; whether modality-specific edge routing improves on a generic edge operation; and whether event inputs improve prediction beyond CGM history. The completed experiments address these questions to different degrees. Explanation fidelity and clinical utility remain evaluation objectives rather than demonstrated properties of the current predictor. Reporting emphasizes the transparency of data, model development, evaluation, and limitations encouraged by TRIPOD+AI [9]; a completed compliance checklist is not claimed.
+A useful contribution is therefore an auditable assessment of a specific representation under increasingly stringent controls. Such comparisons must distinguish common event information and timing from differences in architecture, optimization and clinical interpretation. Predictive accuracy also does not establish explanation faithfulness or physiological validity [22,26,27].
 
-## 2. Materials and methods
+## 2. Objective
 
-### 2.1. Study design and data source
+We compared an event-to-CGM graph with a late-fusion sequence implementation and a later time-aligned pooling control, using the Loop public release [2,3]. The most stringent completed contrast is graph versus pooling. We report its results alongside the earlier comparisons and development history, following TRIPOD+AI reporting principles [9]. The intended users are researchers conducting offline representation studies; no deployment decision rule or treatment recommendation was evaluated.
 
-This was a secondary retrospective analysis of the Loop study public dataset, release 2023-01-31, obtained from the Jaeb public dataset collection [3]. The present release-derived cohort is distinct from the 558 new Loop users in the original prospective effectiveness analysis [2]; that published clinical cohort size must not be substituted for the current analytic population. We used the local release roster and audited device records to define eligibility. The roster contained 919 participants, of whom 851 had CGM source records. A source-presence intersection requiring CGM, basal, bolus, and nonempty carbohydrate records retained 835 participants. This criterion establishes recorded modality presence at the participant level, not complete capture in every prediction history.
+## 3. Materials and Methods
 
-The analytic pipeline produced a shared window index for all 835 participants. Development comprised 652 participants; 183 participants were reserved for final performance evaluation. No model performance on the reserved group is reported here. Aggregate eligibility and label-coverage audits included that group, so it should not be described as wholly uninspected data. Model comparison used development validation sets only, except where explicitly identified as earlier internal development-test benchmarking. We did not run new training or open reserved performance evaluation to prepare this manuscript.
+### 3.1. Source, participants and study size
 
-### 2.2. Canonicalization, units, and provenance
+This secondary retrospective analysis used the local Loop release dated 31 January 2023. Its roster contained 919 participants; 851 had CGM records, and 835 had CGM, basal, bolus and nonempty food records somewhere in their released histories. Modality presence does not establish complete event capture in every prediction window. Of these participants, 652 were assigned to development and 183 reserved for later performance evaluation. Aggregate eligibility and label-coverage audits included the reserved group; no model performance for it is reported. Staged neural inputs excluded that group.
 
-Raw event tables were processed using participant-hashed partitions and UTC ordering. Exact re-exports were collapsed using release-specific keys, with the lowest source record identifier retained as the deterministic representative and source provenance preserved. CGM calibrations were excluded. When a participant had different canonical CGM values at the same UTC timestamp, that timestamp was excluded from the primary measurement stream. Distinct non-CGM records sharing a timestamp were retained as separate event instances rather than merged.
+The original clinical publication studied 558 new Loop users in a U.S. outside-clinic cohort, with enrollment January–August 2019 and collection ending April 2020 [2]. Those dates and demographic summaries must not be substituted for the broader release-derived analytic cohort, whose exact observation-date bounds and demographic distributions remain unverified in the aggregate model evidence. Selection for recorded modalities and dense CGM may limit representativeness; demographic subgroup fairness was not evaluated.
 
-Across the full CGM source, 111,118,148 rows yielded 19,628,647 exact duplicates removed, 58,403 canonical calibration rows excluded, and 2,226,685 ambiguous CGM timestamps excluded. The remaining non-conflicting canonical stream contained 86,977,148 CGM timestamps across 851 participants. These quantities have different units: excluded ambiguous timestamps may contain multiple rows, so they should not be subtracted as a single row count from the canonical-row total. The 835-person multimodal candidate pool contained 86,418,499 non-conflicting numeric CGM timestamps.
+Study size was determined by available eligible release data, without a documented prospective power calculation. The unit of generalization is the participant, not the overlapping window. Supplementary Table S1 distinguishes measured cohort quantities from unavailable characterization.
 
-Source glucose was labeled mmol/L and converted to mg/dL with the implementation's fixed factor of 18.0182. The primary range policy retained observed numeric CGM values after the duplicate, calibration, and ambiguity rules. It did not impose a device-validated physiological range. This choice preserves an auditable primary policy but makes range sensitivity an important remaining analysis. Raw timestamps and source values were retained for provenance. In the development event cache, 40,473,171 canonical basal, bolus, and food records were retained; 13,867 had an unknown permitted model value. Unknown dose or carbohydrate values remained distinct from recorded zero values.
+### 3.2. Canonicalization, prediction windows and outcome
 
-### 2.3. Prediction windows and outcome
+Records were sorted by participant and UTC occurrence time. Exact re-exports collapsed using release-specific keys and deterministic source representatives. Calibration rows and conflicting same-time CGM measurements were excluded from the primary grid; distinct auxiliary variants were retained as recorded instances. Source glucose in mmol/L was converted by 18.0182 to mg/dL. The primary policy retained numeric values without asserting a device-specific validity cutoff. Range-filter retention audits were not alternate trained-model evaluations.
 
-Prediction indices were observed CGM timestamps. A logical grid recognized intervals within one second of an integer multiple of 300 seconds; gaps created missing slots and irregular intervals restarted a grid run. The ±1-second tolerance was selected using development chronology and coverage audits before the current model comparison. It preserves source readings rather than interpolating timestamps or target values.
+A logical five-minute grid used a development-selected one-second cadence tolerance. History comprised 24 nominal slots from t−115 minutes through t, with at least 22 observed slots, no more than two consecutive missing, and the final three readings observed at >=70 mg/dL. This recent-non-low rule is a modeling eligibility criterion. Missing glucose slots used zero payload plus an observation mask, without forward filling, backfilling or target interpolation.
 
-The two-hour history was open at its lower boundary and closed at the prediction index, yielding 24 nominal slots from approximately t−115 minutes through t. Eligibility required at least 22 observed slots, no more than two consecutive missing slots, and observed readings at the last three slots all at or above 70 mg/dL. This recent non-low rule was a modeling eligibility choice, not a clinical definition of recovery. In the executed full-history models, missing CGM slots had a zero payload and a separate observation mask. No forward filling or backfilling was used in this representation, superseding the filling option discussed in the early draft protocol.
+The binary outcome was any of six observed future readings at nominal +5 through +30 minutes strictly below 70 mg/dL. All six readings were required for either class; incomplete futures, including those containing an observed low, were excluded. Exactly 70 was not low. Labels were generated automatically from source CGM, without subjective clinical adjudication. They describe sensor outcomes under recorded care, not untreated counterfactual risk, sustained episodes, symptoms or severe hypoglycemia. Coverage requirements select sufficiently observed periods.
 
-The binary endpoint was positive when any of the six observed future readings at nominal +5 to +30 minutes was below 70 mg/dL. Exactly 70 mg/dL was not low. All six future slots had to be observed for either a positive or negative label. Incomplete futures were excluded rather than labeled negative, including incomplete futures containing a low reading. Consequently, the evaluation applies to the retained periods with sufficiently complete monitoring. The endpoint did not require sustained low glucose, symptoms, or severe hypoglycemia. Secondary horizons and lower-threshold outcomes in the original protocol were not part of the reported model comparison.
+### 3.3. Events and information-time contract
 
-### 2.4. Event inputs and common information contract
+Models received the newest 64 event instances occurring in (t−120 minutes,t], ordered newest first. The cap followed a development truncation audit: 16 events truncated 39.272% of histories, whereas 64 truncated 17,720 windows (approximately 0.040%). Each 17-channel token encoded validity, modality, eight hashed subtype buckets, age, value, value-known and two provenance fields. Both provenance fields were zeroed for modeling. Subtype collisions are possible. Fixed scaling constants and exact token definitions are supplied in Supplementary Sections S2–S3.
 
-Both neural comparators received the same CGM values and observation masks and the same retained event instances. Auxiliary events were restricted to occurrence times in (t−120 minutes, t]. Records were ordered by occurrence time, the most recent 64 were retained, and the implemented sequence order was newest first. Empty positions were padded with zeros and identified by a validity flag. The 64-event budget was selected after an audit across development windows: a 16-event cap truncated 39.272% of windows, whereas the 64-event cap truncated 17,720 windows, approximately 0.040%.
+Only conservatively validated normal-bolus components supplied known doses. Basal entries represented reported pump state rather than reconstructed insulin exposure; insulin-on-board and carbohydrate-on-board were not modeled. Unknown amounts retained explicit flags. Missing records were not interpreted as verified absence of eating or delivery.
 
-Each event occupied a 17-channel token: validity; three modality indicators for basal, bolus, and food; eight stable hashed subtype indicators; normalized event age; numeric value; value-known flag; and two export-provenance channels. The final two channels, encoding same-time variants and duplicate counts, were zeroed in both neural models to exclude export-derived provenance from prediction. Subtype hashing used eight buckets and therefore may collide. Event ages were normalized by 120 minutes. Glucose was divided by 100, and event values by fixed modality-dependent divisors of 10, 25, and 150 for basal, bolus, and food, respectively. These were numerical scaling constants rather than patient-specific physiological parameters. Only permitted normal-bolus amounts were used; unvalidated extended-bolus quantities were not incorporated as known delivered amounts. Basal values represented recorded pump state, not reconstructed insulin exposure. Insulin-on-board and carbohydrate-on-board kinetics were not modeled.
+Parent-upload linkage did not establish first-usable timestamps for the shared modalities. All comparisons therefore replayed occurrence times under assumed immediate availability. This is an optimistic retrospective information condition; event-reporting delay and real-time usability were not measured.
 
-The upload-linkage audit did not establish a valid first-usable timestamp for the core modalities: many linked records lacked upload UTC, and some upload timestamps preceded event occurrence. Accordingly, all reported experiments replayed occurrence times under an assumed immediate-availability condition. This is an optimistic retrospective information policy, not measured real-time availability. Missing recorded events were not interpreted as proof of absent meals or insulin delivery.
+### 3.4. Model implementations
 
-### 2.5. Patient-disjoint development partitions
+Each window defined an independent graph, without cross-patient hidden state. CGM slots and event tokens were embedded into 64 channels. Each valid event connected to the nearest observed CGM slot at or after its occurrence and no later than t. Three message experts consumed the event embedding, destination CGM embedding, elapsed time and modality. Generic routing averaged experts; typed routing selected one by modality. Count-normalized messages were added to CGM states before a 64-channel GRU and prediction head. The model had 36,883 parameters. These deterministic edges express temporal associations, not annotated physiological effects or an independently curated clinical ontology.
 
-Five deterministic development configurations each contained mutually exclusive training, validation, and internal development-test participants (Table 1). Across the five configurations, every development participant appeared once in a validation set. Training sets overlapped across configurations; thus the fitted models and fold estimates are not statistically independent. The naming convention “outer” is retained from the repository, but these were exploratory development comparisons rather than untouched nested cross-validation.
+The aligned pooling control used identical event membership and destination bins, independently encoded events and normalized their sums by bin counts. Its 129→64 fusion layer, 64→2 branch-gating layer and 16 channel-gain parameters replaced the graph's 8,466-parameter expert bank, maintaining 36,883 total parameters. Shared input and count matching do not imply functional equivalence: pooling's learned fusion and gates also change the CGM-only pathway in event-empty bins. This comparison does not isolate the pairwise message operation causally.
 
-**Table 1. Development partitions and validation label coverage.**
+The earlier 36,883-parameter sequence comparator encoded CGM and event histories separately and combined their recurrent states at the prediction head. Fusion position, widths and chronological processing differed from the graph. Complete layer definitions, nonlinearities and parameter accounting are given in Supplementary Section S3.
+
+### 3.5. Development partitions, optimization and analysis history
+
+Five development configurations each had mutually exclusive training, validation and internal development-test participants. Every development participant appeared once in validation across configurations (Table 1). Training sets overlapped, and the same folds were reused across seeds. The repository's “outer” terminology does not establish untouched nested cross-validation: architecture and control choices were informed by earlier development findings.
+
+All current neural fits used AdamW, learning rate 0.0002, weight decay 0.0001, unweighted binary cross-entropy with logits, and batch size up to 4,096. Data streamed by participant/partition, rather than independently shuffled windows. Final-epoch scores were evaluated under each recorded schedule. Graph-versus-sequence fits used one epoch across five folds at seeds 20261003/20261004 on Apple MPS. The later graph-versus-pooling fits used two epochs across five folds at seeds 20261029/20261030. Source digests matched within every accepted pair; first-seed pooling sources varied between folds, while all second-seed folds shared one digest. A mismatched first-seed outer-4 graph run was excluded and rerun.
+
+A separately declared eight-epoch CPU pair used outer-0 and seed 20261031. Its seed, fold and hardware differ from the two-seed aggregate; the contrast cannot identify an epoch effect. Equal parameter counts do not establish equal effective capacity, optimization effort or convergence. Dated local protocols and the supplementary planned-versus-executed register document amendments; no prospective registration identifier or complete unchanged prespecified analysis is established.
+
+### 3.6. Metrics, pairing and uncertainty
+
+The ranking metric was participant-macro average precision (AP), using grouped tied-score thresholds and stepwise precision–recall integration, version threshold-grouped-ap-v2. Earlier incorrect tied-score AP outputs were superseded. Two development participants had no positive labels, so AP used 650 people; Brier and coverage used all 652. Macro-Brier averages each participant's mean squared probability error equally; pooled Brier weights windows equally. Brier alone is not a complete calibration assessment.
+
+Accepted pairs required matching participants, timestamps, labels, input/window identities, training membership, optimizer, budget and within-pair source digest. Ten thousand paired participant-bootstrap draws gave percentile 95% intervals for graph minus its comparator. For the two-seed pooling summary, differences were first averaged across seeds within participant, then participants were resampled. Supplementary Section S5 gives the estimand and bootstrap seeds. Intervals condition on saved fits and exclude refitting, selection, training-seed and independent-cohort uncertainty. No confirmatory multiplicity adjustment, equivalence margin or clinically meaningful difference threshold was specified.
+
+### 3.7. Integrity and AI-assisted preparation
+
+SHA-256 fingerprints bind inputs, splits, source versions and prediction identities. The manuscript build checks 21 central paired audits against 42 completed-run summaries and independent aggregate-recomputation receipts. It does not refit every model or repeat all historical inference. The evidence map and master record distinguish numerical verification, recovered archives and source-semantic assumptions.
+
+AI-assisted tools supported coding, reference checking, auditing, execution orchestration across local and remote workflows, and writing. The human authors must confirm the tool/version/date details, verify the analysis, and accept responsibility. Three AI agents provided separate internal reporting, statistical and editorial reviews; these are not independent human or clinical peer review.
+
+## 4. Results
+
+### 4.1. Analytic cohort and coverage
+
+The shared index contained 56,375,850 windows from 835 participants. Development contributed 44,028,064 windows and 1,296,297 positives ({{PREVALENCE}}%). Of these histories, 38,973,176 had all 24 CGM slots observed, 3,734,515 had one missing and 1,320,373 had two missing. Figure 1 shows cohort flow; Table 1 gives executed validation membership. Overlapping windows are repeated views of participant histories, not independent clinical episodes.
+
+**Table 1. Development validation groups and outcome coverage.**
 
 {{TABLE1}}
 
-Validation groups are reported from the executed paired model archives. In older coverage summaries, an “outer-k” group can denote the internal development-test group rather than the validation group; those group counts are not interchangeable. The separate reserved final-performance group contained 183 participants and was excluded from staged neural inputs.
+Older “outer-k” coverage groups may denote rotated internal development-test membership; this table follows the actual neural validation archives. Across the complete shared index, 20.222% of histories had no retained basal/bolus/food records, 43.772% had basal alone and 22.654% had all three. These are source-record coverage diagnostics, not complete clinical-event ascertainment. All eligible histories, including event-empty windows, remained in the comparison.
 
-### 2.6. Temporal event graph
+### 4.2. Graph versus time-aligned pooling
 
-Each prediction window defined an independent graph with CGM-slot representations and retained event representations. CGM nodes were embedded from scaled glucose and the observation mask through a two-to-64 linear projection and hyperbolic tangent. Event tokens were projected from 17 to 64 channels. Each event was connected to the nearest observed CGM slot at or after the event occurrence and no later than the prediction index. Missing CGM slots were not edge targets. These edges express a deterministic temporal association; they are not annotated treatment effects or causal physiological links.
+Pooling had higher AP in every two-epoch fold at both seeds (Tables 2–3; Figure 2). Macro-Brier favored pooling in four first-seed folds and all five second-seed folds. Each accepted pair had matching source and prediction identities; the between-fold first-seed source variation remains a limitation.
 
-An edge feature vector concatenated the 64-channel event projection, 64-channel destination CGM embedding, normalized event-to-CGM elapsed time, and three event-modality indicators, giving 132 channels. Three message experts each used a 132-to-14 linear layer, ReLU, and 14-to-64 projection. For the generic graph, the message for every edge was the mean of the three expert outputs. Messages were summed at their destination slot and divided by the square root of the destination's event count, with a minimum denominator of one. A residual addition to the CGM embedding followed by hyperbolic tangent produced fused slot states. A single-layer 64-channel GRU processed the 24 fused states from oldest to current; a 64-to-32-to-1 head with ReLU produced a risk logit. The model contained 36,883 trainable parameters.
+**Table 2. Graph versus time-aligned pooling, seed 20261029.**
 
-The typed variant used the same topology, inputs, expert bank, and parameter count, but selected one expert according to basal, bolus, or food modality. Generic routing also received modality indicators, so this comparison tested a routing constraint rather than access to modality information. Relation labels were reconstructible from event modality and temporal ordering. The executed model is therefore described as a temporal event graph, without implying that a full external clinical ontology or independent semantic knowledge base was evaluated.
+{{TABLE4}}
 
-### 2.7. Parameter-matched sequence comparator
+**Table 3. Graph versus time-aligned pooling, seed 20261030.**
 
-The non-graph comparator encoded the same 24 CGM slots using a GRU with 66 hidden channels. A 17-to-27 linear projection with ReLU embedded the same newest-first event tokens, and a 67-channel event GRU encoded the sequence. The output at the final valid event position was selected; windows without events received a zero event state. CGM and event states were concatenated and passed to a 133-to-24-to-1 head with ReLU. This model also contained exactly 36,883 trainable parameters.
+{{TABLE5}}
 
-Matching parameter count, input membership, and training budget reduces several confounders but does not make the architectures equivalent. The graph fuses event information at CGM positions before recurrent readout, whereas the sequence comparator combines independent CGM and event encoders at the prediction head. Event ordering, intermediate widths, message aggregation, and fusion position remain possible explanations for a difference. Equal parameter counts also do not imply equal computation or equal optimization difficulty.
+AP and Brier differences are graph minus pooling. Positive AP favors graph; negative Brier favors graph. Intervals resample participants conditional on fitted predictions.
 
-### 2.8. Training and completed comparison coverage
+Averaging paired differences over the two fixed seeds within participant gave AP −0.009900 (95% interval −0.010477 to −0.009345; 650 people) and macro-Brier +0.0001264 (+0.0001096 to +0.0001429; 652 people). Pooling led AP for 639 of 650 AP-defined people and Brier for 528 of 652. The repeated seeds did not increase the independent participant count.
 
-Primary graph-versus-sequence fits used AdamW with learning rate 0.0002, weight decay 0.0001, and unweighted binary cross-entropy with logits. Batch size was at most 4,096 and training ran for one complete pass through the assigned training windows. Batches were streamed by participant and partition using the shared producer; the current runs did not use independently shuffled windows. Checkpoints, run configuration, expected training counts, source fingerprints, and participant prediction archives were retained.
+In the separate eight-epoch pair, graph AP was {{LONGER_GRAPH_AP}} versus pooling {{LONGER_CONTROL_AP}}, difference {{LONGER_AP_CI}}; macro-Brier was {{LONGER_GRAPH_BRIER}} versus {{LONGER_CONTROL_BRIER}}, difference {{LONGER_BRIER_CI}}. The smaller gap is descriptive and cannot be assigned solely to schedule duration. The single fold/seed does not establish convergence or equivalence.
 
-The internally consistent five-fold comparison used Apple MPS for both models with two producer workers and seed 20261003. Additional fits with seed 20261004 completed on validation folds 0–3 by the evidence snapshot. The second-seed fold-4 pair was not included because no completed paired audit was present in the snapshot. An earlier Kaggle CUDA pair on fold 0 used three workers and the same nominal seed and model budgets; it is reported separately as a hardware and execution robustness check. It is not another independent participant cohort or seed.
+### 4.3. Earlier comparisons and diagnostic controls
 
-The typed-versus-generic graph pilot used a separate CUDA execution on fold 0, seed 20261003, for one epoch. Historical CGM logistic, event-summary, residual, and two-epoch full-history comparisons were retained as contextual diagnostics. Their training schedules and sometimes evaluation assignments differed from the current graph comparison; they were not pooled into a common model ranking. The final validation score after the specified epoch was used for the current matched fits. No convergence or independently optimized stopping point was established.
+The earlier one-epoch graph-versus-sequence study favored the graph on AP and macro-Brier in all ten seed-fold fits. Unweighted mean AP differences were {{MEAN_AP_DIFF}} at seed 20261003 and +0.086575 at seed 20261004. These descriptive fold means are different estimands from the participant-weighted two-seed pooling summary. A separate CUDA outer-0 pair reproduced the direction but not exact numerical results. Full foldwise values are in the numerical supplement.
 
-### 2.9. Outcomes, pairing, and uncertainty
+Modality-typed routing had higher AP in only two of five folds at one seed; mean typed-minus-generic AP was −0.000476. Nearest-versus-second-nearest endpoint assignment favored nearest in eight of ten paired comparisons, with participant-summary AP difference +0.002097 and macro-Brier −0.0000773. Reassigning event ages had a much smaller original-pairing AP advantage (mean +0.000112) and mixed Brier directions. These perturbations assess model sensitivity, not clinical relation validity.
 
-The main ranking measure was participant-macro average precision. AP was computed using threshold-grouped tied scores and stepwise precision–recall integration under metric version threshold-grouped-ap-v2. It was not trapezoidal precision–recall area. Earlier AP reports affected by the previous calculation were superseded by corrected artifacts. AP was undefined for participants without positive labels; these participants were excluded from AP means but retained for Brier scoring and coverage. The development denominator was 650 for AP and 652 for Brier.
+Earlier event-summary, additive-residual, CGM-history and event-disabled studies did not establish stable incremental event value. One corrected logistic model had 14 total features—two CGM plus 12 event variables—and lower AP than its CGM reference. Two graph event-disabled pairs had opposite directions under different seeds/schedules; disabling events also removes gradients to event modules. An explanation screen used deletion-based event selection and related deletion/retention evaluation on 518 windows, making the result selection-conditioned. Historical outcomes, corrections and caveats are retained in the master record and Supplementary Sections S6–S8.
 
-Brier score was the mean squared difference between probability and outcome. Participant-macro Brier averaged participant scores with equal participant weight; pooled Brier weighted windows equally. Lower Brier indicated better probabilistic error, but did not alone establish calibration quality. Comparisons required identical participant, timestamp, and label rows and matching split, input-content, training-membership, and prediction-window identities, as well as model budget and optimizer settings.
+## 5. Discussion
 
-For each graph-versus-sequence pair, 10,000 participant bootstrap resamples produced a percentile 95% interval for graph minus sequence. The same sampled participants were used for both models. Intervals conditioned on the fitted predictions and did not include retraining variability, tuning uncertainty, or dependence induced by overlapping training sets. Historical diagnostics and the typed-routing pilot used 2,000 resamples. We report foldwise results and descriptive unweighted fold means rather than treating fold estimates as independent replicates. We did not derive a pooled confidence interval by averaging interval endpoints. No formal multiplicity-adjusted confirmatory testing was conducted.
+The apparent graph advantage depended on the comparator. The graph exceeded a parameter-count-matched late-fusion sequence implementation, yet time-aligned pooling performed better in every two-epoch AP comparison and in the separate eight-epoch pair. The informative result is the contrast between these implementations under shared recorded inputs and timing. It does not identify a general graph disadvantage, the effect of alignment alone, or the clinical value of the deterministic edges.
 
-### 2.10. Evidence integrity and explanation scope
+The pooling control changes both event integration and the nonlinear CGM pathway, including in event-empty bins. Consequently, its advantage cannot be attributed solely to removing graph messages. The sequence and pooling studies also differ in epoch count and architecture, precluding a factorial explanation of why the comparison changes. A stronger mechanistic test would preserve CGM processing and fusion while varying only the event-conditioned operation. A stronger predictive benchmark would also give CGM-only and event-aware models comparable tuning and sufficient training-side optimization.
 
-Run metadata, cached inputs, split manifests, source code, and prediction-window identities were fingerprinted using SHA-256. The manuscript's tables were generated from aggregate paired audits and checked against local completed run summaries where available. This preparation step checked archive metadata and arithmetic; it did not rerun model inference over all prediction records. The evidence map records source-file fingerprints and distinguishes local paired archives from a remotely retained typed-pilot bundle.
+Data quality is integral to this interpretation. Shared duplicate handling, eligibility and prediction identities reduce inconsistencies between models, but do not establish complete clinical-event capture or valid event availability. Manually entered meals may become usable after occurrence. Complete-future requirements select periods with dense sensor coverage, and the retained numeric policy does not validate all extremes. The results apply to the sampled release histories and the recorded treatment process.
 
-The repository includes evidence-record and node-removal utilities as software infrastructure. However, no completed retention/deletion study, matched random-mask comparison, stability analysis, blinded clinician assessment, or explanation-usability evaluation supported the current model results. We therefore make no claim that event connectivity, message values, or graph structure provides a faithful explanation. Model-level risk estimates were the evaluated output.
+Several limitations prevent stronger inference. Model design reused development findings; the study is exploratory and no reserved final-performance result is reported. Training groups overlap and seeds reuse the same people. Participant-bootstrap intervals condition on fixed fits and omit selection, refitting and seed uncertainty. Millions of windows cannot compensate for these dependencies. First-seed pooling sources vary across folds, although within-pair fingerprints match. The eight-epoch follow-up changes seed, fold and hardware context and does not establish convergence.
 
-## 3. Results
+Population dates, demographic distributions and subgroup fairness are not characterized for the analytic cohort. The original study's recruitment or demographics cannot repair this gap. No external event or graph evaluation was completed: separate frozen CGM-logistic transfers to DCLP3/DCLP5 are limited diagnostic context, with unresolved source-clock and event semantics. Likewise, event-disabled results change direction and equal declared parameter counts do not ensure equal effective capacity.
 
-### 3.1. Analytic windows and data quality
+Clinical usefulness remains unmeasured. AP and Brier do not supply an operating threshold, false-alert rate, sustained-episode sensitivity or warning lead time. Calibration curves, threshold selection, refractory rules and observable episode matching require separate analysis. The deletion screen does not independently validate explanations; no blinded clinician/patient usability assessment or prospective benefit was established. A documented negative comparison can guide model evaluation without implying clinical readiness or first-in-field novelty.
 
-The shared eligibility index contained 56,375,850 windows across 835 participants. The development subset contributed 44,028,064 windows and 1,296,297 positive labels, a window prevalence of {{PREVALENCE}}%. Of these windows, 38,973,176 had all 24 CGM slots observed, 3,734,515 had one missing slot, and 1,320,373 had two missing slots. Two development participants had no positive outcome windows. Overlapping windows represent repeated views of participant histories, not independent clinical episodes.
+## 6. Conclusion
 
-Recorded auxiliary events were incomplete at the window level. Across the full shared eligibility index, 20.222% of histories had no basal, bolus, or food record; 43.772% had basal records alone; and 22.654% contained all three modalities. These are release-wide coverage diagnostics rather than development-only model effects. All frozen windows remained eligible for the main model comparison, including those without auxiliary events. Restricting evaluation to all-three-modality histories would define a different analysis population.
-
-### 3.2. Five-fold graph-versus-sequence comparison
-
-At seed 20261003, graph macro AP ranged from {{GRAPH_AP_RANGE}} and sequence macro AP from {{SEQ_AP_RANGE}}. The graph had higher AP and lower participant-macro Brier score in every validation fold (Table 2). The descriptive unweighted mean AP difference was {{MEAN_AP_DIFF}}, and the mean macro-Brier difference was {{MEAN_BRIER_DIFF}}. These are means of fold contrasts, not pooled AP estimates and not confidence bounds on general model-family performance.
-
-**Table 2. Matched graph-minus-sequence development comparisons, seed 20261003.**
-
-{{TABLE2}}
-
-AP is unitless; positive differences favor the graph. Negative Brier differences favor the graph. Parentheses show 95% paired participant-bootstrap intervals from 10,000 resamples of fixed predictions. Participant counts and AP-defined denominators are provided in Table 1. Each fit used one epoch and 36,883 parameters per model. The descriptive fold means are {{FOLD_MEAN_GRAPH_AP}} AP for the graph and {{FOLD_MEAN_SEQ_AP}} for the sequence comparator; these should not be interpreted as a matched comparison with the historical logistic result.
-
-Across validation groups, AP favored the graph in {{AP_WINS}}/650 participants with defined AP, and Brier favored it in {{BRIER_WINS}}/652 participants. Foldwise AP intervals were above zero, but their precision describes participant resampling conditional on these specific fitted models. Figure 1 displays the paired AP contrasts without pooling folds into a meta-analytic estimate.
-
-![Figure 1. Foldwise graph-minus-sequence AP differences.](figures/ap_differences.png)
-
-**Figure 1.** Graph-minus-sequence differences in participant-macro AP for all completed Apple MPS pairs at the evidence snapshot. Bars show 95% participant-bootstrap intervals conditional on fitted predictions. Filled circles indicate seed 20261003; squares indicate seed 20261004. Seed 20261004 has no completed fold-4 pair in this snapshot. There is no pooled-effect marker because training sets overlap and seed coverage is incomplete.
-
-### 3.3. Second-seed and cross-hardware results
-
-At seed 20261004, completed pairs on folds 0–3 favored the graph on both AP and macro Brier (Table 3). This provides initial seed replication beyond a single fold. Coverage remained incomplete, and two seeds do not provide a reliable estimate of training-seed uncertainty. Repeated predictions for a participant under different seeds were not counted as additional independent participants.
-
-**Table 3. Completed second-seed comparisons, seed 20261004.**
-
-{{TABLE3}}
-
-All settings match the one-epoch Apple MPS comparison. Confidence intervals use 10,000 paired participant resamples and do not quantify uncertainty over seeds. The second-seed fold-4 result is pending in the manuscript evidence snapshot.
-
-The earlier CUDA fold-0 comparison yielded graph AP 0.474481 versus sequence AP 0.389901, difference +0.084580 (95% interval +0.078104 to +0.090816). Macro Brier was 0.021522 versus 0.024211, respectively. The MPS refit at the same seed and fold reproduced the direction, with AP difference +0.080620. Numerical outputs differed across hardware and execution conditions, so the CUDA and MPS results are presented separately. Their agreement supports execution robustness for this comparison, without expanding cohort diversity or demonstrating exact hardware reproducibility.
-
-### 3.4. Modality-typed versus generic routing
-
-The one-fold CUDA routing pilot used the same graph topology and 36,883-parameter expert bank in both variants. Generic routing achieved macro AP 0.474481 and macro Brier 0.021522; modality-typed routing achieved AP 0.471859 and Brier 0.021619. The typed-minus-generic AP difference was −0.002622 (95% interval −0.003386 to −0.001909), and the macro-Brier difference was +0.000097 (95% interval +0.000076 to +0.000121). Typed AP was higher for 35 participants and lower for 95.
-
-The tested routing constraint therefore did not improve performance. Because the labels were derived from information already present in the event tokens, this was a test of modality-specific parameter routing rather than additional clinical knowledge. The result cannot establish whether richer clinical relations, relation reconstruction controls, or a different training budget would change performance. The typed pilot's raw bundle was documented remotely; its local summary was available, but local raw-prediction recovery was not confirmed in this manuscript snapshot.
-
-### 3.5. Earlier CGM and event diagnostics
-
-The corrected two-feature CGM logistic benchmark achieved participant-macro AP 0.446938 across 650 AP-defined participants and pooled Brier 0.021590 across 44,028,064 development windows. The persistence/slope score achieved AP 0.209095 and pooled Brier 0.055132 under that earlier development-test aggregation. These establish historical references but are not training-budget-matched graph comparisons.
-
-On the common fold-0 validation set, adding fourteen recorded-event summary features to logistic regression reduced AP from 0.457055 to 0.425768. A selected additive residual fitted on top of frozen CGM logits also reduced AP, to 0.444091, although pooled Brier improved from 0.022880 to 0.022503. These results show that ranking and probabilistic error can move in different directions and that adding event summaries alone did not establish an AP benefit.
-
-In a separate two-epoch full-history comparison, a CGM-only GRU achieved AP 0.471865 and macro Brier 0.021357, compared with AP 0.460532 and Brier 0.021839 for a joint CGM/event sequence model. A same-architecture event-disabled variant achieved AP 0.469458; the event-enabled-minus-disabled AP difference was −0.008926 (95% interval −0.010402 to −0.007357). The disabled branch also removed event-encoder gradients, limiting effective-capacity equivalence. The joint event model improved from AP 0.397077 at epoch 1 to 0.460532 at epoch 2, demonstrating sensitivity to training duration. These diagnostics were not used to claim a graph advantage over a converged CGM-only model, nor do they show that auxiliary events are generally uninformative.
-
-## 4. Discussion
-
-The principal finding is a consistent development advantage for the tested temporal event graph over a parameter-matched late-fusion sequence implementation. Directional agreement across all five validation folds at one seed, four completed folds at another seed, and a separate CUDA execution strengthens the case for further controlled evaluation. The evidence is broader than a single favorable fold. It remains specific to the present cohort, endpoint, information policy, implementations, and one-epoch budget.
-
-The positive graph-versus-sequence contrast and negative typed-routing result address different mechanisms. Linking events to observed CGM positions provides an explicit alignment before temporal encoding; this may make event context easier to use under the tested optimization schedule. The generic model also averages an expert bank, whereas the non-graph model summarizes its event stream separately. Either difference could contribute. The experiments do not isolate graph message passing from early fusion, deterministic position alignment, or optimization behavior. A non-graph comparator with reconstructed event-to-CGM alignment, event-order perturbations, and constrained relation or edge shuffling is needed to determine which structural choice accounts for the advantage.
-
-The typed-routing pilot provides no evidence that modality-specific expert selection improves prediction. Both variants already receive modality and timing information. Thus, even a positive typed-routing result would support an inductive-bias claim, not discovery of new clinical facts. Broad patient-centered knowledge graph, semantic integration, and graph-recurrent glucose forecasting ideas already appear in prior work [4–6]. Our contribution at this stage is the controlled retrospective comparison and its auditable information contract, rather than a claim of the first diabetes knowledge graph or a validated semantic explanation system.
-
-The earlier event diagnostics make a simple “more modalities are better” interpretation implausible. Linear summaries and additive residuals did not improve AP, and the two-epoch sequence comparison favored CGM-only history. These findings do not contradict the present graph advantage over a particular event-sequence model: a representation can outperform another multimodal representation without establishing incremental value beyond an equally optimized CGM-only predictor. A matched graph-without-events control and a competitive CGM-only model trained under the same schedule remain necessary. Moreover, improvement between epochs in the historical models indicates that one epoch may compare rates of learning as much as attainable performance.
-
-The data pipeline is central to interpreting these comparisons. Repeated uploads can overweight copied events, conflicting CGM values can affect targets, and incomplete futures can create outcome misclassification if treated as negative. Shared canonicalization, eligibility masks, and prediction identities reduce these risks. They do not establish complete event capture or validate all glucose extremes. The use of occurrence-time replay is especially consequential: manually entered carbohydrate events may only become usable later. Without measured arrival times, the present result is an optimistic retrospective benchmark. A delayed-availability sensitivity would be a simulation unless independently observed arrival metadata become available.
-
-Clinical usefulness remains unmeasured. AP evaluates ranking under the retained outcome prevalence; Brier measures probabilistic error. Neither provides a threshold, false-alert rate, sustained-episode sensitivity, or achievable warning time. Before deployment-oriented interpretation, the protocol requires chronologically simulated alerts, validation-selected thresholds, refractory rules, and episode matching with documented observable follow-up. Calibration curves and any recalibration must also be evaluated without using final test outcomes to choose settings. No dosing recommendation or treatment effect follows from these risk predictions.
-
-### 4.1. Limitations
-
-This study has several material limitations. First, all reported neural comparisons are exploratory development results. Architecture and representation decisions were informed by earlier development analyses, and the current comparisons are not untouched nested cross-validation. The separate final-performance group has not provided a reported model evaluation, and external validation has not been performed.
-
-Second, neural fits used one epoch in the principal comparison, incomplete coverage of a second seed, and a fixed optimizer. We have not established convergence, equal optimization opportunity, or superiority over strong contemporary sequence architectures. Parameter matching cannot eliminate differences in computation, fusion position, chronological encoding, or effective model capacity. Source fingerprints are preserved, but the current manuscript preparation did not reproduce every prediction from its checkpoint.
-
-Third, bootstrap intervals resample participants with fixed predictions. They do not capture model refitting, seed uncertainty, or model-selection effects. Fold training sets overlap, and second-seed comparisons reuse the same participants. Millions of overlapping windows do not substitute for independent participants or episodes.
-
-Fourth, the population was selected for recorded modality presence and sufficiently observed CGM windows. We did not establish complete clinical event capture, characterize demographic subgroup performance, or verify generalization to other insulin delivery settings, devices, or healthcare populations. No demographic balance table or symptom ascertainment was available in the verified experiment summaries.
-
-Fifth, immediate event availability was assumed, the primary numeric-range policy retains values without a device-specific validity cutoff, and subtype hashing may merge distinct source categories. The two-hour lookback and 64-event cap also bound the represented physiology. Reporting delay, range sensitivity, longer histories, and strict modality-complete subgroups remain unreported model sensitivities.
-
-Finally, clinical relation semantics, explanation faithfulness, patient or clinician usability, alert burden, and prospective benefit have not been demonstrated. The deterministic event-to-CGM topology should not be interpreted causally. These limitations prevent presenting the current artifact as a clinically validated or explainable decision-support system.
-
-## 5. Conclusions
-
-A temporal event-to-CGM graph outperformed a non-graph sequence predictor with the same recorded inputs and exact parameter count across five development folds at one seed and four completed folds at a second seed. Modality-specific routing did not improve over a generic edge operation in the separate pilot. The results support continued investigation of explicit event alignment and message aggregation, while leaving clinical semantic value, incremental benefit beyond an optimized CGM-only predictor, explanation fidelity, and final generalization unresolved.
+On shared Loop development windows, the tested graph exceeded one late-fusion sequence implementation but did not outperform time-aligned pooling under the completed schedules. The two-seed participant summary favored pooling on AP and macro-Brier. Architectural, optimization and development-selection limits restrict the finding to these implementations. The contribution is a reproducible comparative record, while isolated relation utility, independent explanation faithfulness and final clinical generalization remain unresolved.
 
 ## Declarations
 
-**Ethics and consent:** This manuscript concerns secondary analysis of a public-use Loop release. The original prospective study reported institutional review board approval and electronic consent [2]. [AUTHOR TO INSERT: the local determination for this secondary analysis, including institution, review or exemption identifier, applicable data-use terms, and any required consent statement.] Original-study approval must not be presented as approval of this secondary analysis.
+**Ethics and consent:** The original prospective Loop study reported IRB approval and electronic consent [2]. [AUTHOR CONFIRMATION REQUIRED: applicable secondary-analysis approval, exemption or non-human-subject determination, institution/authority, reference identifier and consent applicability.] Original-study approval is not approval of this secondary analysis. No new approval is asserted.
 
-**Data availability:** The source release is associated with the Jaeb public dataset collection [3]. Access and reuse remain subject to the custodian's applicable terms. Participant-level caches, identifiers, checkpoints containing protected metadata, and prediction shards remain in protected local storage. [AUTHOR TO CONFIRM: the permitted public data-access statement and precise release citation.] Aggregate tables and an identifier-free evidence map accompany this draft.
+**Data availability:** The source release is associated with the [Jaeb diabetes dataset collection](https://public.jaeb.org/datasets/diabetes) [3]. Reuse follows custodian terms. Aggregate evidence accompanies this paper; participant-level caches, identifiers, prediction shards and metadata-bearing checkpoints are excluded from the document bundle. [AUTHOR CONFIRMATION REQUIRED: permitted access statement, precise release citation and redistribution terms.]
 
-**Code availability:** The project contains canonicalization, temporal eligibility, caching, training, pairing, and metric utilities, together with software tests. [AUTHOR TO INSERT: a public repository URL, archived version or DOI, environment specification, and code license after an appropriate release review.] The supplied manuscript build script reproduces the tables and figures from the existing aggregate audit files; it is not a replacement for the full model-training workflow.
+**Protocol and registration:** Dated local protocols, amendments and the executed-analysis register accompany the manuscript. No prospective registration identifier is available for this secondary modeling study. Dated files do not establish unchanged prospective specification.
 
-**Funding:** [AUTHOR TO CONFIRM FUNDING SOURCES AND GRANT NUMBERS, OR AN ACCURATE NO-FUNDING STATEMENT.]
+**Code availability:** Canonicalization, eligibility, model, metric and archive-checking code exists locally. [AUTHOR CONFIRMATION REQUIRED: public repository/archive identifier, immutable revision, code license and release environment.] Two raw basal source tables are currently missing locally; a fresh upstream reconstruction requires authorized reacquisition. Aggregate manuscript regeneration is a separate capability.
 
-**Competing interests:** [EACH AUTHOR TO PROVIDE A DECLARATION.]
+**Funding:** [AUTHOR CONFIRMATION REQUIRED: sources/grants or an accurate no-funding statement.]
 
-**Author contributions:** [AUTHOR TO COMPLETE CONTRIBUTOR ROLES AND APPROVE AUTHORSHIP ORDER.]
+**Competing interests:** [AUTHOR CONFIRMATION REQUIRED from each author.]
 
-**Patient and public involvement:** [AUTHOR TO CONFIRM WHETHER PATIENTS OR THE PUBLIC CONTRIBUTED TO THIS SECONDARY ANALYSIS.]
+**Author contributions:** Pronab Chandra Roy and Lihui Liu are listed in the order supplied. [AUTHOR CONFIRMATION REQUIRED: CRediT roles, authorship eligibility/order approval and corresponding-author responsibility.]
 
-**Acknowledgments and AI assistance:** [AUTHOR TO CONFIRM ACKNOWLEDGMENTS.] An AI assistant supported preparation of this working draft, reference checking, and extraction and formatting of existing aggregate results. The authors must verify all statements, approve the analysis and manuscript, and adapt this disclosure to the target journal's policy. No new model training was undertaken during preparation of this draft.
+**Patient and public involvement:** [AUTHOR CONFIRMATION REQUIRED: actual involvement or confirmed absence.]
+
+**Acknowledgments and AI assistance:** AI tools assisted writing, reference review, coding, execution orchestration and evidence auditing across local and remote workflows. Analysis-related use is described in Methods. The authors must confirm tool/model versions and dates, verify the work and approve the disclosure and cover-letter statement. AI tools are not authors.
 
 ## References
 
@@ -229,3 +185,86 @@ A temporal event-to-CGM graph outperformed a non-graph sequence predictor with t
 [8] Gallardo-García C, Hernando ME, Subías D, Rigla M, García-Sáez G. Interpretable Multihorizon Glucose Forecasting for Assessing Nutritional Information Impact in Type 1 Diabetes Management: Model Development and Validation Study. JMIR AI. 2026;5:e105049. [doi:10.2196/105049](https://doi.org/10.2196/105049).
 
 [9] Collins GS, Moons KGM, Dhiman P, et al. TRIPOD+AI statement: updated guidance for reporting clinical prediction models that use regression or machine learning methods. BMJ. 2024;385:e078378. [doi:10.1136/bmj-2023-078378](https://doi.org/10.1136/bmj-2023-078378).
+
+[10] Cakiroglu MO, Kurban H, Aljihmani L, et al. A reinforcement learning approach to effective forecasting of pediatric hypoglycemia in diabetes I patients using an extended de Bruijn graph. Scientific Reports. 2024;14:31251. [doi:10.1038/s41598-024-82649-4](https://doi.org/10.1038/s41598-024-82649-4).
+
+[11] Hüni F. Predicting Events of Hypoglycemia: A Comparison of Long Short-Term Memory and Graph Attention Network Based Approaches. Bachelor thesis, University of Bern; 2024. [Thesis PDF](https://prg.inf.unibe.ch/wp-content/uploads/2024/08/BA_FabianHuni.pdf). Related work: Hüni F, Garcia-Tirado J, Riesen K. LSTM Networks and Graph Neural Networks for Predicting Events of Hypoglycemia. In: Structural, Syntactic, and Statistical Pattern Recognition. Lecture Notes in Computer Science. Springer; 2025. pp. 52–61. [doi:10.1007/978-3-031-80507-3_6](https://doi.org/10.1007/978-3-031-80507-3_6).
+
+[12] Sarwar MA, Maqsood S, Belousovienė E, Maskeliūnas R. GAT-BiGRU: explainable multi-task temporal graph learning for glucose forecasting, hypoglycemia risk, and counterfactual insulin adjustment. Journal of the American Medical Informatics Association. 2026;33(9):1713–1725. [doi:10.1093/jamia/ocag104](https://doi.org/10.1093/jamia/ocag104).
+
+[13] Zaitcev A, Eissa MR, Hui Z, et al. Automatic inference of hypoglycemia causes in type 1 diabetes: a feasibility study. Frontiers in Clinical Diabetes and Healthcare. 2023;4:1095859. [doi:10.3389/fcdhc.2023.1095859](https://doi.org/10.3389/fcdhc.2023.1095859).
+
+[14] Fang S, Zhang H, Hu D, et al. Glucose forecasting and hypoglycemia forewarning in type 1 and type 2 diabetes using deep learning. iScience. 2026;29(4):115294. [doi:10.1016/j.isci.2026.115294](https://doi.org/10.1016/j.isci.2026.115294).
+
+[15] Tziavaras K, Athanasiou M, Nikita KS. Development of autoencoder-guided attention-LSTM models for predicting nocturnal hypoglycemia risk in Type 1 Diabetes. IEEE Transactions on Biomedical Engineering. 2026. [PubMed](https://pubmed.ncbi.nlm.nih.gov/42224311/).
+
+[16] Zhang Q, Saad SH, Zhou H, et al. Development and validation of an interpretable machine learning model for predicting in-hospital hypoglycemia in adults with type 1 diabetes mellitus: a multicenter retrospective study. Frontiers in Endocrinology. 2026;17:1816599. [doi:10.3389/fendo.2026.1816599](https://doi.org/10.3389/fendo.2026.1816599).
+
+[17] Athanasiou M, Myropoulou N, Zarkogianni K, Nikita KS. Development of personalized interpretable multilevel prediction models for the risk assessment of hypoglycemia in Type 1 Diabetes. In: 2024 IEEE EMBC. [doi:10.1109/EMBC53108.2024.10781638](https://doi.org/10.1109/EMBC53108.2024.10781638).
+
+[18] Ma N, Yu X, Yang T, Zhao Y, Li H. A hypoglycemia early alarm method for patients with type 1 diabetes based on multi-dimensional sequential pattern mining. Heliyon. 2022;8(11):e11372. [doi:10.1016/j.heliyon.2022.e11372](https://doi.org/10.1016/j.heliyon.2022.e11372).
+
+[19] Zhu T, Uduku C, Li K, et al. Enhancing self-management in type 1 diabetes with wearables and deep learning. npj Digital Medicine. 2022;5:78. [doi:10.1038/s41746-022-00626-5](https://doi.org/10.1038/s41746-022-00626-5).
+
+[20] Zheng X, Ji S, Wu C. Predicting Adverse Events for Patients with Type-1 Diabetes Via Self-Supervised Learning. In: IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP). 2024:1526–1530. [doi:10.1109/ICASSP48485.2024.10446832](https://doi.org/10.1109/ICASSP48485.2024.10446832). [Author-hosted paper](https://sijieji.github.io/pdf/Glucose_Prediction_ICASSP_2024.pdf).
+
+[21] Sun X, Li H, Yu X. Future-aware blood glucose forecasting using knowledge distillation with transformer-based sequence-to-sequence models. Scientific Reports. 2026;16:11404. [doi:10.1038/s41598-026-41787-7](https://doi.org/10.1038/s41598-026-41787-7).
+
+[22] Calzavara A, Prendin F, Cappon G, Del Favero S, Facchinetti A. PhyNet: A Physiology-Constrained Monotonic Neural Network for Safe and Explainable Blood Glucose Forecasting. IEEE Transactions on Biomedical Engineering. 2026. [doi:10.1109/TBME.2026.3730324](https://doi.org/10.1109/TBME.2026.3730324).
+
+[23] Chen J, Yin C, Wang Y, Zhang P. Predictive Modeling with Temporal Graphical Representation on Electronic Health Records. Proceedings of the Thirty-Third International Joint Conference on Artificial Intelligence (IJCAI-24). 2024:5763–5771. [doi:10.24963/ijcai.2024/637](https://doi.org/10.24963/ijcai.2024/637).
+
+
+[24] Oviedo S, Contreras I, Quirós C, et al. Risk-based postprandial hypoglycemia forecasting using supervised learning. International Journal of Medical Informatics. 2019;126:1–8. [doi:10.1016/j.ijmedinf.2019.03.008](https://doi.org/10.1016/j.ijmedinf.2019.03.008).
+
+[25] Zhang Y, Chanana K, Dunne C. IDMVis: Temporal Event Sequence Visualization for Type 1 Diabetes Treatment Decision Support. IEEE Transactions on Visualization and Computer Graphics. 2018. [doi:10.1109/TVCG.2018.2865076](https://doi.org/10.1109/TVCG.2018.2865076).
+
+
+[26] Ibrahim A, Banjar A, Harper S, Alarood A, Alsolami E. Forecasting accuracy is not enough: safety-oriented evaluation of neural digital twins prior to in-silico insulin and carbohydrate intervention in type 1 diabetes. Frontiers in Endocrinology. 2026;17:1958918. [doi:10.3389/fendo.2026.1958918](https://doi.org/10.3389/fendo.2026.1958918).
+
+[27] Akrong GB, Appiah B, Commey D, et al. A comparative study of explainability methods for time-series forecasting of blood glucose levels. Discover Artificial Intelligence. 2026;6:604. [doi:10.1007/s44163-026-01328-7](https://doi.org/10.1007/s44163-026-01328-7).
+
+
+[28] Fleischer J, Hansen TK, Cichosz SL. Hypoglycemia event prediction from CGM using ensemble learning. Frontiers in Clinical Diabetes and Healthcare. 2022;3:1066744. [doi:10.3389/fcdhc.2022.1066744](https://doi.org/10.3389/fcdhc.2022.1066744).
+
+[29] Cederblad L, Eklund G, Vedal A, et al. Classification of Hypoglycemic Events in Type 1 Diabetes Using Machine Learning Algorithms. Diabetes Therapy. 2023;14(6):953–965. [doi:10.1007/s13300-023-01403-7](https://doi.org/10.1007/s13300-023-01403-7).
+
+[30] Khokhar PB, Gravino C, Palomba F. Reliability-Aware Short-Term Glycemic Risk Prediction Using an Anchor-Based Comparative Framework of Sequence, Multimodal, and State-Updating Digital-Twin Models. arXiv preprint arXiv:2610.36363. 2026. [arXiv](https://arxiv.org/abs/2610.36363).
+
+[31] Attention-Augmented Temporal Fusion Transformer for Short-Horizon Hypoglycemia Prediction in Type 1 Diabetes. Endocrine Practice. 2026;32(4 Suppl):S336. [doi:10.1016/j.eprac.2026.03.018](https://doi.org/10.1016/j.eprac.2026.03.018). Publisher methods/abstract not accessible in this review.
+
+[32] Dave D, DeSalvo DJ, Haridas B, et al. Feature-Based Machine Learning Model for Real-Time Hypoglycemia Prediction. Journal of Diabetes Science and Technology. 2021;15(4):842–855. [doi:10.1177/1932296820922622](https://doi.org/10.1177/1932296820922622). The paper compares CGM-based models with and without insulin/carbohydrate context, but pump context was available for a 19-person subset; the abstract/body discrepancy on the 30-minute incremental effect is unresolved.
+
+[33] Seo W, Lee YB, Lee S, Jin SM, Park SM. A machine-learning approach to predict postprandial hypoglycemia. BMC Medical Informatics and Decision Making. 2019;19:210. [doi:10.1186/s12911-019-0943-4](https://doi.org/10.1186/s12911-019-0943-4).
+
+[34] Jensen MH, Dethlefsen C, Vestergaard P, Hejlesen O. Prediction of Nocturnal Hypoglycemia From Continuous Glucose Monitoring Data in People With Type 1 Diabetes: A Proof-of-Concept Study. Journal of Diabetes Science and Technology. 2020;14(2):250–256. [doi:10.1177/1932296819868727](https://doi.org/10.1177/1932296819868727).
+
+[35] Afentakis I, Unsworth R, Herrero P, et al. Development and Validation of Binary Classifiers to Predict Nocturnal Hypoglycemia in Adults With Type 1 Diabetes. Journal of Diabetes Science and Technology. 2025;19(1):153–160. [doi:10.1177/19322968231185796](https://doi.org/10.1177/19322968231185796). First published online in 2023.
+[36] Zecchin C, Facchinetti A, Sparacino G, Cobelli C. How Much Is Short-Term Glucose Prediction in Type 1 Diabetes Improved by Adding Insulin Delivery and Meal Content Information to CGM Data? A Proof-of-Concept Study. Journal of Diabetes Science and Technology. 2016;10(5):1149–1160. [doi:10.1177/1932296816654161](https://doi.org/10.1177/1932296816654161).
+[37] Apicella A, Arpaia P, Orefice M, Pollastro A, Prevete R. It's All in the Way You Say It: The Role of Information Representation in LLM-Based Glycemic-Event Prediction. arXiv:2609.08772. 2026. [https://arxiv.org/abs/2609.08772](https://arxiv.org/abs/2609.08772). Preprint.
+[38] Li Y, Ge T, Chen C. Data Stream Event Prediction Based on Timing Knowledge and State Transitions. Proceedings of the VLDB Endowment. 2020;13(10):1779–1792. [doi:10.14778/3401960.3401973](https://doi.org/10.14778/3401960.3401973).
+[39] Acharya S, Lee BS. Incremental causal network construction over event streams. Information Sciences. 2014;261:32–51. [doi:10.1016/j.ins.2013.09.022](https://doi.org/10.1016/j.ins.2013.09.022).
+[40] Postiglione M, Bean D, Kraljevic Z, Dobson RJB, Moscato V. Predicting future disorders via temporal knowledge graphs and medical ontologies. IEEE Journal of Biomedical and Health Informatics. 2024;28(7):4238–4248. [doi:10.1109/JBHI.2024.3390419](https://doi.org/10.1109/JBHI.2024.3390419).
+
+[41] Cichosz SL, Frystyk J, Tarnow L, Fleischer J. Combining information of autonomic modulation and CGM measurements enables prediction and improves detection of spontaneous hypoglycemic events. Journal of Diabetes Science and Technology. 2015;9(1):132–137. [doi:10.1177/1932296814549830](https://doi.org/10.1177/1932296814549830).
+
+[42] Bertachi A, Viñals C, Biagi L, et al. Prediction of nocturnal hypoglycemia in adults with type 1 diabetes under multiple daily injections using continuous glucose monitoring and physical activity monitor. Sensors. 2020;20(6):1705. [doi:10.3390/s20061705](https://doi.org/10.3390/s20061705).
+
+[43] Mosquera-Lopez C, Ramsey KL, Roquemen-Echeverri V, Jacobs PG. Modeling risk of hypoglycemia during and following physical activity in people with type 1 diabetes using explainable mixed-effects machine learning. Computers in Biology and Medicine. 2023;155:106670. [doi:10.1016/j.compbiomed.2023.106670](https://doi.org/10.1016/j.compbiomed.2023.106670).
+
+[44] Yu X, Yang Z, Wang X, et al. A prior-knowledge-guided dynamic attention mechanism to predict nocturnal hypoglycemic events in type 1 diabetes. BMC Medical Informatics and Decision Making. 2024;24:378. [doi:10.1186/s12911-024-02761-3](https://doi.org/10.1186/s12911-024-02761-3).
+
+
+## Figure legends
+
+![Figure 1. Participant selection and analytic scope.](figures/cohort_flow.png)
+
+**Figure 1.** Release-to-development cohort flow. Modality presence is assessed over released histories, not completeness within every window. The reserved group had aggregate eligibility inspection but no reported model performance. Overlapping windows are not independent episodes.
+
+Alt text: A flow diagram shows 919 release participants, 851 with source CGM, 835 with all required modality presences, then 652 development and 183 reserved participants. Development contains 44,028,064 windows and 650 AP-defined participants.
+
+![Figure 2. Graph-minus-pooling participant-macro AP differences.](figures/aligned_pooling_differences.png)
+
+**Figure 2.** Graph-minus-time-aligned-pooling AP differences across five folds and two fixed seeds. Negative values favor pooling. Bars are 95% paired participant-bootstrap intervals conditional on each saved fit. Seeds reuse the same participant folds; no independent-cohort or seed-uncertainty estimate is shown.
+
+Alt text: Ten fold-seed points and their participant-bootstrap intervals lie below zero on the graph-minus-pooling AP axis. Circular and square markers distinguish the two fixed seeds.

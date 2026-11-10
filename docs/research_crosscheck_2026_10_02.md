@@ -33,7 +33,7 @@ audit, retrain a model, load a checkpoint with PyTorch, or perform an exhaustive
 systematic literature review.
 
 The downloaded ZIP is
-`/Users/pronabchandraroy/Downloads/loop_gru_outer0_validated_outputs.zip`:
+`loop_gru_outer0_validated_outputs.zip (local source archive; not included here)`:
 126,364,134 bytes; SHA256
 `444435614d216fe7914b625bebc008f18e5d6b068fd12e0b7fc21b3300f6e554`.
 The earlier local content check parsed all prediction JSON rows. This review

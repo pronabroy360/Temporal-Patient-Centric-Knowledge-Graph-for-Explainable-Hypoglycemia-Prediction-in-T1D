@@ -1,6 +1,6 @@
 # Dataset access and fallback strategy
 
-Updated: 10 September 2026. Status: dataset selection in progress; no patient data have been obtained or audited.
+Updated: 31 October 2026. Status: Loop has completed development-only model experiments; DCLP3/DCLP5 passed aggregate span and strict window-eligibility feasibility screens but have not been used for model validation.
 
 ## Access correction
 
@@ -25,7 +25,7 @@ This changes the cohort plan, not the research question. The study can use any l
 
 The Jaeb [diabetes dataset directory](https://public.jaeb.org/datasets/diabetes) is the candidate index and the stated source of the supplied AIDE T1D release. The Loop public-use [request/terms page](https://public.jaeb.org/dataset/560) explicitly permits `none` in the company/institution field, making it a useful access-compatible screening candidate. That form is evidence about requester eligibility, not evidence that its downloadable files contain every required modality. T1DEXI is linked from the Jaeb directory to a controlled-access record and remains conditional. D1NAMO's [project page](https://www.hevs.ch/en/projects/d1namo-nano-tera-snsf-3001) and [repository](https://github.com/PSI-TAMU/D1NAMO) support its use as a small open feasibility source.
 
-The four newly added Jaeb releases are screened in the [candidate comparison](jaeb_candidate_screening.md). Loop is now the provisional full event-relation candidate: 835 participants occur in its CGM, basal, bolus and nonempty-food sets. DCLP3 and DCLP5 have strong CGM–basal–bolus overlap but no nonempty Roche carbohydrate records, so they are insulin–CGM replication candidates. Simultaneous temporal coverage and event timing still require audit.
+The locally supplied Jaeb releases are screened in the [candidate comparison](jaeb_candidate_screening.md). Loop remains the only cohort evaluated for event-relation/graph effects: 835 participants occur in its CGM, basal, bolus and nonempty-food sets. The [DCLP temporal audit](dclp_temporal_coverage_audit_2026_10_31.md) reports 7.93 million strict candidate windows in DCLP3 post-randomization and 5.11 million raw-time windows in DCLP5; DCLP5 adjusted-preferred CGM timestamps yield 5.12 million windows and 168,656 positives. Five frozen Loop CGM-only models have since been replayed without refitting on DCLP3/DCLP5 and beat persistence for the release-local future-CGM label; this is transfer context only, not an insulin/event or graph replication. Neither release has nonempty Roche carbohydrate records. Conflicting clock bases, basal-state semantics, event availability and exact Loop-to-DCLP event-input parity remain unresolved. See the [CGM-only transfer report](frozen_loop_cgm_jaeb_transfer_20261031.md).
 
 When additional Jaeb releases are added, record the exact directory study name, download/release name, date obtained, local path, readme/terms version and checksum before opening the data tables. Each release receives its own audit report. Shared field names are not treated as evidence of shared semantics, device clocks, treatment periods, participant eligibility or availability times.
 
