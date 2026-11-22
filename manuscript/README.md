@@ -26,6 +26,8 @@ cd manuscript
 tectonic --only-cached --keep-logs manuscript.tex
 ```
 
+For Overleaf, set **Menu → Compiler → XeLaTeX** before compiling. The source uses `fontspec` for Times New Roman under XeLaTeX/LuaLaTeX and now selects a Times-compatible fallback under pdfLaTeX. XeLaTeX/Tectonic compilation was checked in this environment; pdfLaTeX was not available here for a separate compile check.
+
 The current PDF must be rebuilt after every manuscript change; the dossier builder performs that compilation before packaging. Cached Tectonic, Times New Roman, Matplotlib and NumPy are available in this environment. Other environments must supply equivalent TeX/font dependencies. DOCX generation uses Office Open XML directly. The generic documentation exporter uses the same renderer for the master record and supplement.
 
 The numerical build verifies 21 central paired comparisons and 42 completed-run summaries, and reconciles the two-seed participant summary against independent saved-prediction recomputation receipts. It does not refit all models or independently rerun every historical bootstrap. verification.json records that scope; evidence_map.json fingerprints sources, and results_snapshot.csv preserves full precision. Twenty-one is a count of the central comparison rows, not every historical project fit. The complete study history is in the master record.
