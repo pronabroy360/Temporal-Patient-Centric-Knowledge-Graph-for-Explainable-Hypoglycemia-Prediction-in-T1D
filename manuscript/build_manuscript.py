@@ -316,9 +316,17 @@ def tex_inline(value):
 def write_tex(document, double_spaced=False):
     output = [r"""\documentclass[11pt,a4paper]{article}
 \usepackage[margin=22mm]{geometry}
-\usepackage{fontspec}
-\setmainfont{Times New Roman}
-\setmonofont{Menlo}
+% Prefer the system fonts with XeLaTeX/LuaLaTeX; use a portable Times-compatible
+% font fallback when a submission service invokes pdfLaTeX.
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage{mathptmx}
+\else
+  \usepackage{fontspec}
+  \setmainfont{Times New Roman}
+  \setmonofont{Menlo}
+\fi
 \usepackage{graphicx}
 \usepackage{longtable}
 \usepackage{array}
